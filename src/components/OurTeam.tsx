@@ -3,9 +3,9 @@ import { useRef, useState } from "react";
 
 const team = [
   {
-    name: "Alvin Pratama",
+    name: "Alvine Yoga Pratama",
     role: "Founder & CEO",
-    bio: "Visionary leader with 8+ years in software architecture and business strategy.",
+    bio: "Visionary leader with 6+ years in software architecture and business strategy.",
     gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     glowColor: "rgba(99, 102, 241, 0.3)",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
