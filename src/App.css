@@ -440,6 +440,39 @@ h1 {
   content: "+";
 }
 
+.service-illustration {
+  display: block;
+  width: 108px;
+  height: auto;
+  margin-bottom: 18px;
+}
+
+.service-card:nth-child(2) .service-illustration {
+  filter: drop-shadow(0 4px 10px rgba(16, 77, 69, 0.35));
+}
+
+.process-illustration {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  margin-top: 36px;
+}
+
+.about-illustration {
+  display: block;
+  width: min(100%, 280px);
+  height: auto;
+  margin-top: 36px;
+}
+
+.contact-illustration {
+  display: block;
+  width: min(100%, 190px);
+  height: auto;
+  margin: 0 0 6px;
+  justify-self: end;
+}
+
 .work-section {
   padding-top: 40px;
 }

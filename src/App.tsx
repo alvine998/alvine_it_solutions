@@ -2,6 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { LenisRef } from "lenis/react";
+import {
+  ContactIllustration,
+  DashboardIllustration,
+  MobileApiIllustration,
+  ProcessIllustration,
+  TeamIllustration,
+  WebsiteIllustration,
+} from "./illustrations";
 import "./App.css";
 
 const services = [
@@ -10,18 +18,21 @@ const services = [
     description:
       "Internal platforms, dashboards, and workflow tools that reduce manual work and expose the right signals to your team.",
     points: ["Operations dashboards", "Admin tools", "Approval flows"],
+    Illustration: DashboardIllustration,
   },
   {
     title: "Public products",
     description:
       "Marketing sites and product frontends designed to explain the offer clearly, load fast, and convert real visitors.",
     points: ["Landing pages", "Product websites", "CMS builds"],
+    Illustration: WebsiteIllustration,
   },
   {
     title: "Mobile and API",
     description:
       "Practical backend and mobile work for products that need secure data exchange, stable integrations, and room to grow.",
     points: ["REST APIs", "Cross-platform apps", "System integration"],
+    Illustration: MobileApiIllustration,
   },
 ];
 
@@ -308,6 +319,7 @@ function Services() {
         <div className="service-grid">
           {services.map((service) => (
             <article key={service.title} className="service-card">
+              <service.Illustration className="service-illustration" />
               <h3>{service.title}</h3>
               <p>{service.description}</p>
               <ul>
@@ -368,6 +380,7 @@ function Process() {
           <p>
             The signature of this page is the project-board hero: a nod to how this studio works. The rest of the site stays disciplined, with the process section carrying that same operational language into the body of the page.
           </p>
+          <ProcessIllustration className="process-illustration" />
         </div>
 
         <div className="process-steps">
@@ -393,6 +406,7 @@ function About() {
           <p>
             This is a software partner for businesses that need cleaner systems, stronger interfaces, and a build process grounded in real constraints. We focus on what makes the work usable next quarter, not only what looks impressive this week.
           </p>
+          <TeamIllustration className="about-illustration" />
         </div>
 
         <div className="principles-grid">
@@ -419,6 +433,7 @@ function Contact() {
           </div>
 
           <div className="contact-actions">
+            <ContactIllustration className="contact-illustration" />
             <a className="button button-primary" href="mailto:alvinecom2018@gmail.com">
               Email Alvine IT Solution
             </a>
