@@ -1,7 +1,26 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
-const projects = [
+const projects: {
+  title: string;
+  category: string;
+  description: string;
+  tech: string[];
+  gradient: string;
+  glowColor: string;
+  image: string;
+  link?: string;
+}[] = [
+  {
+    title: "Goldbricks Realtors",
+    category: "Web Application",
+    description: "A property agency website for Goldbricks Realtors featuring primary & secondary property listings, project galleries, and KPR bank partner integration.",
+    tech: ["Laravel", "MySQL"],
+    gradient: "linear-gradient(135deg, #eab308, #ca8a04)",
+    glowColor: "rgba(234, 179, 8, 0.3)",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
+    link: "https://goldbricks.co.id",
+  },
   {
     title: "Stokinventory",
     category: "Web Application",
@@ -68,6 +87,9 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
     <motion.div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => {
+        if (project.link) window.open(project.link, "_blank", "noopener,noreferrer");
+      }}
       style={{
         position: "relative",
         borderRadius: 24,

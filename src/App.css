@@ -619,6 +619,27 @@ h1 {
   background: var(--green-dark);
 }
 
+.whatsapp-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 60;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-content: center;
+  border-radius: 50%;
+  color: var(--paper-bright);
+  background: #25d366;
+  box-shadow: 0 10px 24px var(--shadow);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.whatsapp-fab:hover {
+  background: #1ebe5b;
+  transform: translateY(-3px);
+}
+
 .footer-shell {
   display: flex;
   justify-content: space-between;
