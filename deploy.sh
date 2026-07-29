@@ -10,6 +10,9 @@ else
   TARGET="blue"
 fi
 
+echo "Pull latest code..."
+git pull origin main
+
 echo "Current live: $CURRENT"
 echo "Deploying to: $TARGET"
 
