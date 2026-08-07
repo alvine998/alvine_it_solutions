@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "brand": "Alvine IT SOLUTIONS",
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "team": "Team",
+    "contact": "Contact",
+    "work": "Work",
+    "process": "Process",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "Software House & Digital Solutions",
+    "titlePart1": "We Build ",
+    "titleHighlight": "Digital",
+    "titlePart2": "Experiences",
+    "subtitle": "From desktop applications to mobile apps, RESTful APIs to stunning websites — we transform your ideas into powerful digital solutions.",
+    "exploreServices": "Explore Services",
+    "learnMore": "Learn More",
+    "scrollDown": "Scroll Down"
+  },
+  "services": {
+    "eyebrow": "What We Do",
+    "headingPart1": "Our ",
+    "headingHighlight": "Services",
+    "headingPart2": "",
+    "desktopApps": {
+      "title": "Desktop Apps",
+      "description": "Powerful cross-platform desktop applications built with modern frameworks for Windows, macOS, and Linux."
+    },
+    "websites": {
+      "title": "Websites",
+      "description": "Stunning, responsive websites and web applications that deliver exceptional user experiences and performance."
+    },
+    "restfulApi": {
+      "title": "RESTful API",
+      "description": "Scalable, secure, and well-documented APIs that power your applications with robust backend architecture."
+    },
+    "mobileApps": {
+      "title": "Mobile Apps",
+      "description": "Native and cross-platform mobile applications that provide seamless experiences on iOS and Android."
+    }
+  },
+  "portfolio": {
+    "eyebrow": "Our Work",
+    "headingPart1": "Featured ",
+    "headingHighlight": "Portfolio",
+    "headingPart2": "",
+    "projects": {
+      "goldbricks": {
+        "title": "Goldbricks Realtors",
+        "category": "Web Application",
+        "description": "A property agency website for Goldbricks Realtors featuring primary & secondary property listings, project galleries, and KPR bank partner integration."
+      },
+      "stokinventory": {
+        "title": "Stokinventory",
+        "category": "Web Application",
+        "description": "A comprehensive inventory management app with real-time analytics, budget planning, and supply chain optimization."
+      },
+      "kerjaAjaDulu": {
+        "title": "Kerja Aja Dulu",
+        "category": "Web Application",
+        "description": "A job portal connecting employers and job seekers with AI-driven matching and interview scheduling."
+      },
+      "kasirinApp": {
+        "title": "Kasirin App",
+        "category": "Mobile Application",
+        "description": "A secure wallet app for managing digital assets with biometric authentication and instant transaction notifications."
+      },
+      "tokotitohApp": {
+        "title": "Tokotitoh App",
+        "category": "Mobile Application",
+        "description": "A modern e-commerce app for buying and selling products with a seamless shopping experience."
+      },
+      "midlandProperti": {
+        "title": "Midland Properti",
+        "category": "Web Application",
+        "description": "A real estate platform for property listings, virtual tours, and seamless transaction processes."
+      },
+      "bmTransportLogistik": {
+        "title": "BM Transport Logistik",
+        "category": "Web Application",
+        "description": "Logistics and delivery tracking app with real-time GPS, route optimization, and automated notifications."
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "headingPart1": "Crafting Digital ",
+    "headingHighlight": "Excellence",
+    "headingPart2": "",
+    "paragraph1": "At Alvine IT Solution, we are passionate about building innovative software that drives business growth. Our team of expert developers, designers, and strategists work together to deliver solutions that exceed expectations.",
+    "paragraph2": "We believe in clean code, modern architecture, and user-centric design. Every project we undertake is a commitment to quality, performance, and your success in the digital landscape.",
+    "stats": {
+      "projects": "Projects Delivered",
+      "clients": "Happy Clients",
+      "experience": "Years Experience",
+      "support": "Support"
+    }
+  },
+  "team": {
+    "eyebrow": "The People",
+    "headingPart1": "Our ",
+    "headingHighlight": "Team",
+    "headingPart2": "",
+    "members": {
+      "alvine": {
+        "name": "Alvine Yoga Pratama",
+        "role": "Founder & CEO",
+        "bio": "Visionary leader with 6+ years in software architecture and business strategy."
+      },
+      "sarah": {
+        "name": "Sarah Wijaya",
+        "role": "Lead Designer",
+        "bio": "Creative designer crafting exceptional user experiences and stunning interfaces."
+      },
+      "budi": {
+        "name": "Budi Santoso",
+        "role": "Senior Developer",
+        "bio": "Full-stack engineer specializing in scalable backend systems and cloud infrastructure."
+      },
+      "diana": {
+        "name": "Diana Putri",
+        "role": "Mobile Developer",
+        "bio": "Expert in cross-platform mobile development delivering polished, high-performance apps."
+      }
+    }
+  },
+  "contact": {
+    "headingPart1": "Let's Build Something ",
+    "headingHighlight": "Amazing",
+    "headingPart2": "",
+    "subtitle": "Ready to transform your idea into reality? Let's discuss your project and create something extraordinary together.",
+    "getInTouch": "Get In Touch",
+    "scheduleCall": "Schedule a Call"
+  },
+  "footer": {
+    "tagline": "Building exceptional digital solutions for forward-thinking businesses.",
+    "services": "Services",
+    "serviceLinks": ["Desktop Apps", "Websites", "RESTful API", "Mobile Apps"],
+    "company": "Company",
+    "companyLinks": ["About", "Careers", "Blog", "Contact"],
+    "connect": "Connect",
+    "copyright": "Alvine IT Solution. All rights reserved.",
+    "crafted": "Crafted with passion & precision"
+  },
+  "invoice": {
+    "title": "Invoice generator",
+    "lead": "Everything you type updates the document on the right. Nothing is uploaded — the invoice lives only in this tab.",
+    "hint": "Fill the form, then print or save as PDF.",
+    "printButton": "Print / save PDF",
+    "document": "Document",
+    "invoiceNumber": "Invoice number",
+    "issuedOn": "Issued on",
+    "dueOn": "Due on",
+    "parties": "Parties",
+    "from": "From",
+    "billTo": "Bill to",
+    "fromDetails": "From details",
+    "billToDetails": "Bill-to details",
+    "lineItems": "Line items",
+    "description": "Description",
+    "qty": "Qty",
+    "rate": "Rate (IDR)",
+    "addLineItem": "+ Add line item",
+    "removeItem": "Remove item",
+    "paymentPlan": "Payment plan",
+    "fullAmount": "Full amount",
+    "downPayment": "Down payment",
+    "finalPayment": "Final payment",
+    "dpPercentage": "DP percentage (%)",
+    "dp": "DP",
+    "remaining": "Remaining",
+    "adjustmentsNotes": "Adjustments & notes",
+    "tax": "Tax (%)",
+    "discount": "Discount (IDR)",
+    "notesTerms": "Notes / payment terms",
+    "invoice": "Invoice",
+    "billedTo": "Billed to",
+    "issued": "Issued",
+    "due": "Due",
+    "subtotal": "Subtotal",
+    "projectTotal": "Project total",
+    "remainingAfterDp": "Remaining after DP",
+    "dpAlreadyPaid": "DP already paid",
+    "dueNow": "Total due",
+    "dueNowStage": "Due now — ",
+    "paymentSchedule": "Payment schedule",
+    "downPaymentSchedule": "Down payment",
+    "finalPaymentSchedule": "Final payment",
+    "thisInvoice": "This invoice",
+    "paid": "Paid",
+    "onCompletion": "On completion",
+    "notes": "Notes",
+    "itemDescription": "Item {{index}} description",
+    "itemQuantity": "Item {{index}} quantity",
+    "itemRate": "Item {{index}} rate"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "nav": {
+    "brand": "Alvine IT SOLUTIONS",
+    "home": "Beranda",
+    "services": "Layanan",
+    "portfolio": "Portofolio",
+    "about": "Tentang",
+    "team": "Tim",
+    "contact": "Kontak",
+    "work": "Karya",
+    "process": "Proses",
+    "getStarted": "Mulai Proyek"
+  },
+  "hero": {
+    "badge": "Software House & Solusi Digital",
+    "titlePart1": "Kami Membangun ",
+    "titleHighlight": "Pengalaman",
+    "titlePart2": "Digital",
+    "subtitle": "Dari aplikasi desktop hingga aplikasi mobile, RESTful API hingga website menakjubkan — kami mengubah ide Anda menjadi solusi digital yang powerful.",
+    "exploreServices": "Jelajahi Layanan",
+    "learnMore": "Pelajari Lebih",
+    "scrollDown": "Gulir ke Bawah"
+  },
+  "services": {
+    "eyebrow": "Apa yang Kami Lakukan",
+    "headingPart1": "",
+    "headingHighlight": "Layanan",
+    "headingPart2": " Kami",
+    "desktopApps": {
+      "title": "Aplikasi Desktop",
+      "description": "Aplikasi desktop lintas platform yang powerful dibangun dengan framework modern untuk Windows, macOS, dan Linux."
+    },
+    "websites": {
+      "title": "Website",
+      "description": "Website dan aplikasi web responsif yang menakjubkan dengan pengalaman pengguna dan performa luar biasa."
+    },
+    "restfulApi": {
+      "title": "RESTful API",
+      "description": "API yang skalabel, aman, dan terdokumentasi dengan baik untuk mendukung aplikasi Anda dengan arsitektur backend yang tangguh."
+    },
+    "mobileApps": {
+      "title": "Aplikasi Mobile",
+      "description": "Aplikasi mobile native dan lintas platform yang memberikan pengalaman mulus di iOS dan Android."
+    }
+  },
+  "portfolio": {
+    "eyebrow": "Karya Kami",
+    "headingPart1": "",
+    "headingHighlight": "Portofolio",
+    "projects": {
+      "goldbricks": {
+        "title": "Goldbricks Realtors",
+        "category": "Aplikasi Web",
+        "description": "Website agen properti untuk Goldbricks Realtors dengan daftar properti primer & sekunder, galeri proyek, dan integrasi mitra bank KPR."
+      },
+      "stokinventory": {
+        "title": "Stokinventory",
+        "category": "Aplikasi Web",
+        "description": "Aplikasi manajemen inventaris komprehensif dengan analitik real-time, perencanaan anggaran, dan optimalisasi rantai pasok."
+      },
+      "kerjaAjaDulu": {
+        "title": "Kerja Aja Dulu",
+        "category": "Aplikasi Web",
+        "description": "Portal lowongan kerja yang menghubungkan perusahaan dan pencari kerja dengan pencocokan berbasis AI dan penjadwalan wawancara."
+      },
+      "kasirinApp": {
+        "title": "Kasirin App",
+        "category": "Aplikasi Mobile",
+        "description": "Aplikasi dompet aman untuk mengelola aset digital dengan otentikasi biometrik dan notifikasi transaksi instan."
+      },
+      "tokotitohApp": {
+        "title": "Tokotitoh App",
+        "category": "Aplikasi Mobile",
+        "description": "Aplikasi e-commerce modern untuk jual beli produk dengan pengalaman belanja yang mulus."
+      },
+      "midlandProperti": {
+        "title": "Midland Properti",
+        "category": "Aplikasi Web",
+        "description": "Platform real estat untuk daftar properti, tur virtual, dan proses transaksi yang lancar."
+      },
+      "bmTransportLogistik": {
+        "title": "BM Transport Logistik",
+        "category": "Aplikasi Web",
+        "description": "Aplikasi pelacakan logistik dan pengiriman dengan GPS real-time, optimalisasi rute, dan notifikasi otomatis."
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "Tentang Kami",
+    "headingPart1": "Menciptakan ",
+    "headingHighlight": "Keunggulan",
+    "headingPart2": " Digital",
+    "paragraph1": "Di Alvine IT Solution, kami bersemangat membangun perangkat lunak inovatif yang mendorong pertumbuhan bisnis. Tim pengembang, desainer, dan ahli strategi kami bekerja sama untuk memberikan solusi yang melampaui ekspektasi.",
+    "paragraph2": "Kami percaya pada kode yang bersih, arsitektur modern, dan desain yang berpusat pada pengguna. Setiap proyek yang kami tangani adalah komitmen terhadap kualitas, performa, dan kesuksesan Anda di lanskap digital.",
+    "stats": {
+      "projects": "Proyek Terselesaikan",
+      "clients": "Klien Puas",
+      "experience": "Tahun Pengalaman",
+      "support": "Dukungan"
+    }
+  },
+  "team": {
+    "eyebrow": "Orang-orang Kami",
+    "headingPart1": "",
+    "headingHighlight": "Tim",
+    "headingPart2": " Kami",
+    "members": {
+      "alvine": {
+        "name": "Alvine Yoga Pratama",
+        "role": "Founder & CEO",
+        "bio": "Pemimpin visioner dengan pengalaman 6+ tahun dalam arsitektur perangkat lunak dan strategi bisnis."
+      },
+      "sarah": {
+        "name": "Sarah Wijaya",
+        "role": "Lead Designer",
+        "bio": "Desainer kreatif yang menciptakan pengalaman pengguna luar biasa dan antarmuka yang memukau."
+      },
+      "budi": {
+        "name": "Budi Santoso",
+        "role": "Senior Developer",
+        "bio": "Insinyur full-stack yang berspesialisasi dalam sistem backend skalabel dan infrastruktur cloud."
+      },
+      "diana": {
+        "name": "Diana Putri",
+        "role": "Mobile Developer",
+        "bio": "Ahli dalam pengembangan mobile lintas platform yang menghasilkan aplikasi berkualitas tinggi dan berperforma tinggi."
+      }
+    }
+  },
+  "contact": {
+    "headingPart1": "Mari Bangun Sesuatu yang ",
+    "headingHighlight": "Luar Biasa",
+    "subtitle": "Siap mengubah ide Anda menjadi kenyataan? Mari diskusikan proyek Anda dan ciptakan sesuatu yang istimewa bersama.",
+    "getInTouch": "Hubungi Kami",
+    "scheduleCall": "Jadwalkan Panggilan"
+  },
+  "footer": {
+    "tagline": "Membangun solusi digital luar biasa untuk bisnis yang berpikiran maju.",
+    "services": "Layanan",
+    "serviceLinks": ["Aplikasi Desktop", "Website", "RESTful API", "Aplikasi Mobile"],
+    "company": "Perusahaan",
+    "companyLinks": ["Tentang", "Karir", "Blog", "Kontak"],
+    "connect": "Terhubung",
+    "copyright": "Alvine IT Solution. Hak cipta dilindungi.",
+    "crafted": "Dibuat dengan semangat & presisi"
+  },
+  "invoice": {
+    "title": "Pembuat Invoice",
+    "lead": "Semua yang Anda ketik akan memperbarui dokumen di sebelah kanan. Tidak ada yang diunggah — invoice hanya ada di tab ini.",
+    "hint": "Isi formulir, lalu cetak atau simpan sebagai PDF.",
+    "printButton": "Cetak / simpan PDF",
+    "document": "Dokumen",
+    "invoiceNumber": "Nomor invoice",
+    "issuedOn": "Diterbitkan pada",
+    "dueOn": "Jatuh tempo",
+    "parties": "Pihak",
+    "from": "Dari",
+    "billTo": "Tagihkan ke",
+    "fromDetails": "Detail pengirim",
+    "billToDetails": "Detail penerima",
+    "lineItems": "Item baris",
+    "description": "Deskripsi",
+    "qty": "Jml",
+    "rate": "Harga (IDR)",
+    "addLineItem": "+ Tambah item",
+    "removeItem": "Hapus item",
+    "paymentPlan": "Rencana pembayaran",
+    "fullAmount": "Jumlah penuh",
+    "downPayment": "Uang muka (DP)",
+    "finalPayment": "Pelunasan",
+    "dpPercentage": "Persentase DP (%)",
+    "dp": "DP",
+    "remaining": "Sisa",
+    "adjustmentsNotes": "Penyesuaian & catatan",
+    "tax": "Pajak (%)",
+    "discount": "Diskon (IDR)",
+    "notesTerms": "Catatan / ketentuan pembayaran",
+    "invoice": "Invoice",
+    "billedTo": "Ditagihkan ke",
+    "issued": "Diterbitkan",
+    "due": "Jatuh tempo",
+    "subtotal": "Subtotal",
+    "projectTotal": "Total proyek",
+    "remainingAfterDp": "Sisa setelah DP",
+    "dpAlreadyPaid": "DP sudah dibayar",
+    "dueNow": "Total tagihan",
+    "dueNowStage": "Tagihan sekarang — ",
+    "paymentSchedule": "Jadwal pembayaran",
+    "downPaymentSchedule": "Uang muka (DP)",
+    "finalPaymentSchedule": "Pelunasan",
+    "thisInvoice": "Invoice ini",
+    "paid": "Lunas",
+    "onCompletion": "Saat selesai",
+    "notes": "Catatan",
+    "itemDescription": "Item {{index}} deskripsi",
+    "itemQuantity": "Item {{index}} jumlah",
+    "itemRate": "Item {{index}} harga"
+  },
+  "languageSwitcher": {
+    "label": "Bahasa"
+  }
+}

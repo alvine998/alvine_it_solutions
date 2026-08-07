@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(bun:*)",
+      "Shell(bunx tsc --noEmit src/components/Scene3D.tsx 2 >& 1)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

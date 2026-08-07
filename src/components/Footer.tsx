@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer style={{
       position: "relative",
@@ -23,7 +25,7 @@ export default function Footer() {
                 fontSize: 18,
                 color: "#fff",
               }}>
-                Alvine<span style={{ color: "#8b5cf6" }}> IT SOLUTIONS</span>
+                {t("nav.brand")}
               </span>
             </div>
             <p style={{
@@ -33,7 +35,7 @@ export default function Footer() {
               lineHeight: 1.7,
               maxWidth: 280,
             }}>
-              Building exceptional digital solutions for forward-thinking businesses.
+              {t("footer.tagline")}
             </p>
           </div>
 
@@ -47,9 +49,9 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: 1,
             }}>
-              Services
+              {t("footer.services")}
             </h4>
-            {["Desktop Apps", "Websites", "RESTful API", "Mobile Apps"].map((item) => (
+            {[t("footer.serviceLinks.0"), t("footer.serviceLinks.1"), t("footer.serviceLinks.2"), t("footer.serviceLinks.3")].map((item) => (
               <a
                 key={item}
                 href="#services"
@@ -80,9 +82,9 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: 1,
             }}>
-              Company
+              {t("footer.company")}
             </h4>
-            {["About", "Careers", "Blog", "Contact"].map((item) => (
+            {[t("footer.companyLinks.0"), t("footer.companyLinks.1"), t("footer.companyLinks.2"), t("footer.companyLinks.3")].map((item) => (
               <a
                 key={item}
                 href="#about"
@@ -113,7 +115,7 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: 1,
             }}>
-              Connect
+              {t("footer.connect")}
             </h4>
             <div style={{ display: "flex", gap: 12 }}>
               {[
@@ -146,7 +148,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div style={{
+        <div className="footer-bottom" style={{
           borderTop: "1px solid rgba(255,255,255,0.06)",
           paddingTop: 24,
           display: "flex",
@@ -160,14 +162,14 @@ export default function Footer() {
             fontSize: 13,
             color: "rgba(255,255,255,0.3)",
           }}>
-            &copy; {new Date().getFullYear()} Alvine IT Solution. All rights reserved.
+            &copy; {new Date().getFullYear()} {t("footer.copyright")}
           </p>
           <p style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 13,
             color: "rgba(255,255,255,0.3)",
           }}>
-            Crafted with passion & precision
+            {t("footer.crafted")}
           </p>
         </div>
       </div>

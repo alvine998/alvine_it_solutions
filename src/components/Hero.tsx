@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -45,7 +47,7 @@ export default function Hero() {
         >
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#6366f1", animation: "pulse 2s infinite" }} />
           <span style={{ color: "#a5b4fc", fontSize: 14, fontWeight: 500, fontFamily: "Inter, sans-serif" }}>
-            Software House & Digital Solutions
+            {t("hero.badge")}
           </span>
         </motion.div>
 
@@ -63,16 +65,16 @@ export default function Hero() {
             letterSpacing: "-2px",
           }}
         >
-          We Build{" "}
+          {t("hero.titlePart1")}
           <span style={{
             background: "linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}>
-            Digital
+            {t("hero.titleHighlight")}
           </span>
           <br />
-          Experiences
+          {t("hero.titlePart2")}
         </motion.h1>
 
         <motion.p
@@ -88,8 +90,7 @@ export default function Hero() {
             margin: "0 auto 48px",
           }}
         >
-          From desktop applications to mobile apps, RESTful APIs to stunning websites — 
-          we transform your ideas into powerful digital solutions.
+          {t("hero.subtitle")}
         </motion.p>
 
         <motion.div
@@ -118,7 +119,7 @@ export default function Hero() {
               gap: 8,
             }}
           >
-            Explore Services
+            {t("hero.exploreServices")}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M7 17l9.2-9.2M17 17V7H7" />
             </svg>
@@ -143,11 +144,12 @@ export default function Hero() {
               gap: 8,
             }}
           >
-            Learn More
+            {t("hero.learnMore")}
           </motion.a>
         </motion.div>
 
         <motion.div
+          className="hero-scroll-indicator"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
@@ -162,7 +164,7 @@ export default function Hero() {
             gap: 8,
           }}
         >
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, fontFamily: "Inter, sans-serif" }}>Scroll Down</span>
+          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, fontFamily: "Inter, sans-serif" }}>{t("hero.scrollDown")}</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}

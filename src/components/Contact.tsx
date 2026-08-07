@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -26,6 +28,7 @@ export default function Contact() {
         style={{ y }}
       >
         <motion.div
+          className="contact-inner"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -82,14 +85,15 @@ export default function Contact() {
               letterSpacing: "-1px",
               marginBottom: 16,
             }}>
-              Let's Build Something{" "}
+              {t("contact.headingPart1")}
               <span style={{
                 background: "linear-gradient(135deg, #6366f1, #06b6d4)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}>
-                Amazing
+                {t("contact.headingHighlight")}
               </span>
+              {t("contact.headingPart2", "")}
             </h2>
 
             <p style={{
@@ -100,8 +104,7 @@ export default function Contact() {
               maxWidth: 500,
               margin: "0 auto 40px",
             }}>
-              Ready to transform your idea into reality? Let's discuss your project 
-              and create something extraordinary together.
+              {t("contact.subtitle")}
             </p>
 
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
@@ -129,7 +132,7 @@ export default function Contact() {
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                Get In Touch
+                {t("contact.getInTouch")}
               </motion.a>
               <motion.a
                 href="#"
@@ -154,7 +157,7 @@ export default function Contact() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                Schedule a Call
+                {t("contact.scheduleCall")}
               </motion.a>
             </div>
           </div>

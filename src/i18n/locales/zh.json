@@ -1,0 +1,202 @@
+{
+  "nav": {
+    "brand": "Alvine IT SOLUTIONS",
+    "home": "首页",
+    "services": "服务",
+    "portfolio": "作品集",
+    "about": "关于",
+    "team": "团队",
+    "contact": "联系",
+    "work": "作品",
+    "process": "流程",
+    "getStarted": "开始项目"
+  },
+  "hero": {
+    "badge": "软件公司 & 数字解决方案",
+    "titlePart1": "我们打造",
+    "titleHighlight": "数字",
+    "titlePart2": "体验",
+    "subtitle": "从桌面应用到移动应用，从RESTful API到精美网站——我们将您的创意转化为强大的数字解决方案。",
+    "exploreServices": "探索服务",
+    "learnMore": "了解更多",
+    "scrollDown": "向下滚动"
+  },
+  "services": {
+    "eyebrow": "我们的服务",
+    "headingPart1": "",
+    "headingHighlight": "服务",
+    "headingPart2": "",
+    "desktopApps": {
+      "title": "桌面应用",
+      "description": "使用现代框架为Windows、macOS和Linux构建的强大跨平台桌面应用程序。"
+    },
+    "websites": {
+      "title": "网站",
+      "description": "令人惊叹的响应式网站和Web应用程序，提供卓越的用户体验和性能。"
+    },
+    "restfulApi": {
+      "title": "RESTful API",
+      "description": "可扩展、安全且文档完善的API，以强大的后端架构支撑您的应用程序。"
+    },
+    "mobileApps": {
+      "title": "移动应用",
+      "description": "原生和跨平台移动应用程序，在iOS和Android上提供无缝体验。"
+    }
+  },
+  "portfolio": {
+    "eyebrow": "我们的作品",
+    "headingPart1": "",
+    "headingHighlight": "作品集",
+    "projects": {
+      "goldbricks": {
+        "title": "Goldbricks Realtors",
+        "category": "Web应用",
+        "description": "为Goldbricks Realtors打造的房地产代理网站，包含一手和二手房产列表、项目画廊以及KPR银行合作伙伴集成。"
+      },
+      "stokinventory": {
+        "title": "Stokinventory",
+        "category": "Web应用",
+        "description": "全面的库存管理应用，具有实时分析、预算规划和供应链优化功能。"
+      },
+      "kerjaAjaDulu": {
+        "title": "Kerja Aja Dulu",
+        "category": "Web应用",
+        "description": "连接雇主和求职者的招聘平台，具有AI驱动的匹配和面试安排功能。"
+      },
+      "kasirinApp": {
+        "title": "Kasirin App",
+        "category": "移动应用",
+        "description": "安全的移动钱包应用，用于管理数字资产，具有生物识别认证和即时交易通知。"
+      },
+      "tokotitohApp": {
+        "title": "Tokotitoh App",
+        "category": "移动应用",
+        "description": "现代电商应用，提供无缝的购物体验，支持产品买卖。"
+      },
+      "midlandProperti": {
+        "title": "Midland Properti",
+        "category": "Web应用",
+        "description": "房地产平台，提供房产列表、虚拟导览和无缝交易流程。"
+      },
+      "bmTransportLogistik": {
+        "title": "BM Transport Logistik",
+        "category": "Web应用",
+        "description": "物流和配送跟踪应用，具有实时GPS、路线优化和自动通知功能。"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "关于我们",
+    "headingPart1": "打造数字",
+    "headingHighlight": "卓越",
+    "headingPart2": "",
+    "paragraph1": "在Alvine IT Solution，我们热衷于构建推动业务增长的创新软件。我们的专家开发人员、设计师和策略师团队携手合作，交付超越期望的解决方案。",
+    "paragraph2": "我们相信简洁的代码、现代化的架构和以用户为中心的设计。我们承担的每一个项目都是对质量、性能以及您在数字领域取得成功的承诺。",
+    "stats": {
+      "projects": "项目交付",
+      "clients": "满意客户",
+      "experience": "年经验",
+      "support": "支持"
+    }
+  },
+  "team": {
+    "eyebrow": "团队成员",
+    "headingPart1": "",
+    "headingHighlight": "团队",
+    "headingPart2": "",
+    "members": {
+      "alvine": {
+        "name": "Alvine Yoga Pratama",
+        "role": "创始人兼CEO",
+        "bio": "具有远见的领导者，拥有6年以上软件架构和商业战略经验。"
+      },
+      "sarah": {
+        "name": "Sarah Wijaya",
+        "role": "首席设计师",
+        "bio": "创意设计师，打造卓越的用户体验和令人惊艳的界面。"
+      },
+      "budi": {
+        "name": "Budi Santoso",
+        "role": "高级开发工程师",
+        "bio": "全栈工程师，专注于可扩展的后端系统和云基础设施。"
+      },
+      "diana": {
+        "name": "Diana Putri",
+        "role": "移动开发工程师",
+        "bio": "跨平台移动开发专家，交付精致、高性能的应用程序。"
+      }
+    }
+  },
+  "contact": {
+    "headingPart1": "让我们一起打造",
+    "headingHighlight": "非凡",
+    "subtitle": "准备好将您的想法变为现实了吗？让我们一起讨论您的项目，共同创造非凡的作品。",
+    "getInTouch": "联系我们",
+    "scheduleCall": "预约通话"
+  },
+  "footer": {
+    "tagline": "为有远见的企业构建卓越的数字解决方案。",
+    "services": "服务",
+    "serviceLinks": ["桌面应用", "网站", "RESTful API", "移动应用"],
+    "company": "公司",
+    "companyLinks": ["关于", "招聘", "博客", "联系"],
+    "connect": "联系我们",
+    "copyright": "Alvine IT Solution。保留所有权利。",
+    "crafted": "用心与精准打造"
+  },
+  "invoice": {
+    "title": "发票生成器",
+    "lead": "您输入的所有内容都会更新右侧的文档。不会上传任何内容——发票仅存在于此标签页中。",
+    "hint": "填写表单，然后打印或保存为PDF。",
+    "printButton": "打印 / 保存PDF",
+    "document": "文档",
+    "invoiceNumber": "发票号码",
+    "issuedOn": "开票日期",
+    "dueOn": "到期日期",
+    "parties": "双方信息",
+    "from": "发件方",
+    "billTo": "收件方",
+    "fromDetails": "发件方详情",
+    "billToDetails": "收件方详情",
+    "lineItems": "项目明细",
+    "description": "描述",
+    "qty": "数量",
+    "rate": "单价 (IDR)",
+    "addLineItem": "+ 添加项目",
+    "removeItem": "删除项目",
+    "paymentPlan": "付款计划",
+    "fullAmount": "全额",
+    "downPayment": "首付",
+    "finalPayment": "尾款",
+    "dpPercentage": "首付比例 (%)",
+    "dp": "首付",
+    "remaining": "剩余",
+    "adjustmentsNotes": "调整与备注",
+    "tax": "税率 (%)",
+    "discount": "折扣 (IDR)",
+    "notesTerms": "备注 / 付款条款",
+    "invoice": "发票",
+    "billedTo": "收票方",
+    "issued": "开票日期",
+    "due": "到期日期",
+    "subtotal": "小计",
+    "projectTotal": "项目总计",
+    "remainingAfterDp": "首付后剩余",
+    "dpAlreadyPaid": "首付已付",
+    "dueNow": "应付总额",
+    "dueNowStage": "当前应付 — ",
+    "paymentSchedule": "付款计划表",
+    "downPaymentSchedule": "首付",
+    "finalPaymentSchedule": "尾款",
+    "thisInvoice": "本发票",
+    "paid": "已付",
+    "onCompletion": "完成时",
+    "notes": "备注",
+    "itemDescription": "项目 {{index}} 描述",
+    "itemQuantity": "项目 {{index}} 数量",
+    "itemRate": "项目 {{index}} 单价"
+  },
+  "languageSwitcher": {
+    "label": "语言"
+  }
+}

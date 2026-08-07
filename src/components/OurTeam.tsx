@@ -1,38 +1,29 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const team = [
+const teamKeys = ["alvine", "sarah", "budi", "diana"] as const;
+
+const teamStatic = [
   {
-    name: "Alvine Yoga Pratama",
-    role: "Founder & CEO",
-    bio: "Visionary leader with 6+ years in software architecture and business strategy.",
     gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     glowColor: "rgba(99, 102, 241, 0.3)",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
     socials: { linkedin: "#", github: "#", twitter: "#" },
   },
   {
-    name: "Sarah Wijaya",
-    role: "Lead Designer",
-    bio: "Creative designer crafting exceptional user experiences and stunning interfaces.",
     gradient: "linear-gradient(135deg, #ec4899, #be185d)",
     glowColor: "rgba(236, 72, 153, 0.3)",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face",
     socials: { linkedin: "#", github: "#", twitter: "#" },
   },
   {
-    name: "Budi Santoso",
-    role: "Senior Developer",
-    bio: "Full-stack engineer specializing in scalable backend systems and cloud infrastructure.",
     gradient: "linear-gradient(135deg, #06b6d4, #0891b2)",
     glowColor: "rgba(6, 182, 212, 0.3)",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face",
     socials: { linkedin: "#", github: "#", twitter: "#" },
   },
   {
-    name: "Diana Putri",
-    role: "Mobile Developer",
-    bio: "Expert in cross-platform mobile development delivering polished, high-performance apps.",
     gradient: "linear-gradient(135deg, #f59e0b, #d97706)",
     glowColor: "rgba(245, 158, 11, 0.3)",
     avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop&crop=face",
@@ -40,8 +31,10 @@ const team = [
   },
 ];
 
-function TeamCard({ member, index }: { member: typeof team[0]; index: number }) {
+function TeamCard({ index, t }: { index: number; t: (key: string) => string }) {
   const [hovered, setHovered] = useState(false);
+  const key = teamKeys[index];
+  const member = teamStatic[index];
 
   return (
     <motion.div
@@ -90,7 +83,7 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
         >
           <img
             src={member.avatar}
-            alt={member.name}
+            alt={t(`team.members.${key}.name`)}
             style={{
               width: "100%",
               height: "100%",
@@ -109,7 +102,7 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
           color: "#fff",
           marginBottom: 6,
         }}>
-          {member.name}
+          {t(`team.members.${key}.name`)}
         </h3>
 
         <div style={{
@@ -123,7 +116,7 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
           textTransform: "uppercase",
           letterSpacing: 1.5,
         }}>
-          {member.role}
+          {t(`team.members.${key}.role`)}
         </div>
 
         <p style={{
@@ -133,7 +126,7 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
           lineHeight: 1.7,
           marginBottom: 24,
         }}>
-          {member.bio}
+          {t(`team.members.${key}.bio`)}
         </p>
 
         <motion.div
@@ -199,6 +192,7 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
 }
 
 export default function OurTeam() {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -237,7 +231,7 @@ export default function OurTeam() {
             marginBottom: 16,
             display: "block",
           }}>
-            The People
+            {t("team.eyebrow")}
           </span>
           <h2 style={{
             fontFamily: "Space Grotesk, sans-serif",
@@ -247,14 +241,15 @@ export default function OurTeam() {
             lineHeight: 1.2,
             letterSpacing: "-1px",
           }}>
-            Our{" "}
+            {t("team.headingPart1")}
             <span style={{
               background: "linear-gradient(135deg, #ec4899, #8b5cf6)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>
-              Team
+              {t("team.headingHighlight")}
             </span>
+            {t("team.headingPart2", "")}
           </h2>
         </motion.div>
       </motion.div>
@@ -264,8 +259,8 @@ export default function OurTeam() {
         gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
         gap: 24,
       }}>
-        {team.map((member, i) => (
-          <TeamCard key={member.name} member={member} index={i} />
+        {teamKeys.map((_, i) => (
+          <TeamCard key={i} index={i} t={t} />
         ))}
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./InvoiceGenerator.css";
 
 type LineItem = {
@@ -72,6 +73,7 @@ function formatDate(value: string) {
 }
 
 export default function InvoiceGenerator() {
+  const { t } = useTranslation();
   const [meta, setMeta] = useState<InvoiceMeta>(defaultMeta);
   const [items, setItems] = useState<LineItem[]>(defaultItems);
 
@@ -90,9 +92,9 @@ export default function InvoiceGenerator() {
 
   const stageLabel =
     meta.paymentStage === "dp"
-      ? `Down payment (${dpPercent}%)`
+      ? `${t("invoice.downPayment")} (${dpPercent}%)`
       : meta.paymentStage === "final"
-        ? `Final payment (${100 - dpPercent}%)`
+        ? `${t("invoice.finalPayment")} (${100 - dpPercent}%)`
         : null;
 
   const setField = <K extends keyof InvoiceMeta>(key: K, value: InvoiceMeta[K]) =>
@@ -115,32 +117,32 @@ export default function InvoiceGenerator() {
           Alvine IT Solution
         </Link>
         <div className="invoice-topbar-actions">
-          <span className="invoice-hint">Fill the form, then print or save as PDF.</span>
+          <span className="invoice-hint">{t("invoice.hint")}</span>
           <button type="button" className="invoice-print-button" onClick={() => window.print()}>
-            Print / save PDF
+            {t("invoice.printButton")}
           </button>
         </div>
       </header>
 
       <div className="invoice-layout">
         <section className="invoice-form" aria-label="Invoice details form">
-          <h1>Invoice generator</h1>
+          <h1>{t("invoice.title")}</h1>
           <p className="invoice-form-lead">
-            Everything you type updates the document on the right. Nothing is uploaded — the invoice lives only in this tab.
+            {t("invoice.lead")}
           </p>
 
           <fieldset>
-            <legend>Document</legend>
+            <legend>{t("invoice.document")}</legend>
             <div className="field-row">
               <label>
-                Invoice number
+                {t("invoice.invoiceNumber")}
                 <input
                   value={meta.number}
                   onChange={(event) => setField("number", event.target.value)}
                 />
               </label>
               <label>
-                Issued on
+                {t("invoice.issuedOn")}
                 <input
                   type="date"
                   value={meta.issuedOn}
@@ -148,7 +150,7 @@ export default function InvoiceGenerator() {
                 />
               </label>
               <label>
-                Due on
+                {t("invoice.dueOn")}
                 <input
                   type="date"
                   value={meta.dueOn}
@@ -159,18 +161,18 @@ export default function InvoiceGenerator() {
           </fieldset>
 
           <fieldset>
-            <legend>Parties</legend>
+            <legend>{t("invoice.parties")}</legend>
             <div className="field-row field-row-2">
               <label>
-                From
+                {t("invoice.from")}
                 <input value={meta.from} onChange={(event) => setField("from", event.target.value)} />
               </label>
               <label>
-                Bill to
+                {t("invoice.billTo")}
                 <input value={meta.billTo} onChange={(event) => setField("billTo", event.target.value)} />
               </label>
               <label>
-                From details
+                {t("invoice.fromDetails")}
                 <textarea
                   rows={3}
                   value={meta.fromDetail}
@@ -178,7 +180,7 @@ export default function InvoiceGenerator() {
                 />
               </label>
               <label>
-                Bill-to details
+                {t("invoice.billToDetails")}
                 <textarea
                   rows={3}
                   value={meta.billToDetail}
@@ -189,35 +191,35 @@ export default function InvoiceGenerator() {
           </fieldset>
 
           <fieldset>
-            <legend>Line items</legend>
+            <legend>{t("invoice.lineItems")}</legend>
             <div className="item-rows">
               {items.map((item, index) => (
                 <div className="item-row" key={item.id}>
                   <label>
-                    <span className="visually-hidden">Item {index + 1} description</span>
+                    <span className="visually-hidden">{t("invoice.itemDescription", { index: index + 1 })}</span>
                     <input
-                      placeholder="Description"
+                      placeholder={t("invoice.description")}
                       value={item.description}
                       onChange={(event) => setItemField(item.id, { description: event.target.value })}
                     />
                   </label>
                   <label>
-                    <span className="visually-hidden">Item {index + 1} quantity</span>
+                    <span className="visually-hidden">{t("invoice.itemQuantity", { index: index + 1 })}</span>
                     <input
                       type="number"
                       min={0}
-                      placeholder="Qty"
+                      placeholder={t("invoice.qty")}
                       value={item.qty}
                       onChange={(event) => setItemField(item.id, { qty: Number(event.target.value) })}
                     />
                   </label>
                   <label>
-                    <span className="visually-hidden">Item {index + 1} rate</span>
+                    <span className="visually-hidden">{t("invoice.itemRate", { index: index + 1 })}</span>
                     <input
                       type="number"
                       min={0}
                       step={1000}
-                      placeholder="Rate (IDR)"
+                      placeholder={t("invoice.rate")}
                       value={item.rate}
                       onChange={(event) => setItemField(item.id, { rate: Number(event.target.value) })}
                     />
@@ -227,7 +229,7 @@ export default function InvoiceGenerator() {
                     className="item-remove"
                     onClick={() => removeItem(item.id)}
                     disabled={items.length === 1}
-                    aria-label={`Remove item ${index + 1}`}
+                    aria-label={t("invoice.removeItem")}
                   >
                     ×
                   </button>
@@ -235,18 +237,18 @@ export default function InvoiceGenerator() {
               ))}
             </div>
             <button type="button" className="item-add" onClick={addItem}>
-              + Add line item
+              {t("invoice.addLineItem")}
             </button>
           </fieldset>
 
           <fieldset>
-            <legend>Payment plan</legend>
-            <div className="stage-picker" role="radiogroup" aria-label="Payment stage">
+            <legend>{t("invoice.paymentPlan")}</legend>
+            <div className="stage-picker" role="radiogroup" aria-label={t("invoice.paymentPlan")}>
               {(
                 [
-                  { value: "full", label: "Full amount" },
-                  { value: "dp", label: "Down payment" },
-                  { value: "final", label: "Final payment" },
+                  { value: "full", label: t("invoice.fullAmount") },
+                  { value: "dp", label: t("invoice.downPayment") },
+                  { value: "final", label: t("invoice.finalPayment") },
                 ] as const
               ).map((option) => (
                 <label key={option.value} className="stage-option">
@@ -265,7 +267,7 @@ export default function InvoiceGenerator() {
             {meta.paymentStage !== "full" ? (
               <div className="field-row dp-row">
                 <label>
-                  DP percentage (%)
+                  {t("invoice.dpPercentage")}
                   <input
                     type="number"
                     min={1}
@@ -276,11 +278,11 @@ export default function InvoiceGenerator() {
                 </label>
                 <div className="dp-summary">
                   <div>
-                    <span>DP ({dpPercent}%)</span>
+                    <span>{t("invoice.dp")} ({dpPercent}%)</span>
                     <strong>{formatMoney(dpAmount)}</strong>
                   </div>
                   <div>
-                    <span>Remaining ({100 - dpPercent}%)</span>
+                    <span>{t("invoice.remaining")} ({100 - dpPercent}%)</span>
                     <strong>{formatMoney(remainingAmount)}</strong>
                   </div>
                 </div>
@@ -289,10 +291,10 @@ export default function InvoiceGenerator() {
           </fieldset>
 
           <fieldset>
-            <legend>Adjustments & notes</legend>
+            <legend>{t("invoice.adjustmentsNotes")}</legend>
             <div className="field-row">
               <label>
-                Tax (%)
+                {t("invoice.tax")}
                 <input
                   type="number"
                   min={0}
@@ -302,7 +304,7 @@ export default function InvoiceGenerator() {
                 />
               </label>
               <label>
-                Discount (IDR)
+                {t("invoice.discount")}
                 <input
                   type="number"
                   min={0}
@@ -313,7 +315,7 @@ export default function InvoiceGenerator() {
               </label>
             </div>
             <label>
-              Notes / payment terms
+              {t("invoice.notesTerms")}
               <textarea
                 rows={3}
                 value={meta.notes}
@@ -327,7 +329,7 @@ export default function InvoiceGenerator() {
           <article className="invoice-sheet" id="invoice-sheet">
             <header className="sheet-header">
               <div>
-                <span className="sheet-kicker">Invoice</span>
+                <span className="sheet-kicker">{t("invoice.invoice")}</span>
                 <h2>{meta.number || "INV-0000"}</h2>
                 {stageLabel ? <span className="sheet-stage-badge">{stageLabel}</span> : null}
               </div>
@@ -342,16 +344,16 @@ export default function InvoiceGenerator() {
 
             <div className="sheet-meta">
               <div>
-                <span>Billed to</span>
+                <span>{t("invoice.billedTo")}</span>
                 <strong>{meta.billTo || "—"}</strong>
                 <p>{meta.billToDetail}</p>
               </div>
               <div>
-                <span>Issued</span>
+                <span>{t("invoice.issued")}</span>
                 <strong>{formatDate(meta.issuedOn)}</strong>
               </div>
               <div>
-                <span>Due</span>
+                <span>{t("invoice.due")}</span>
                 <strong>{formatDate(meta.dueOn)}</strong>
               </div>
             </div>
@@ -359,8 +361,8 @@ export default function InvoiceGenerator() {
             <table className="sheet-table">
               <thead>
                 <tr>
-                  <th>Description</th>
-                  <th>Qty</th>
+                  <th>{t("invoice.description")}</th>
+                  <th>{t("invoice.qty")}</th>
                   <th>Rate</th>
                   <th>Amount</th>
                 </tr>
@@ -379,54 +381,54 @@ export default function InvoiceGenerator() {
 
             <div className="sheet-totals">
               <div>
-                <span>Subtotal</span>
+                <span>{t("invoice.subtotal")}</span>
                 <span>{formatMoney(subtotal)}</span>
               </div>
               <div>
-                <span>Tax ({meta.taxPercent || 0}%)</span>
+                <span>{t("invoice.tax").replace("(%)", "")} ({meta.taxPercent || 0}%)</span>
                 <span>{formatMoney(taxAmount)}</span>
               </div>
               {meta.discount > 0 ? (
                 <div>
-                  <span>Discount</span>
+                  <span>{t("invoice.discount").replace(" (IDR)", "")}</span>
                   <span>−{formatMoney(meta.discount)}</span>
                 </div>
               ) : null}
               <div>
-                <span>Project total</span>
+                <span>{t("invoice.projectTotal")}</span>
                 <span>{formatMoney(total)}</span>
               </div>
               {meta.paymentStage === "dp" ? (
                 <div className="sheet-schedule-line">
-                  <span>Remaining after DP ({100 - dpPercent}%)</span>
+                  <span>{t("invoice.remainingAfterDp")} ({100 - dpPercent}%)</span>
                   <span>{formatMoney(remainingAmount)}</span>
                 </div>
               ) : null}
               {meta.paymentStage === "final" ? (
                 <div className="sheet-schedule-line">
-                  <span>DP already paid ({dpPercent}%)</span>
+                  <span>{t("invoice.dpAlreadyPaid")} ({dpPercent}%)</span>
                   <span>−{formatMoney(dpAmount)}</span>
                 </div>
               ) : null}
               <div className="sheet-total-due">
-                <span>{stageLabel ? `Due now — ${stageLabel}` : "Total due"}</span>
+                <span>{stageLabel ? `${t("invoice.dueNowStage")}${stageLabel}` : t("invoice.dueNow")}</span>
                 <span>{formatMoney(dueNow)}</span>
               </div>
             </div>
 
             {meta.paymentStage !== "full" ? (
               <div className="sheet-schedule">
-                <span>Payment schedule</span>
+                <span>{t("invoice.paymentSchedule")}</span>
                 <table>
                   <tbody>
                     <tr className={meta.paymentStage === "dp" ? "schedule-active" : ""}>
-                      <td>1. Down payment ({dpPercent}%)</td>
-                      <td>{meta.paymentStage === "dp" ? "This invoice" : "Paid"}</td>
+                      <td>1. {t("invoice.downPaymentSchedule")} ({dpPercent}%)</td>
+                      <td>{meta.paymentStage === "dp" ? t("invoice.thisInvoice") : t("invoice.paid")}</td>
                       <td>{formatMoney(dpAmount)}</td>
                     </tr>
                     <tr className={meta.paymentStage === "final" ? "schedule-active" : ""}>
-                      <td>2. Final payment ({100 - dpPercent}%)</td>
-                      <td>{meta.paymentStage === "final" ? "This invoice" : "On completion"}</td>
+                      <td>2. {t("invoice.finalPaymentSchedule")} ({100 - dpPercent}%)</td>
+                      <td>{meta.paymentStage === "final" ? t("invoice.thisInvoice") : t("invoice.onCompletion")}</td>
                       <td>{formatMoney(remainingAmount)}</td>
                     </tr>
                   </tbody>
@@ -436,7 +438,7 @@ export default function InvoiceGenerator() {
 
             {meta.notes ? (
               <footer className="sheet-notes">
-                <span>Notes</span>
+                <span>{t("invoice.notes")}</span>
                 <p>{meta.notes}</p>
               </footer>
             ) : null}

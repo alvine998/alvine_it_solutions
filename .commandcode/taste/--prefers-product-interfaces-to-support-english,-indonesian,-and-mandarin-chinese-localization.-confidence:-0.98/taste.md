@@ -1,0 +1,8 @@
+# - Prefers product interfaces to support English, Indonesian, and Mandarin Chinese localization. Confidence: 0.98
+- Prefers product interfaces to support English, Indonesian, and Mandarin Chinese localization. Confidence: 0.98
+- Prefers UI controls, including language switchers, to use colors and text contrast that match the site's existing theme and design tokens. Confidence: 0.95
+- Prefers shared components in the `components/` directory to be imported and reused by `App.tsx`, rather than duplicating them as inline implementations or leaving dead component files unused. Confidence: 0.93
+- Prefers the language switcher to be visibly accessible in the main desktop navbar. Confidence: 0.92
+- Prefers lightweight, dependency-minimal implementations (e.g., Canvas 2D over Three.js/WebGL) when the visual effect can be achieved with simpler technology. Values reduced bundle size and broad device compatibility. Confidence: 0.75
+- Prefers interactive canvas/WebGL scenes to support touch events (touchmove, touchend) on mobile devices, not just mouse events. Confidence: 0.85
+- Prefers canvas rendering complexity (node/particle count, edge distance, signal count) and device pixel ratio to be reduced on mobile for performance. Confidence: 0.80

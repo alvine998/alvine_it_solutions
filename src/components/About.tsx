@@ -1,12 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
-const stats = [
-  { value: "100+", label: "Projects Delivered" },
-  { value: "50+", label: "Happy Clients" },
-  { value: "5+", label: "Years Experience" },
-  { value: "24/7", label: "Support" },
-];
+const statKeys = ["projects", "clients", "experience", "support"] as const;
+const statValues = ["100+", "50+", "5+", "24/7"];
 
 const techStack = [
   "React", "Next.js", "TypeScript", "Node.js", "Go", "Python",
@@ -14,6 +11,7 @@ const techStack = [
 ];
 
 export default function About() {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -53,7 +51,7 @@ export default function About() {
               display: "block",
             }}
           >
-            About Us
+            {t("about.eyebrow")}
           </motion.span>
 
           <motion.h2
@@ -71,14 +69,15 @@ export default function About() {
               marginBottom: 24,
             }}
           >
-            Crafting Digital{" "}
+            {t("about.headingPart1")}
             <span style={{
               background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>
-              Excellence
+              {t("about.headingHighlight")}
             </span>
+            {t("about.headingPart2", "")}
           </motion.h2>
 
           <motion.p
@@ -94,9 +93,7 @@ export default function About() {
               marginBottom: 32,
             }}
           >
-            At Alvine IT Solution, we are passionate about building innovative software 
-            that drives business growth. Our team of expert developers, designers, and 
-            strategists work together to deliver solutions that exceed expectations.
+            {t("about.paragraph1")}
           </motion.p>
 
           <motion.p
@@ -112,9 +109,7 @@ export default function About() {
               marginBottom: 40,
             }}
           >
-            We believe in clean code, modern architecture, and user-centric design. 
-            Every project we undertake is a commitment to quality, performance, and 
-            your success in the digital landscape.
+            {t("about.paragraph2")}
           </motion.p>
 
           <motion.div
@@ -152,9 +147,9 @@ export default function About() {
 
         <motion.div style={{ rotate }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-            {stats.map((stat, i) => (
+            {statKeys.map((key, i) => (
               <motion.div
-                key={stat.label}
+                key={key}
                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
@@ -179,7 +174,7 @@ export default function About() {
                   WebkitTextFillColor: "transparent",
                   marginBottom: 8,
                 }}>
-                  {stat.value}
+                  {statValues[i]}
                 </div>
                 <div style={{
                   fontFamily: "Inter, sans-serif",
@@ -187,7 +182,7 @@ export default function About() {
                   color: "rgba(255,255,255,0.5)",
                   fontWeight: 500,
                 }}>
-                  {stat.label}
+                  {t(`about.stats.${key}`)}
                 </div>
               </motion.div>
             ))}

@@ -1,94 +1,82 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-const projects: {
-  title: string;
-  category: string;
-  description: string;
+type ProjectData = {
   tech: string[];
   gradient: string;
   glowColor: string;
   image: string;
-  link?: string;
-}[] = [
-  {
-    title: "Goldbricks Realtors",
-    category: "Web Application",
-    description: "A property agency website for Goldbricks Realtors featuring primary & secondary property listings, project galleries, and KPR bank partner integration.",
+  link: string;
+};
+
+const projectData: Record<string, ProjectData> = {
+  goldbricks: {
     tech: ["Laravel", "MySQL"],
     gradient: "linear-gradient(135deg, #eab308, #ca8a04)",
     glowColor: "rgba(234, 179, 8, 0.3)",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
     link: "https://goldbricks.co.id",
   },
-  {
-    title: "Stokinventory",
-    category: "Web Application",
-    description: "A comprehensive inventory management app with real-time analytics, budget planning, and supply chain optimization.",
+  stokinventory: {
     tech: ["Laravel", "MySQL"],
     gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     glowColor: "rgba(99, 102, 241, 0.3)",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    link: "https://stokinventory.com",
   },
-  {
-    title: "Kerja Aja Dulu",
-    category: "Web Application",
-    description: "A job portal connecting employers and job seekers with AI-driven matching and interview scheduling.",
+  kerjaAjaDulu: {
     tech: ["Next.js", "Express.js", "MySQL"],
     gradient: "linear-gradient(135deg, #06b6d4, #0891b2)",
     glowColor: "rgba(6, 182, 212, 0.3)",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    link: "https://kerjaajadulu.com",
   },
-  {
-    title: "Willy Wallet",
-    category: "Mobile Application",
-    description: "A secure mobile wallet app for managing digital assets, with biometric authentication and instant transaction notifications.",
+  kasirinApp: {
     tech: ["Electron", "TypeScript", "MongoDB"],
     gradient: "linear-gradient(135deg, #ec4899, #be185d)",
     glowColor: "rgba(236, 72, 153, 0.3)",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+    link: "https://play.google.com/store/apps/details?id=com.kasirinku.app&hl=id",
   },
-  {
-    title: "ShopEase API",
-    category: "RESTful API",
-    description: "High-performance e-commerce backend API handling millions of requests with real-time inventory management.",
+  tokotitohApp: {
     tech: ["Node.js", "PostgreSQL", "Redis"],
     gradient: "linear-gradient(135deg, #f59e0b, #d97706)",
     glowColor: "rgba(245, 158, 11, 0.3)",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    link: "https://play.google.com/store/apps/details?id=com.tokonyang_app&hl=id",
   },
-  {
-    title: "EduLearn Platform",
-    category: "Web Application",
-    description: "Interactive e-learning platform with live classes, progress tracking, and AI-powered personalized learning paths.",
+  midlandProperti: {
     tech: ["React", "Python", "Docker"],
     gradient: "linear-gradient(135deg, #10b981, #059669)",
     glowColor: "rgba(16, 185, 129, 0.3)",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=400&fit=crop",
+    link: "https://midlandproperti.id/",
   },
-  {
-    title: "LogiFlow",
-    category: "Mobile App",
-    description: "Logistics and delivery tracking app with real-time GPS, route optimization, and automated notifications.",
+  bmTransportLogistik: {
     tech: ["Flutter", "Go", "Firebase"],
     gradient: "linear-gradient(135deg, #f43f5e, #e11d48)",
     glowColor: "rgba(244, 63, 94, 0.3)",
     image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=400&fit=crop",
+    link: "https://bmtransportlogistik.com",
   },
-];
+};
 
-const CARD_WIDTH = 400;
+const ALL_PROJECT_KEYS = Object.keys(projectData);
+
+const CARD_WIDTH = typeof window !== "undefined" && window.innerWidth < 768 ? 300 : 400;
 const GAP = 24;
 
-function ProjectCard({ project }: { project: typeof projects[0] }) {
+function ProjectCard({ projectKey, t }: { projectKey: string; t: (key: string) => string }) {
   const [hovered, setHovered] = useState(false);
+  const p = projectData[projectKey];
 
   return (
     <motion.div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => {
-        if (project.link) window.open(project.link, "_blank", "noopener,noreferrer");
+        if (p.link && p.link !== "#") window.open(p.link, "_blank", "noopener,noreferrer");
       }}
       style={{
         position: "relative",
@@ -109,7 +97,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
         left: 0,
         right: 0,
         bottom: 0,
-        background: hovered ? `radial-gradient(circle at 50% 0%, ${project.glowColor}, transparent 70%)` : "none",
+        background: hovered ? `radial-gradient(circle at 50% 0%, ${p.glowColor}, transparent 70%)` : "none",
         transition: "all 0.4s ease",
         pointerEvents: "none",
         zIndex: 1,
@@ -117,8 +105,8 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 
       <div style={{ position: "relative", overflow: "hidden", height: 200 }}>
         <motion.img
-          src={project.image}
-          alt={project.title}
+          src={p.image}
+          alt={t(`portfolio.projects.${projectKey}.title`)}
           animate={{ scale: hovered ? 1.1 : 1 }}
           transition={{ duration: 0.6 }}
           style={{
@@ -142,14 +130,14 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
             right: 16,
             padding: "6px 14px",
             borderRadius: 50,
-            background: project.gradient,
+            background: p.gradient,
             color: "#fff",
             fontSize: 12,
             fontWeight: 600,
             fontFamily: "Inter, sans-serif",
           }}
         >
-          {project.category}
+          {t(`portfolio.projects.${projectKey}.category`)}
         </motion.span>
       </div>
 
@@ -161,7 +149,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           color: "#fff",
           marginBottom: 12,
         }}>
-          {project.title}
+          {t(`portfolio.projects.${projectKey}.title`)}
         </h3>
 
         <p style={{
@@ -171,13 +159,13 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           lineHeight: 1.7,
           marginBottom: 20,
         }}>
-          {project.description}
+          {t(`portfolio.projects.${projectKey}.description`)}
         </p>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {project.tech.map((t) => (
+          {p.tech.map((tech) => (
             <span
-              key={t}
+              key={tech}
               style={{
                 padding: "5px 12px",
                 borderRadius: 50,
@@ -189,7 +177,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
                 fontFamily: "Inter, sans-serif",
               }}
             >
-              {t}
+              {tech}
             </span>
           ))}
         </div>
@@ -199,15 +187,23 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 }
 
 export default function Portfolio() {
+  const { t, i18n } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const visibleKeys = useMemo(() => {
+    return ALL_PROJECT_KEYS.filter((key) => {
+      const title = i18n.getResource(i18n.language, "translation", `portfolio.projects.${key}.title`);
+      return typeof title === "string" && title.length > 0;
+    });
+  }, [i18n.language]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  const totalScrollWidth = projects.length * (CARD_WIDTH + GAP) - GAP;
+  const totalScrollWidth = visibleKeys.length * (CARD_WIDTH + GAP) - GAP;
   const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
   const maxTranslate = -(totalScrollWidth - viewportWidth + 120);
 
@@ -242,7 +238,7 @@ export default function Portfolio() {
             marginBottom: 16,
             display: "block",
           }}>
-            Our Work
+            {t("portfolio.eyebrow")}
           </span>
           <h2 style={{
             fontFamily: "Space Grotesk, sans-serif",
@@ -252,14 +248,15 @@ export default function Portfolio() {
             lineHeight: 1.2,
             letterSpacing: "-1px",
           }}>
-            Featured{" "}
+            {t("portfolio.headingPart1")}
             <span style={{
               background: "linear-gradient(135deg, #06b6d4, #6366f1)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>
-              Portfolio
+              {t("portfolio.headingHighlight")}
             </span>
+            {t("portfolio.headingPart2", "")}
           </h2>
         </motion.div>
       </section>
@@ -272,7 +269,7 @@ export default function Portfolio() {
           height: `${totalScrollWidth + viewportWidth}px`,
         }}
       >
-        <div style={{
+        <div className="portfolio-sticky" style={{
           position: "sticky",
           top: 0,
           height: "100vh",
@@ -283,6 +280,7 @@ export default function Portfolio() {
         }}>
           <motion.div
             ref={trackRef}
+            className="portfolio-track"
             style={{
               x,
               display: "flex",
@@ -292,8 +290,8 @@ export default function Portfolio() {
               willChange: "transform",
             }}
           >
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+            {visibleKeys.map((key) => (
+              <ProjectCard key={`${i18n.language}-${key}`} projectKey={key} t={t} />
             ))}
           </motion.div>
         </div>

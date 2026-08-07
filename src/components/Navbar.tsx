@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "About", href: "#about" },
-  { name: "Team", href: "#team" },
-  { name: "Contact", href: "#contact" },
+const navLinkKeys = [
+  { key: "home", href: "#home" },
+  { key: "services", href: "#services" },
+  { key: "portfolio", href: "#portfolio" },
+  { key: "about", href: "#about" },
+  { key: "team", href: "#team" },
+  { key: "contact", href: "#contact" },
 ];
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -38,27 +41,47 @@ export default function Navbar() {
         transition: "all 0.3s ease",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          // gap: 50,
+        }}
+      >
         <motion.a
           href="#home"
-          style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+          }}
           whileHover={{ scale: 1.05 }}
         >
-          <span style={{
-            fontFamily: "Space Grotesk, sans-serif",
-            fontWeight: 700,
-            fontSize: 20,
-            color: "#fff",
-            letterSpacing: "-0.5px",
-          }}>
-            Alvine<span style={{ color: "#8b5cf6" }}> IT SOLUTIONS</span>
+          <span
+            style={{
+              fontFamily: "Space Grotesk, sans-serif",
+              fontWeight: 700,
+              fontSize: 20,
+              color: "#fff",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            {t("nav.brand")}
           </span>
         </motion.a>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 32 }} className="nav-links-desktop">
-          {navLinks.map((link) => (
+        <div
+          className="nav-links-desktop"
+          style={{ display: "flex", alignItems: "center", gap: 32 }}
+        >
+          {navLinkKeys.map((link) => (
             <motion.a
-              key={link.name}
+              key={link.key}
               href={link.href}
               style={{
                 textDecoration: "none",
@@ -70,9 +93,11 @@ export default function Navbar() {
               }}
               whileHover={{ color: "#fff", y: -2 }}
             >
-              {link.name}
+              {t(`nav.${link.key}`)}
             </motion.a>
           ))}
+        </div>
+        <div className="nav-cta-desktop" style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05 }}
@@ -90,10 +115,10 @@ export default function Navbar() {
               cursor: "pointer",
             }}
           >
-            Get Started
+            {t("nav.getStarted")}
           </motion.a>
+          <LanguageSwitcher />
         </div>
-
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="mobile-menu-btn"
@@ -105,12 +130,46 @@ export default function Navbar() {
             padding: 8,
           }}
         >
-          <div style={{ width: 24, height: 2, background: "#fff", marginBottom: 6, borderRadius: 2, transition: "all 0.3s", transform: mobileOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
-          <div style={{ width: 24, height: 2, background: "#fff", marginBottom: 6, borderRadius: 2, opacity: mobileOpen ? 0 : 1, transition: "all 0.3s" }} />
-          <div style={{ width: 24, height: 2, background: "#fff", borderRadius: 2, transition: "all 0.3s", transform: mobileOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+          <div
+            style={{
+              width: 24,
+              height: 2,
+              background: "#fff",
+              marginBottom: 6,
+              borderRadius: 2,
+              transition: "all 0.3s",
+              transform: mobileOpen
+                ? "rotate(45deg) translate(5px, 5px)"
+                : "none",
+            }}
+          />
+          <div
+            style={{
+              width: 24,
+              height: 2,
+              background: "#fff",
+              marginBottom: 6,
+              borderRadius: 2,
+              opacity: mobileOpen ? 0 : 1,
+              transition: "all 0.3s",
+            }}
+          />
+          <div
+            style={{
+              width: 24,
+              height: 2,
+              background: "#fff",
+              borderRadius: 2,
+              transition: "all 0.3s",
+              transform: mobileOpen
+                ? "rotate(-45deg) translate(5px, -5px)"
+                : "none",
+            }}
+          />
         </button>
       </div>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -123,10 +182,17 @@ export default function Navbar() {
               overflow: "hidden",
             }}
           >
-            <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
-              {navLinks.map((link) => (
+            <div
+              style={{
+                padding: "20px 24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+              }}
+            >
+              {navLinkKeys.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   style={{
@@ -138,9 +204,27 @@ export default function Navbar() {
                     padding: "8px 0",
                   }}
                 >
-                  {link.name}
+                  {t(`nav.${link.key}`)}
                 </a>
               ))}
+              <a
+                className="nav-cta"
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  textDecoration: "none",
+                  color: "#8b5cf6",
+                  fontSize: 16,
+                  fontWeight: 600,
+                  fontFamily: "Inter, sans-serif",
+                  padding: "8px 0",
+                }}
+              >
+                {t("nav.getStarted")}
+              </a>
+              <div style={{ paddingTop: 8 }}>
+                <LanguageSwitcher />
+              </div>
             </div>
           </motion.div>
         )}
