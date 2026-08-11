@@ -9,13 +9,13 @@ RUN bun install --frozen-lockfile
 COPY server/ .
 
 # Build
-RUN bun run build
+RUN bun build index.ts --outdir=./dist --target=node
 
 # Production
 FROM oven/bun:1-slim AS production
 WORKDIR /app
 
-COPY --from=base /app/dist/server ./dist
+COPY --from=base /app/dist ./dist
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package.json ./package.json
 
