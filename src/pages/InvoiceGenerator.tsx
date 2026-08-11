@@ -134,8 +134,6 @@ export default function InvoiceGenerator() {
   const dpPercent = Math.min(Math.max(meta.dpPercent || 0, 0), 100);
   const dpAmount = Math.round(total * (dpPercent / 100));
   const remainingAmount = total - dpAmount;
-  const dueNow =
-    meta.paymentStage === "dp" ? dpAmount : meta.paymentStage === "final" ? remainingAmount : total;
 
   const stageLabel =
     meta.paymentStage === "dp"
