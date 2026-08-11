@@ -1,77 +1,135 @@
-# React + TypeScript + Vite
+# Alvine IT Solution
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Company website and admin panel built with React, Vite, Express, and MongoDB.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React 19 + TypeScript + Vite + Framer Motion + Lenis
+- **Backend:** Express.js + Mongoose + MongoDB Atlas
+- **Infra:** Docker Compose + Nginx reverse proxy + blue-green deploy
 
-## React Compiler
+## Local Development
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+```bash
+# Install dependencies
+bun install
+cd server && bun install && cd ..
 
-Note: This will impact Vite dev & build performances.
+# Create .env (see .env.example)
+cp .env.example .env
 
-## Expanding the ESLint configuration
+# Start frontend dev server
+bun run dev          # → http://localhost:5173
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# Start backend (separate terminal)
+cd server && bun run dev   # → http://localhost:4005
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The Vite dev server proxies `/api` to `http://localhost:4005` automatically.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
 
 ```
+src/
+  components/        # Reusable UI (Navbar, AdminLayout, etc.)
+  pages/             # Route pages (Home, InvoiceGenerator, Admin*)
+  i18n/locales/      # en.json, id.json, zh.json
+  lib/api.ts         # Frontend API client
+server/
+  models/            # Mongoose schemas (Invoice, Customer, Timeline, User, Contact)
+  routes/            # Express route handlers
+  index.ts           # Server entry point
+nginx/
+  proxy.conf         # Reverse proxy (routes /api to server, / to frontend)
+  app.conf           # SPA fallback for frontend containers
+```
+
+## Deploy with Docker Compose
+
+### Prerequisites
+
+- Docker with Compose V2
+- `.env` file with `MONGODB_URI` (see `.env.example`)
+
+### First-Time Setup
+
+```bash
+chmod +x deploy.sh
+./deploy.sh --setup
+```
+
+This builds all images, starts services, and waits for health checks.
+Nginx is available at **http://localhost:3025**.
+
+### Deploy Updates
+
+```bash
+./deploy.sh
+```
+
+Performs a blue-green deployment:
+1. Pulls latest code from `main`
+2. Rebuilds the API server
+3. Builds the inactive frontend slot (blue ↔ green)
+4. Waits for health checks
+5. Switches Nginx traffic to the new slot
+6. Stops the old slot
+
+### All Commands
+
+| Command | Description |
+|---|---|
+| `./deploy.sh` | Blue-green deploy (default) |
+| `./deploy.sh --setup` | First-time setup — build all + start |
+| `./deploy.sh --server` | Rebuild and restart API server only |
+| `./deploy.sh --full` | Full teardown + `--no-cache` rebuild |
+| `./deploy.sh --status` | Show service status and live slot |
+| `./deploy.sh --logs` | Tail all service logs |
+| `./deploy.sh --down` | Stop all services |
+| `./deploy.sh --rollback` | Switch traffic back to previous slot |
+
+### Architecture
+
+```
+                   ┌─────────────────────────┐
+                   │    Nginx (:3025)         │
+                   │    /api  → server:4005   │
+                   │    /*    → app-blue:80   │
+                   └────┬────────────┬────────┘
+                        │            │
+              ┌─────────▼──┐   ┌────▼─────────┐
+              │  API Server │   │  App (blue/  │
+              │  :4005      │   │  green :80)  │
+              │  Express +  │   │  Nginx SPA   │
+              │  Mongoose   │   │  + static    │
+              └──────┬──────┘   └──────────────┘
+                     │
+              ┌──────▼──────┐
+              │  MongoDB    │
+              │  Atlas      │
+              └─────────────┘
+```
+
+### Services
+
+| Service | Port | Description |
+|---|---|---|
+| `nginx` | 3025 | Reverse proxy, unified entry point |
+| `server` | 4005 | Express API (invoices, customers, timeline, auth, contacts) |
+| `app-blue` | internal | Frontend build (blue slot) |
+| `app-green` | internal | Frontend build (green slot) |
+
+All services have health checks. Nginx waits for healthy backends before starting.
+
+## Admin Panel
+
+- `/admin/login` — Authenticate
+- `/admin/dashboard` — Overview
+- `/admin/customers` — CRUD customers + timeline calendar
+- `/admin/invoices` — CRUD invoices
+- `/admin/contacts` — Contact submissions
+
+## Invoice Generator
+
+- `/generate/invoice` — Create new invoice (live preview + print/PDF)
+- `/generate/invoice?edit=<id>` — Edit existing invoice

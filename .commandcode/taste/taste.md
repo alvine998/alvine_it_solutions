@@ -12,6 +12,11 @@
 - Prefers monorepo structure with backend in a separate `server/` directory and its own `package.json`. Confidence: 0.90
 - Prefers structured backend code with separate `routes/` and `models/` directories. Confidence: 0.90
 - Prefers Docker Compose for deployment orchestration, including database and reverse proxy services. Confidence: 0.95
+- Prefers healthchecks on all Docker Compose services with `depends_on: condition: service_healthy` so dependent services wait for healthy backends before starting. Confidence: 0.90
+- Prefers `env_file` in Docker Compose to load environment variables (e.g., MONGODB_URI) from `.env` rather than duplicating values in `environment:`. Confidence: 0.88
+- Prefers blue-green deployment strategy for frontend services with automated swap and rollback support. Confidence: 0.85
+- Prefers deploy scripts with multiple modes (deploy, setup, server-only, full rebuild, status, logs, rollback) and colored terminal output. Confidence: 0.88
+- Prefers pre-flight checks in deploy scripts (Docker installed, `.env` exists) before attempting deployment. Confidence: 0.85
 - Prefers Nginx as a reverse proxy to unify frontend and API under a single origin. Confidence: 0.90
 - Prefers relative API paths (e.g., `/api`) with Vite dev proxy and Nginx production proxy over hardcoded absolute URLs. Confidence: 0.90
 - When adding new UI features, prefers updating i18n translations for all supported locales in the same pass. Confidence: 0.95
@@ -33,3 +38,5 @@
 - Prefers radio-button group pickers (visually styled as button pills via hidden input + styled span) for mutually exclusive option selection in forms (e.g., payment method, payment stage). Confidence: 0.85
 - Expects semantic ARIA attributes on form controls (e.g., `role="radiogroup"`, `aria-label`) for accessibility. Confidence: 0.80
 - Prefers calendar-based views (monthly grid with entry chips) over list/table views for date-oriented data such as timelines. Confidence: 0.88
+- Expects README documentation to be updated in the same pass when deployment infrastructure (Docker Compose, deploy scripts, port changes) is added or modified. Confidence: 0.85
+- Prefers comprehensive README documentation including architecture diagrams (ASCII art), service/port tables, all CLI command references, project structure trees, and local dev setup instructions. Confidence: 0.82
