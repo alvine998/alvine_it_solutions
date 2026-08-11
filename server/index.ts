@@ -8,7 +8,7 @@ import customerRoutes from "./routes/customer";
 import timelineRoutes from "./routes/timeline";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4005;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/alvine_it_solution";
 
 // Middleware
