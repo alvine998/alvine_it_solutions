@@ -59,7 +59,7 @@ chmod +x deploy.sh
 ```
 
 This builds all images, starts services, and waits for health checks.
-Nginx is available at **http://localhost**.
+Nginx is available at **http://localhost:3025**.
 
 ### Deploy Updates
 

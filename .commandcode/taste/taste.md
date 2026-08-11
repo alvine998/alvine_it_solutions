@@ -43,3 +43,4 @@
 - Prefers calendar-based views (monthly grid with entry chips) over list/table views for date-oriented data such as timelines. Confidence: 0.88
 - Expects README documentation to be updated in the same pass when deployment infrastructure (Docker Compose, deploy scripts, port changes) is added or modified. Confidence: 0.85
 - Prefers comprehensive README documentation including architecture diagrams (ASCII art), service/port tables, all CLI command references, project structure trees, and local dev setup instructions. Confidence: 0.82
+- Runs multiple projects on the same server; prefers using non-standard host ports (e.g., 3025) to avoid conflicts with other projects rather than stopping or displacing existing services. Confidence: 0.85
