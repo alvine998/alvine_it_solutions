@@ -147,7 +147,7 @@ cmd_deploy() {
 
   # Switch traffic
   info "Switching traffic: $current → $target"
-  sed -i '' "s|server app-$current:80|server app-$target:80|" "$PROXY_CONF"
+  sed -i "s|server app-$current:80|server app-$target:80|" "$PROXY_CONF"
 
   info "Reloading nginx..."
   $COMPOSE exec nginx nginx -s reload
@@ -245,7 +245,7 @@ cmd_rollback() {
     }
   fi
 
-  sed -i '' "s|server app-$current:80|server app-$target:80|" "$PROXY_CONF"
+  sed -i "s|server app-$current:80|server app-$target:80|" "$PROXY_CONF"
   $COMPOSE exec nginx nginx -s reload
   ok "Rolled back to $target"
 }
