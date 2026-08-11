@@ -13,6 +13,8 @@
 - Prefers structured backend code with separate `routes/` and `models/` directories. Confidence: 0.90
 - Prefers Docker Compose for deployment orchestration, including database and reverse proxy services. Confidence: 0.95
 - Prefers healthchecks on all Docker Compose services with `depends_on: condition: service_healthy` so dependent services wait for healthy backends before starting. Confidence: 0.90
+- Prefers health check commands that use tools already present in the base Docker image (e.g., add `curl` via `apk add` in the Dockerfile for nginx:alpine, use `bun -e "await fetch(...)"` for Bun services, use `nginx -t` for bare nginx). Avoids relying on utilities not pre-installed in the image. Confidence: 0.85
+- Deploys to a Linux Ubuntu VPS for production. Expects deploy scripts and Docker configurations to target Linux (not macOS). Confidence: 0.80
 - Prefers `env_file` in Docker Compose to load environment variables (e.g., MONGODB_URI) from `.env` rather than duplicating values in `environment:`. Confidence: 0.88
 - Prefers blue-green deployment strategy for frontend services with automated swap and rollback support. Confidence: 0.85
 - Prefers deploy scripts with multiple modes (deploy, setup, server-only, full rebuild, status, logs, rollback) and colored terminal output. Confidence: 0.88

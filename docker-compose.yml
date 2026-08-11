@@ -12,7 +12,7 @@ services:
     ports:
       - "4005:4005"
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4005/api/health"]
+      test: ["CMD", "bun", "-e", "await fetch('http://localhost:4005/api/health')"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      test: ["CMD", "curl", "-sf", "http://localhost/"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      test: ["CMD", "curl", "-sf", "http://localhost/"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -63,8 +63,8 @@ services:
       server:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost/healthz"]
-      interval: 15s
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
       timeout: 5s
       retries: 3
       start_period: 5s
