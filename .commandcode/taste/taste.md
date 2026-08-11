@@ -5,3 +5,31 @@
 - Prefers lightweight, dependency-minimal implementations (e.g., Canvas 2D over Three.js/WebGL) when the visual effect can be achieved with simpler technology. Values reduced bundle size and broad device compatibility. Confidence: 0.75
 - Prefers interactive canvas/WebGL scenes to support touch events (touchmove, touchend) on mobile devices, not just mouse events. Confidence: 0.85
 - Prefers canvas rendering complexity (node/particle count, edge distance, signal count) and device pixel ratio to be reduced on mobile for performance. Confidence: 0.80
+- Prefers Bun as the JavaScript/TypeScript runtime for both frontend and backend projects. Confidence: 0.95
+- Prefers TypeScript with strict mode across the full stack (frontend and backend). Confidence: 0.95
+- Prefers Express.js for building backend API servers. Confidence: 0.85
+- Prefers Mongoose with typed TypeScript interfaces for MongoDB data modeling. Confidence: 0.90
+- Prefers monorepo structure with backend in a separate `server/` directory and its own `package.json`. Confidence: 0.90
+- Prefers structured backend code with separate `routes/` and `models/` directories. Confidence: 0.90
+- Prefers Docker Compose for deployment orchestration, including database and reverse proxy services. Confidence: 0.95
+- Prefers Nginx as a reverse proxy to unify frontend and API under a single origin. Confidence: 0.90
+- Prefers relative API paths (e.g., `/api`) with Vite dev proxy and Nginx production proxy over hardcoded absolute URLs. Confidence: 0.90
+- When adding new UI features, prefers updating i18n translations for all supported locales in the same pass. Confidence: 0.95
+- Prefers async/await with try/catch error handling in backend route handlers. Confidence: 0.85
+- Prefers MongoDB Atlas (cloud-hosted) over local/self-hosted MongoDB for database services. Confidence: 0.90
+- Uses CSS class files (e.g., `InvoiceGenerator.css` alongside `InvoiceGenerator.tsx`) for page-level component styling with custom dark-theme CSS, rather than inline style objects. Confidence: 0.75
+- Prefers a dark theme with `#0a0a14` base background, rgba-white text opacity hierarchy, purple/indigo gradient accents (#6366f1, #8b5cf6), large border-radius (12–16px), and subtle rgba-white borders for card separation. Expects all pages (including admin) to consistently use this palette — will flag cream/vanilla/light backgrounds as bugs. Confidence: 0.94
+- Prefers the font pairing Space Grotesk for headings/display text and Inter for body/UI text. Confidence: 0.88
+- Uses Indonesian Rupiah (IDR) as the business currency, formatted with `id-ID` locale. Confidence: 0.90
+- Prefers `en-GB` locale for date formatting (day-first). Confidence: 0.85
+- Prefers hand-written inline SVG icons over icon libraries (e.g., Lucide, Heroicons). Confidence: 0.85
+- Prefers reusable layout wrapper components (sidebar + top header + children slot) for shared admin/page chrome, extracted into `src/components/`. Confidence: 0.88
+- Prefers modal-based create/edit forms (overlay dialogs) over separate pages for CRUD operations in admin panels. Confidence: 0.88
+- Expects delete confirmation dialogs before any destructive action (e.g., "Are you sure? This action cannot be undone."). Confidence: 0.92
+- Prefers search input and dropdown filters (e.g., status, type) on admin list pages for data navigation. Confidence: 0.87
+- Gives terse, minimal feature requests (e.g., "can CRUD customer") and expects the assistant to infer and deliver the full stack in one pass: model → routes → route registration → admin UI → sidebar nav → frontend routing → type-check. Confidence: 0.90
+- Expects TypeScript type-checking (`bunx tsc --noEmit`, scoped to changed files) after implementing new features to verify compilation. Confidence: 0.90
+- Expects placeholder text on all form input fields to guide users with example values or hints (e.g., "John Doe" for name, "john@company.com" for email). Confidence: 0.85
+- Prefers radio-button group pickers (visually styled as button pills via hidden input + styled span) for mutually exclusive option selection in forms (e.g., payment method, payment stage). Confidence: 0.85
+- Expects semantic ARIA attributes on form controls (e.g., `role="radiogroup"`, `aria-label`) for accessibility. Confidence: 0.80
+- Prefers calendar-based views (monthly grid with entry chips) over list/table views for date-oriented data such as timelines. Confidence: 0.88

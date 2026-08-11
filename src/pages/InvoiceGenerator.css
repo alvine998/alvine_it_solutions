@@ -269,6 +269,63 @@
   outline-offset: 2px;
 }
 
+.payment-method-picker {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.payment-method-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.payment-method-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
+
+.payment-method-option span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.payment-method-option input:checked + span {
+  color: #fff;
+  border-color: #6366f1;
+  background: #6366f1;
+}
+
+.payment-method-option input:focus-visible + span {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
+
+.payment-detail-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
 .dp-row {
   grid-template-columns: 130px 1fr;
   margin-top: 12px;
@@ -549,6 +606,66 @@
   line-height: 1.65;
 }
 
+.sheet-payment-info {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sheet-payment-info > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #818cf8;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.payment-method-label {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.payment-method-label strong {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.payment-account-details {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.payment-account-details div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.payment-account-details span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.payment-account-details strong {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  text-align: right;
+}
+
+.payment-instructions {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.65;
+  font-style: italic;
+}
+
 @media (max-width: 980px) {
   .invoice-layout {
     grid-template-columns: 1fr;
@@ -581,6 +698,10 @@
     grid-template-columns: 1fr;
   }
 
+  .payment-method-picker {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .dp-row {
     grid-template-columns: 1fr;
   }
@@ -594,6 +715,15 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .payment-account-details div {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .payment-account-details strong {
+    text-align: left;
   }
 
   .invoice-sheet {

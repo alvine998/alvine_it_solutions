@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { createInvoice, getInvoice, updateInvoice } from "../lib/api";
 import "./InvoiceGenerator.css";
 
 type LineItem = {
@@ -11,6 +12,7 @@ type LineItem = {
 };
 
 type PaymentStage = "full" | "dp" | "final";
+type PaymentMethod = "bank" | "ewallet" | "cash" | "other";
 
 type InvoiceMeta = {
   number: string;
@@ -25,6 +27,13 @@ type InvoiceMeta = {
   discount: number;
   paymentStage: PaymentStage;
   dpPercent: number;
+  paymentMethod: PaymentMethod;
+  bankName: string;
+  bankAccountName: string;
+  bankAccountNumber: string;
+  ewalletName: string;
+  ewalletNumber: string;
+  paymentInstructions: string;
 };
 
 let nextItemId = 3;
@@ -48,6 +57,13 @@ const defaultMeta: InvoiceMeta = {
   discount: 0,
   paymentStage: "full",
   dpPercent: 50,
+  paymentMethod: "bank",
+  bankName: "Bank Central Asia (BCA)",
+  bankAccountName: "Alvine Yoga Pratama",
+  bankAccountNumber: "1234567890",
+  ewalletName: "",
+  ewalletNumber: "",
+  paymentInstructions: "",
 };
 
 const defaultItems: LineItem[] = [
@@ -74,8 +90,39 @@ function formatDate(value: string) {
 
 export default function InvoiceGenerator() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit");
+  const isEditMode = Boolean(editId);
+
   const [meta, setMeta] = useState<InvoiceMeta>(defaultMeta);
   const [items, setItems] = useState<LineItem[]>(defaultItems);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(isEditMode);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (!editId) return;
+    setIsLoading(true);
+    getInvoice(editId)
+      .then((data: any) => {
+        const { _id, __v, createdAt, updatedAt, items: serverItems, ...rest } = data;
+        setMeta({ ...defaultMeta, ...rest });
+        setItems(
+          (serverItems || []).map((item: any, i: number) => ({
+            id: i + 1,
+            description: item.description || "",
+            qty: item.qty || 0,
+            rate: item.rate || 0,
+          })),
+        );
+        nextItemId = (serverItems || []).length + 1;
+      })
+      .catch(() => {
+        setSaveStatus("error");
+      })
+      .finally(() => setIsLoading(false));
+  }, [editId]);
 
   const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + (item.qty || 0) * (item.rate || 0), 0),
@@ -109,15 +156,69 @@ export default function InvoiceGenerator() {
   const removeItem = (id: number) =>
     setItems((current) => (current.length > 1 ? current.filter((item) => item.id !== id) : current));
 
+  const handleSave = async () => {
+    setIsSaving(true);
+    setSaveStatus("idle");
+
+    try {
+      const invoiceData = {
+        ...meta,
+        items: items.map(({ id, ...item }) => item),
+      };
+      if (isEditMode && editId) {
+        await updateInvoice(editId, invoiceData);
+      } else {
+        await createInvoice(invoiceData);
+      }
+      setSaveStatus("success");
+      if (isEditMode) {
+        setTimeout(() => navigate("/admin/invoices"), 800);
+      } else {
+        setTimeout(() => setSaveStatus("idle"), 3000);
+      }
+    } catch (error) {
+      setSaveStatus("error");
+      setTimeout(() => setSaveStatus("idle"), 3000);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="invoice-page">
       <header className="invoice-topbar">
-        <Link className="invoice-back" to="/">
+        <Link className="invoice-back" to={isEditMode ? "/admin/invoices" : "/"}>
           <img className="invoice-logo" src="/images/logo.png" alt="" width={29} height={29} />
-          Alvine IT Solution
+          {isEditMode ? t("invoice.backToInvoices") : "Alvine IT Solution"}
         </Link>
         <div className="invoice-topbar-actions">
           <span className="invoice-hint">{t("invoice.hint")}</span>
+          {saveStatus === "success" && (
+            <span style={{ color: "#10b981", fontSize: 14 }}>{t("invoice.saved")}</span>
+          )}
+          {saveStatus === "error" && (
+            <span style={{ color: "#ef4444", fontSize: 14 }}>{t("invoice.saveError")}</span>
+          )}
+          <button
+            type="button"
+            className="invoice-save-button"
+            onClick={handleSave}
+            disabled={isSaving || isLoading}
+            style={{
+              padding: "10px 20px",
+              borderRadius: 8,
+              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: 600,
+              fontFamily: "Inter, sans-serif",
+              cursor: isSaving || isLoading ? "not-allowed" : "pointer",
+              border: "none",
+              opacity: isSaving || isLoading ? 0.7 : 1,
+            }}
+          >
+            {isSaving ? t("invoice.saving") : isEditMode ? t("invoice.updateButton") : t("invoice.saveButton")}
+          </button>
           <button type="button" className="invoice-print-button" onClick={() => window.print()}>
             {t("invoice.printButton")}
           </button>
@@ -126,10 +227,16 @@ export default function InvoiceGenerator() {
 
       <div className="invoice-layout">
         <section className="invoice-form" aria-label="Invoice details form">
-          <h1>{t("invoice.title")}</h1>
+          <h1>{isEditMode ? t("invoice.editTitle") : t("invoice.title")}</h1>
           <p className="invoice-form-lead">
             {t("invoice.lead")}
           </p>
+
+          {isLoading ? (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 60, color: "rgba(255,255,255,0.5)" }}>
+              Loading invoice...
+            </div>
+          ) : (<>
 
           <fieldset>
             <legend>{t("invoice.document")}</legend>
@@ -323,6 +430,93 @@ export default function InvoiceGenerator() {
               />
             </label>
           </fieldset>
+
+          <fieldset>
+            <legend>{t("invoice.paymentDetails")}</legend>
+            <div className="payment-method-picker" role="radiogroup" aria-label={t("invoice.paymentMethod")}>
+              {(
+                [
+                  { value: "bank", label: t("invoice.bankTransfer") },
+                  { value: "ewallet", label: t("invoice.eWallet") },
+                  { value: "cash", label: t("invoice.cash") },
+                  { value: "other", label: t("invoice.other") },
+                ] as const
+              ).map((option) => (
+                <label key={option.value} className="payment-method-option">
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value={option.value}
+                    checked={meta.paymentMethod === option.value}
+                    onChange={() => setField("paymentMethod", option.value)}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+
+            {meta.paymentMethod === "bank" ? (
+              <div className="payment-detail-fields">
+                <label>
+                  {t("invoice.bankName")}
+                  <input
+                    placeholder={t("invoice.bankNamePlaceholder")}
+                    value={meta.bankName}
+                    onChange={(event) => setField("bankName", event.target.value)}
+                  />
+                </label>
+                <label>
+                  {t("invoice.accountName")}
+                  <input
+                    placeholder={t("invoice.accountNamePlaceholder")}
+                    value={meta.bankAccountName}
+                    onChange={(event) => setField("bankAccountName", event.target.value)}
+                  />
+                </label>
+                <label>
+                  {t("invoice.accountNumber")}
+                  <input
+                    placeholder={t("invoice.accountNumberPlaceholder")}
+                    value={meta.bankAccountNumber}
+                    onChange={(event) => setField("bankAccountNumber", event.target.value)}
+                  />
+                </label>
+              </div>
+            ) : null}
+
+            {meta.paymentMethod === "ewallet" ? (
+              <div className="payment-detail-fields">
+                <label>
+                  {t("invoice.ewalletName")}
+                  <input
+                    placeholder={t("invoice.ewalletNamePlaceholder")}
+                    value={meta.ewalletName}
+                    onChange={(event) => setField("ewalletName", event.target.value)}
+                  />
+                </label>
+                <label>
+                  {t("invoice.ewalletNumber")}
+                  <input
+                    placeholder={t("invoice.ewalletNumberPlaceholder")}
+                    value={meta.ewalletNumber}
+                    onChange={(event) => setField("ewalletNumber", event.target.value)}
+                  />
+                </label>
+              </div>
+            ) : null}
+
+            <label>
+              {t("invoice.paymentInstructions")}
+              <textarea
+                rows={2}
+                placeholder={t("invoice.paymentInstructionsPlaceholder")}
+                value={meta.paymentInstructions}
+                onChange={(event) => setField("paymentInstructions", event.target.value)}
+              />
+            </label>
+          </fieldset>
+          </>
+          )}
         </section>
 
         <section className="invoice-preview-wrap" aria-label="Invoice preview">
@@ -410,10 +604,6 @@ export default function InvoiceGenerator() {
                   <span>−{formatMoney(dpAmount)}</span>
                 </div>
               ) : null}
-              <div className="sheet-total-due">
-                <span>{stageLabel ? `${t("invoice.dueNowStage")}${stageLabel}` : t("invoice.dueNow")}</span>
-                <span>{formatMoney(dueNow)}</span>
-              </div>
             </div>
 
             {meta.paymentStage !== "full" ? (
@@ -435,6 +625,54 @@ export default function InvoiceGenerator() {
                 </table>
               </div>
             ) : null}
+
+            <div className="sheet-payment-info">
+              <span>{t("invoice.paymentInformation")}</span>
+              <div className="payment-method-label">
+                <strong>{t("invoice.method")}:</strong>{" "}
+                {meta.paymentMethod === "bank"
+                  ? t("invoice.bankTransfer")
+                  : meta.paymentMethod === "ewallet"
+                    ? t("invoice.eWallet")
+                    : meta.paymentMethod === "cash"
+                      ? t("invoice.cash")
+                      : t("invoice.other")}
+              </div>
+
+              {meta.paymentMethod === "bank" && meta.bankName ? (
+                <div className="payment-account-details">
+                  <div>
+                    <span>{t("invoice.bank")}:</span>
+                    <strong>{meta.bankName}</strong>
+                  </div>
+                  <div>
+                    <span>{t("invoice.accountName")}:</span>
+                    <strong>{meta.bankAccountName}</strong>
+                  </div>
+                  <div>
+                    <span>{t("invoice.accountNo")}:</span>
+                    <strong>{meta.bankAccountNumber}</strong>
+                  </div>
+                </div>
+              ) : null}
+
+              {meta.paymentMethod === "ewallet" && meta.ewalletName ? (
+                <div className="payment-account-details">
+                  <div>
+                    <span>{t("invoice.ewallet")}:</span>
+                    <strong>{meta.ewalletName}</strong>
+                  </div>
+                  <div>
+                    <span>{t("invoice.ewalletId")}:</span>
+                    <strong>{meta.ewalletNumber}</strong>
+                  </div>
+                </div>
+              ) : null}
+
+              {meta.paymentInstructions ? (
+                <p className="payment-instructions">{meta.paymentInstructions}</p>
+              ) : null}
+            </div>
 
             {meta.notes ? (
               <footer className="sheet-notes">

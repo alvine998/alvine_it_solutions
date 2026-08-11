@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { submitContact } from "../lib/api";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -11,6 +12,32 @@ export default function Contact() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      await submitContact(formData);
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -107,59 +134,127 @@ export default function Contact() {
               {t("contact.subtitle")}
             </p>
 
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <motion.a
-                href="mailto:hello@alvineit.com"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(99, 102, 241, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
+            <form onSubmit={handleSubmit} style={{ maxWidth: 500, margin: "0 auto" }}>
+              <div style={{ display: "grid", gap: 16, marginBottom: 16 }}>
+                <input
+                  type="text"
+                  placeholder={t("contact.namePlaceholder")}
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  style={{
+                    padding: "14px 18px",
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    background: "rgba(255,255,255,0.05)",
+                    color: "#fff",
+                    fontSize: 15,
+                    fontFamily: "Inter, sans-serif",
+                    outline: "none",
+                  }}
+                />
+                <input
+                  type="email"
+                  placeholder={t("contact.emailPlaceholder")}
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  style={{
+                    padding: "14px 18px",
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    background: "rgba(255,255,255,0.05)",
+                    color: "#fff",
+                    fontSize: 15,
+                    fontFamily: "Inter, sans-serif",
+                    outline: "none",
+                  }}
+                />
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <input
+                    type="tel"
+                    placeholder={t("contact.phonePlaceholder")}
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    style={{
+                      padding: "14px 18px",
+                      borderRadius: 12,
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      background: "rgba(255,255,255,0.05)",
+                      color: "#fff",
+                      fontSize: 15,
+                      fontFamily: "Inter, sans-serif",
+                      outline: "none",
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder={t("contact.companyPlaceholder")}
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    style={{
+                      padding: "14px 18px",
+                      borderRadius: 12,
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      background: "rgba(255,255,255,0.05)",
+                      color: "#fff",
+                      fontSize: 15,
+                      fontFamily: "Inter, sans-serif",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+                <textarea
+                  placeholder={t("contact.messagePlaceholder")}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  rows={4}
+                  style={{
+                    padding: "14px 18px",
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    background: "rgba(255,255,255,0.05)",
+                    color: "#fff",
+                    fontSize: 15,
+                    fontFamily: "Inter, sans-serif",
+                    outline: "none",
+                    resize: "vertical",
+                  }}
+                />
+              </div>
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(99, 102, 241, 0.4)" }}
+                whileTap={{ scale: 0.98 }}
                 style={{
-                  textDecoration: "none",
+                  width: "100%",
                   padding: "16px 40px",
-                  borderRadius: 50,
+                  borderRadius: 12,
                   background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                   color: "#fff",
                   fontSize: 16,
                   fontWeight: 600,
                   fontFamily: "Inter, sans-serif",
-                  cursor: "pointer",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
                   border: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
+                  opacity: isSubmitting ? 0.7 : 1,
                 }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="16" x="2" y="4" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
-                {t("contact.getInTouch")}
-              </motion.a>
-              <motion.a
-                href="#"
-                whileHover={{ scale: 1.05, background: "rgba(255,255,255,0.1)" }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  textDecoration: "none",
-                  padding: "16px 40px",
-                  borderRadius: 50,
-                  background: "rgba(255,255,255,0.05)",
-                  color: "#fff",
-                  fontSize: 16,
-                  fontWeight: 600,
-                  fontFamily: "Inter, sans-serif",
-                  cursor: "pointer",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-                {t("contact.scheduleCall")}
-              </motion.a>
-            </div>
+                {isSubmitting ? t("contact.submitting") : t("contact.submit")}
+              </motion.button>
+              {submitStatus === "success" && (
+                <p style={{ color: "#10b981", marginTop: 16, fontSize: 14 }}>
+                  {t("contact.success")}
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p style={{ color: "#ef4444", marginTop: 16, fontSize: 14 }}>
+                  {t("contact.error")}
+                </p>
+              )}
+            </form>
           </div>
         </motion.div>
       </motion.div>

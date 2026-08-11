@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Shell(bun:*)",
-      "Shell(bunx tsc --noEmit src/components/Scene3D.tsx 2 >& 1)"
+      "Shell(bunx tsc --noEmit src/components/Scene3D.tsx 2 >& 1)",
+      "Shell(npx tsc --noEmit src/components/AdminLayout.tsx src/pages/AdminDashboard.tsx src/pages/AdminContacts.tsx src/pages/AdminInvoices.tsx 2 >& 1)",
+      "Shell(npx tsc --noEmit 2 >& 1)",
+      "Shell(grep:*)",
+      "Shell(bunx tsc --noEmit)"
     ],
     "deny": [],
     "defaultMode": "default"
