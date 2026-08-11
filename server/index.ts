@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 4005;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/alvine_it_solution";
 
+let dbConnected = false;
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -24,21 +26,26 @@ app.use("/api/customers", timelineRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+  const status = dbConnected && mongoose.connection.readyState === 1 ? "ok" : "degraded";
+  res.json({ status, db: dbConnected ? "connected" : "disconnected", timestamp: new Date().toISOString() });
 });
 
-// Connect to MongoDB and start server
+// Start HTTP server immediately so health checks pass
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// Connect to MongoDB in the background
+console.log(`Connecting to MongoDB...`);
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
+    dbConnected = true;
     console.log("Connected to MongoDB");
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
   })
   .catch((error) => {
-    console.error("MongoDB connection error:", error);
-    process.exit(1);
+    console.error("MongoDB connection error:", error.message);
+    console.error("Server will continue running with degraded status. API routes that require the database will return errors until MongoDB is available.");
   });
 
 export default app;

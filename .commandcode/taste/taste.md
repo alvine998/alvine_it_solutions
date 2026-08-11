@@ -22,6 +22,7 @@
 - When adding new UI features, prefers updating i18n translations for all supported locales in the same pass. Confidence: 0.95
 - Prefers async/await with try/catch error handling in backend route handlers. Confidence: 0.85
 - Prefers MongoDB Atlas (cloud-hosted) over local/self-hosted MongoDB for database services. Confidence: 0.90
+- Prefers resilient server startup: HTTP listener should start immediately so health checks pass, with database and other dependencies connected in the background. Health endpoint should reflect actual readiness (e.g., "ok" vs "degraded") rather than crashing the process on dependency failure. Confidence: 0.88
 - Uses CSS class files (e.g., `InvoiceGenerator.css` alongside `InvoiceGenerator.tsx`) for page-level component styling with custom dark-theme CSS, rather than inline style objects. Confidence: 0.75
 - Prefers a dark theme with `#0a0a14` base background, rgba-white text opacity hierarchy, purple/indigo gradient accents (#6366f1, #8b5cf6), large border-radius (12–16px), and subtle rgba-white borders for card separation. Expects all pages (including admin) to consistently use this palette — will flag cream/vanilla/light backgrounds as bugs. Confidence: 0.94
 - Prefers the font pairing Space Grotesk for headings/display text and Inter for body/UI text. Confidence: 0.88
