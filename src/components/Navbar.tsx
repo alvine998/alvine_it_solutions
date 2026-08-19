@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -6,6 +7,8 @@ import LanguageSwitcher from "./LanguageSwitcher";
 const navLinkKeys = [
   { key: "home", href: "#home" },
   { key: "services", href: "#services" },
+  { key: "aiRouter", href: "#ai-router" },
+  { key: "pricing", href: "#pricing" },
   { key: "portfolio", href: "#portfolio" },
   { key: "about", href: "#about" },
   { key: "team", href: "#team" },
@@ -16,11 +19,21 @@ export default function Navbar() {
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const check = () => setAuthed(!!localStorage.getItem("token") && !!(localStorage.getItem("user") || localStorage.getItem("router_customer")));
+    check();
+    window.addEventListener("storage", check);
+    const onFocus = () => check();
+    window.addEventListener("focus", onFocus);
+    return () => { window.removeEventListener("storage", check); window.removeEventListener("focus", onFocus); };
   }, []);
 
   return (
@@ -98,25 +111,26 @@ export default function Navbar() {
           ))}
         </div>
         <div className="nav-cta-desktop" style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Link
+            to={authed ? "/dashboard" : "/auth?mode=login"}
             style={{
               textDecoration: "none",
               padding: "10px 24px",
               borderRadius: 50,
-              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              background: authed ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg, #6366f1, #8b5cf6)",
               color: "#fff",
               fontSize: 14,
               fontWeight: 600,
               fontFamily: "Inter, sans-serif",
-              border: "none",
+              border: authed ? "1px solid rgba(255,255,255,0.14)" : "none",
               cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
             }}
           >
-            {t("nav.getStarted")}
-          </motion.a>
+            {authed ? t("nav.dashboard") : t("nav.login")}
+          </Link>
           <LanguageSwitcher />
         </div>
         <button
@@ -207,21 +221,25 @@ export default function Navbar() {
                   {t(`nav.${link.key}`)}
                 </a>
               ))}
-              <a
-                className="nav-cta"
-                href="#contact"
+              <Link
+                to={authed ? "/dashboard" : "/auth?mode=login"}
                 onClick={() => setMobileOpen(false)}
                 style={{
                   textDecoration: "none",
-                  color: "#8b5cf6",
+                  color: authed ? "#fff" : "#8b5cf6",
                   fontSize: 16,
                   fontWeight: 600,
                   fontFamily: "Inter, sans-serif",
                   padding: "8px 0",
+                  display: "inline-block",
+                  border: authed ? "1px solid rgba(255,255,255,0.14)" : "none",
+                  borderRadius: authed ? 999 : 0,
+                  background: authed ? "rgba(255,255,255,0.06)" : "transparent",
+                  textAlign: "center",
                 }}
               >
-                {t("nav.getStarted")}
-              </a>
+                {authed ? t("nav.dashboard") : t("nav.login")}
+              </Link>
               <div style={{ paddingTop: 8 }}>
                 <LanguageSwitcher />
               </div>

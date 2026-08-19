@@ -9,7 +9,11 @@
     "contact": "Kontak",
     "work": "Karya",
     "process": "Proses",
-    "getStarted": "Mulai Proyek"
+    "getStarted": "Mulai Proyek",
+    "login": "Masuk",
+    "dashboard": "Dasbor",
+    "aiRouter": "AI Router",
+    "pricing": "Harga"
   },
   "hero": {
     "badge": "Software House & Solusi Digital",
@@ -146,9 +150,19 @@
   "footer": {
     "tagline": "Membangun solusi digital luar biasa untuk bisnis yang berpikiran maju.",
     "services": "Layanan",
-    "serviceLinks": ["Aplikasi Desktop", "Website", "RESTful API", "Aplikasi Mobile"],
+    "serviceLinks": [
+      "Aplikasi Desktop",
+      "Website",
+      "RESTful API",
+      "Aplikasi Mobile"
+    ],
     "company": "Perusahaan",
-    "companyLinks": ["Tentang", "Karir", "Blog", "Kontak"],
+    "companyLinks": [
+      "Tentang",
+      "Karir",
+      "Blog",
+      "Kontak"
+    ],
     "connect": "Terhubung",
     "copyright": "Alvine IT Solution. Hak cipta dilindungi.",
     "crafted": "Dibuat dengan semangat & presisi"
@@ -238,5 +252,138 @@
   },
   "languageSwitcher": {
     "label": "Bahasa"
+  },
+  "aiRouter": {
+    "eyebrow": "Baru — AI Router",
+    "headingPart1": "Satu API untuk ",
+    "headingHighlight": "mengatur semuanya",
+    "headingPart2": "",
+    "subtitle": "Satu model: auto. Kirim prompt apa pun — router memilih provider termurah & tercepat yang mampu menjawab, dengan fallback otomatis dan observability penuh.",
+    "features": {
+      "routing": {
+        "title": "Smart Routing",
+        "desc": "Routing berdasarkan intent, latensi & kualitas. Anda tidak perlu pilih model."
+      },
+      "cost": {
+        "title": "Penghemat Biaya",
+        "desc": "Hemat hingga 68% dengan mengirim prompt mudah ke model cepat & murah."
+      },
+      "unifiedApi": {
+        "title": "Satu Model",
+        "desc": "Satu nama — auto. Kompatibel OpenAI. Cukup arahkan baseURL ke router.alvine.id."
+      },
+      "fallback": {
+        "title": "Fallback Otomatis",
+        "desc": "Rate limit atau outage? Otomatis retry ke model terbaik berikutnya."
+      },
+      "observability": {
+        "title": "Observability",
+        "desc": "Log per-request, dashboard biaya & latensi langsung tersedia."
+      },
+      "byok": {
+        "title": "BYOK & Aman",
+        "desc": "Bawa kunci sendiri — tidak terkunci vendor, terenkripsi."
+      }
+    },
+    "tryDemo": "Coba demo",
+    "viewPricing": "Lihat harga",
+    "compatible": "Kompatibel OpenAI · Ganti 1 baris: baseURL → router.alvine.id"
+  },
+  "pricing": {
+    "eyebrow": "Harga",
+    "headingPart1": "Harga ",
+    "headingHighlight": "berbasis kredit",
+    "headingPart2": " simpel",
+    "subtitle": "Satu model — auto. Bayar kredit, bukan tebak-tebakan.",
+    "mostPopular": "Paling populer",
+    "planDesc": "Termasuk {{credits}} kredit",
+    "creditsLabel": "kredit",
+    "ctaDefault": "Mulai",
+    "noFeatures": "Belum ada fitur",
+    "footnote": "Kredit tidak hangus dalam periode tagihan. Butuh lebih banyak?",
+    "footnoteLink": "Hubungi sales",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "desc": "Coba dulu.",
+        "price": "$2",
+        "credits": "500 kredit",
+        "period": "/ bulan",
+        "cta": "Mulai",
+        "features": [
+          "500 kredit / bulan",
+          "Model: auto",
+          "Dashboard & log pemakaian",
+          "Dukungan komunitas",
+          "!Tanpa kursi tim"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "desc": "Untuk builder rutin.",
+        "price": "$10",
+        "credits": "3.500 kredit",
+        "period": "/ bulan",
+        "cta": "Pilih Pro",
+        "features": [
+          "3.500 kredit / bulan",
+          "Model: auto · paling hemat",
+          "Cost optimizer & fallback",
+          "Dukungan prioritas",
+          "Kursi tim (5)"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum",
+        "desc": "Untuk power user & tim.",
+        "price": "$29",
+        "credits": "12.000 kredit",
+        "period": "/ bulan",
+        "cta": "Pilih Platinum",
+        "features": [
+          "12.000 kredit / bulan",
+          "Model: auto · throughput maksimal",
+          "Support dedicated & SLA",
+          "SSO & audit log",
+          "Invoice & PO tersedia"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "loginTitle": "Selamat datang kembali",
+    "registerTitle": "Buat akun Anda",
+    "loginSubtitle": "Masuk untuk mengelola kredit AI Router.",
+    "registerSubtitle": "Mulai dengan auto — satu-satunya model yang Anda butuhkan.",
+    "tabLogin": "Masuk",
+    "tabRegister": "Daftar",
+    "nameLabel": "Nama",
+    "namePlaceholder": "Nama Anda",
+    "loginCta": "Masuk",
+    "registerCta": "Buat akun",
+    "loading": "Mohon tunggu…",
+    "noAccount": "Belum punya akun?",
+    "hasAccount": "Sudah punya akun?",
+    "createAccount": "Buat akun",
+    "signIn": "Masuk",
+    "backToSite": "Kembali ke situs",
+    "errorGeneric": "Terjadi kesalahan. Coba lagi.",
+    "slipTitle": "Slip provisioning",
+    "slipModel": "Model",
+    "slipPrice": "Harga",
+    "slipBilling": "Tagihan",
+    "slipBillingValue": "Bulanan · kredit reset",
+    "slipNote": "Kredit diterapkan setelah akun dibuat.",
+    "pickPlanHint": "Pilih paket, atau lanjutkan tanpa paket.",
+    "trustLine": "Tanpa basa-basi AI — satu endpoint, satu model (auto), kredit yang jelas.",
+    "pwHint": "min 6 karakter",
+    "legalLine": "Dengan melanjutkan Anda menyetujui ketentuan. Kredit dihitung per 1k token pada auto.",
+    "showPassword": "Tampilkan password",
+    "hidePassword": "Sembunyikan password"
+  },
+  "dashboard": {
+    "switchToDark": "Ke gelap",
+    "switchToLight": "Ke terang",
+    "viewSite": "Lihat situs"
   }
 }

@@ -6,6 +6,14 @@ import invoiceRoutes from "./routes/invoice";
 import authRoutes from "./routes/auth";
 import customerRoutes from "./routes/customer";
 import timelineRoutes from "./routes/timeline";
+import routerCustomerRoutes from "./routes/routerCustomer";
+import routerModelRoutes from "./routes/routerModel";
+import creditCustomerRoutes from "./routes/creditCustomer";
+import creditLogRoutes from "./routes/creditLog";
+import customerPlanRoutes from "./routes/customerPlan";
+import planRoutes from "./routes/plan";
+import orderRoutes from "./routes/order";
+import paymentMethodRoutes from "./routes/paymentMethod";
 
 const app = express();
 const PORT = process.env.PORT || 4005;
@@ -23,6 +31,14 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/customers", timelineRoutes);
+app.use("/api/router-customers", routerCustomerRoutes);
+app.use("/api/router-models", routerModelRoutes);
+app.use("/api/credit-customers", creditCustomerRoutes);
+app.use("/api/credit-logs", creditLogRoutes);
+app.use("/api/customer-plans", customerPlanRoutes);
+app.use("/api/plans", planRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/payment-methods", paymentMethodRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {

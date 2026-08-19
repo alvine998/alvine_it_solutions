@@ -9,7 +9,11 @@
     "contact": "Contact",
     "work": "Work",
     "process": "Process",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "aiRouter": "AI Router",
+    "pricing": "Pricing"
   },
   "hero": {
     "badge": "Software House & Digital Solutions",
@@ -148,9 +152,19 @@
   "footer": {
     "tagline": "Building exceptional digital solutions for forward-thinking businesses.",
     "services": "Services",
-    "serviceLinks": ["Desktop Apps", "Websites", "RESTful API", "Mobile Apps"],
+    "serviceLinks": [
+      "Desktop Apps",
+      "Websites",
+      "RESTful API",
+      "Mobile Apps"
+    ],
     "company": "Company",
-    "companyLinks": ["About", "Careers", "Blog", "Contact"],
+    "companyLinks": [
+      "About",
+      "Careers",
+      "Blog",
+      "Contact"
+    ],
     "connect": "Connect",
     "copyright": "Alvine IT Solution. All rights reserved.",
     "crafted": "Crafted with passion & precision"
@@ -240,5 +254,138 @@
   },
   "languageSwitcher": {
     "label": "Language"
+  },
+  "aiRouter": {
+    "eyebrow": "New — AI Router",
+    "headingPart1": "One API to ",
+    "headingHighlight": "route them all",
+    "headingPart2": "",
+    "subtitle": "One model: auto. Send any prompt — the router picks the cheapest, fastest provider that can actually answer, with auto fallback and full observability.",
+    "features": {
+      "routing": {
+        "title": "Smart Routing",
+        "desc": "Routes by intent, latency & quality. You never pick a model."
+      },
+      "cost": {
+        "title": "Cost Optimizer",
+        "desc": "Up to 68% cheaper by sending easy prompts to fast, cheap models."
+      },
+      "unifiedApi": {
+        "title": "Single Model",
+        "desc": "One name — auto. OpenAI-compatible. Just point baseURL to router.alvine.id."
+      },
+      "fallback": {
+        "title": "Auto Fallback",
+        "desc": "Rate limit or outage? Instantly retries the next best model."
+      },
+      "observability": {
+        "title": "Observability",
+        "desc": "Per-request logs, cost & latency dashboards out of the box."
+      },
+      "byok": {
+        "title": "BYOK & Secure",
+        "desc": "Bring your own keys — never vendor-locked, encrypted at rest."
+      }
+    },
+    "tryDemo": "Try live demo",
+    "viewPricing": "View pricing",
+    "compatible": "OpenAI-compatible · Drop-in with 1 line change: baseURL → router.alvine.id"
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "headingPart1": "Simple, ",
+    "headingHighlight": "credit-based",
+    "headingPart2": " pricing",
+    "subtitle": "One model — auto. Pay for credits, not guesswork.",
+    "mostPopular": "Most popular",
+    "planDesc": "{{credits}} credits included",
+    "creditsLabel": "credits",
+    "ctaDefault": "Get Started",
+    "noFeatures": "No features listed yet",
+    "footnote": "Credits never expire within billing period. Need more? ",
+    "footnoteLink": "Contact sales",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "desc": "Try it out.",
+        "price": "$2",
+        "credits": "500 credits",
+        "period": "/ month",
+        "cta": "Get Started",
+        "features": [
+          "500 credits / month",
+          "Model: auto",
+          "Dashboard & usage logs",
+          "Community support",
+          "!No team seats"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "desc": "For regular builders.",
+        "price": "$10",
+        "credits": "3,500 credits",
+        "period": "/ month",
+        "cta": "Get Pro",
+        "features": [
+          "3,500 credits / month",
+          "Model: auto · best value",
+          "Cost optimizer & fallback",
+          "Priority support",
+          "Team seats (5)"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum",
+        "desc": "For power users & teams.",
+        "price": "$29",
+        "credits": "12,000 credits",
+        "period": "/ month",
+        "cta": "Go Platinum",
+        "features": [
+          "12,000 credits / month",
+          "Model: auto · max throughput",
+          "Dedicated support & SLA",
+          "SSO & audit logs",
+          "Invoice & PO available"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "registerTitle": "Create your account",
+    "loginSubtitle": "Sign in to manage your AI Router credits.",
+    "registerSubtitle": "Start with auto — the only model you need.",
+    "tabLogin": "Log in",
+    "tabRegister": "Register",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "loginCta": "Log in",
+    "registerCta": "Create account",
+    "loading": "Please wait…",
+    "noAccount": "No account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create one",
+    "signIn": "Log in",
+    "backToSite": "Back to site",
+    "errorGeneric": "Something went wrong. Try again.",
+    "slipTitle": "Provisioning slip",
+    "slipModel": "Model",
+    "slipPrice": "Price",
+    "slipBilling": "Billing",
+    "slipBillingValue": "Monthly · credits reset",
+    "slipNote": "Credits applied after account creation.",
+    "pickPlanHint": "Pick a plan, or continue without one.",
+    "trustLine": "No generic AI copy — one endpoint, one model (auto), predictable credits.",
+    "pwHint": "min 6 characters",
+    "legalLine": "By continuing you agree to the terms. Credits are metered per 1k tokens on auto.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "dashboard": {
+    "switchToDark": "Switch to dark",
+    "switchToLight": "Switch to light",
+    "viewSite": "View site"
   }
 }

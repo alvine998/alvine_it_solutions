@@ -9,7 +9,11 @@
     "contact": "联系",
     "work": "作品",
     "process": "流程",
-    "getStarted": "开始项目"
+    "getStarted": "开始项目",
+    "login": "登录",
+    "dashboard": "控制台",
+    "aiRouter": "AI 路由",
+    "pricing": "价格"
   },
   "hero": {
     "badge": "软件公司 & 数字解决方案",
@@ -146,9 +150,19 @@
   "footer": {
     "tagline": "为有远见的企业构建卓越的数字解决方案。",
     "services": "服务",
-    "serviceLinks": ["桌面应用", "网站", "RESTful API", "移动应用"],
+    "serviceLinks": [
+      "桌面应用",
+      "网站",
+      "RESTful API",
+      "移动应用"
+    ],
     "company": "公司",
-    "companyLinks": ["关于", "招聘", "博客", "联系"],
+    "companyLinks": [
+      "关于",
+      "招聘",
+      "博客",
+      "联系"
+    ],
     "connect": "联系我们",
     "copyright": "Alvine IT Solution。保留所有权利。",
     "crafted": "用心与精准打造"
@@ -238,5 +252,138 @@
   },
   "languageSwitcher": {
     "label": "语言"
+  },
+  "aiRouter": {
+    "eyebrow": "全新 — AI 路由",
+    "headingPart1": "一个 API ",
+    "headingHighlight": "调度所有模型",
+    "headingPart2": "",
+    "subtitle": "只有一个模型：auto。发送任意提示词——路由器自动选择最便宜、最快且能胜任的提供方，支持自动降级与全链路可观测。",
+    "features": {
+      "routing": {
+        "title": "智能路由",
+        "desc": "按意图、延迟与质量路由，无需手动选择模型。"
+      },
+      "cost": {
+        "title": "成本优化",
+        "desc": "简单任务走高速低价模型，最高节省 68%。"
+      },
+      "unifiedApi": {
+        "title": "单一模型",
+        "desc": "只需记住 auto。兼容 OpenAI，将 baseURL 指向 router.alvine.id 即可。"
+      },
+      "fallback": {
+        "title": "自动降级",
+        "desc": "限流或故障时自动重试下一个最优模型。"
+      },
+      "observability": {
+        "title": "可观测性",
+        "desc": "单次请求日志、成本与延迟仪表盘开箱即用。"
+      },
+      "byok": {
+        "title": "BYOK 安全",
+        "desc": "自带 Key，永不锁定，静态加密。"
+      }
+    },
+    "tryDemo": "体验演示",
+    "viewPricing": "查看价格",
+    "compatible": "兼容 OpenAI · 一行改动: baseURL → router.alvine.id"
+  },
+  "pricing": {
+    "eyebrow": "价格",
+    "headingPart1": "简单 ",
+    "headingHighlight": "按积分计费",
+    "headingPart2": "",
+    "subtitle": "一个模型 — auto。按积分付费，无需猜测。",
+    "mostPopular": "最受欢迎",
+    "planDesc": "包含 {{credits}} 积分",
+    "creditsLabel": "积分",
+    "ctaDefault": "开始使用",
+    "noFeatures": "暂无功能列表",
+    "footnote": "积分在计费周期内永不过期。需要更多？",
+    "footnoteLink": "联系销售",
+    "plans": {
+      "starter": {
+        "name": "入门版",
+        "desc": "先试试。",
+        "price": "$2",
+        "credits": "500 积分",
+        "period": "/ 月",
+        "cta": "开始使用",
+        "features": [
+          "500 积分 / 月",
+          "模型：auto",
+          "仪表盘与用量日志",
+          "社区支持",
+          "!无团队席位"
+        ]
+      },
+      "pro": {
+        "name": "专业版",
+        "desc": "适合常规开发者。",
+        "price": "$10",
+        "credits": "3,500 积分",
+        "period": "/ 月",
+        "cta": "选择专业版",
+        "features": [
+          "3,500 积分 / 月",
+          "模型：auto · 最划算",
+          "成本优化与自动降级",
+          "优先支持",
+          "团队席位 (5)"
+        ]
+      },
+      "platinum": {
+        "name": "铂金版",
+        "desc": "适合重度用户与团队。",
+        "price": "$29",
+        "credits": "12,000 积分",
+        "period": "/ 月",
+        "cta": "选择铂金版",
+        "features": [
+          "12,000 积分 / 月",
+          "模型：auto · 最大吞吐",
+          "专属支持与 SLA",
+          "SSO 与审计日志",
+          "支持发票与采购单"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "loginTitle": "欢迎回来",
+    "registerTitle": "创建账号",
+    "loginSubtitle": "登录以管理你的 AI Router 积分。",
+    "registerSubtitle": "从 auto 开始 — 你唯一需要的模型。",
+    "tabLogin": "登录",
+    "tabRegister": "注册",
+    "nameLabel": "姓名",
+    "namePlaceholder": "你的姓名",
+    "loginCta": "登录",
+    "registerCta": "创建账号",
+    "loading": "请稍候…",
+    "noAccount": "还没有账号？",
+    "hasAccount": "已有账号？",
+    "createAccount": "去注册",
+    "signIn": "去登录",
+    "backToSite": "返回首页",
+    "errorGeneric": "出错了，请重试。",
+    "slipTitle": "开通单",
+    "slipModel": "模型",
+    "slipPrice": "价格",
+    "slipBilling": "计费",
+    "slipBillingValue": "按月 · 积分重置",
+    "slipNote": "账号创建后发放积分。",
+    "pickPlanHint": "选择套餐，或先不选直接继续。",
+    "trustLine": "没有空话术 — 一个接口、一个模型（auto）、积分清晰可控。",
+    "pwHint": "至少 6 位",
+    "legalLine": "继续即表示同意条款。积分按 auto 的每 1k tokens 计量。",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码"
+  },
+  "dashboard": {
+    "switchToDark": "切换到深色",
+    "switchToLight": "切换到浅色",
+    "viewSite": "查看网站"
   }
 }

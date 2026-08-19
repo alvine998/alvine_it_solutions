@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { createInvoice, getInvoice, updateInvoice } from "../lib/api";
+import NumberInput from "../components/NumberInput";
+import { parseNumberInput } from "../lib/numbers";
 import "./InvoiceGenerator.css";
 
 type LineItem = {
@@ -310,23 +312,22 @@ export default function InvoiceGenerator() {
                   </label>
                   <label>
                     <span className="visually-hidden">{t("invoice.itemQuantity", { index: index + 1 })}</span>
-                    <input
-                      type="number"
+                    <NumberInput
                       min={0}
                       placeholder={t("invoice.qty")}
                       value={item.qty}
-                      onChange={(event) => setItemField(item.id, { qty: Number(event.target.value) })}
+                      onChange={(v) => setItemField(item.id, { qty: parseNumberInput(v) })}
+                      ariaLabel={t("invoice.itemQuantity", { index: index + 1 })}
                     />
                   </label>
                   <label>
                     <span className="visually-hidden">{t("invoice.itemRate", { index: index + 1 })}</span>
-                    <input
-                      type="number"
+                    <NumberInput
                       min={0}
-                      step={1000}
                       placeholder={t("invoice.rate")}
                       value={item.rate}
-                      onChange={(event) => setItemField(item.id, { rate: Number(event.target.value) })}
+                      onChange={(v) => setItemField(item.id, { rate: parseNumberInput(v) })}
+                      ariaLabel={t("invoice.itemRate", { index: index + 1 })}
                     />
                   </label>
                   <button
@@ -373,12 +374,11 @@ export default function InvoiceGenerator() {
               <div className="field-row dp-row">
                 <label>
                   {t("invoice.dpPercentage")}
-                  <input
-                    type="number"
+                  <NumberInput
                     min={1}
                     max={99}
                     value={meta.dpPercent}
-                    onChange={(event) => setField("dpPercent", Number(event.target.value))}
+                    onChange={(v) => setField("dpPercent", parseNumberInput(v))}
                   />
                 </label>
                 <div className="dp-summary">
@@ -400,22 +400,19 @@ export default function InvoiceGenerator() {
             <div className="field-row">
               <label>
                 {t("invoice.tax")}
-                <input
-                  type="number"
+                <NumberInput
                   min={0}
                   max={100}
                   value={meta.taxPercent}
-                  onChange={(event) => setField("taxPercent", Number(event.target.value))}
+                  onChange={(v) => setField("taxPercent", parseNumberInput(v))}
                 />
               </label>
               <label>
                 {t("invoice.discount")}
-                <input
-                  type="number"
+                <NumberInput
                   min={0}
-                  step={1000}
                   value={meta.discount}
-                  onChange={(event) => setField("discount", Number(event.target.value))}
+                  onChange={(v) => setField("discount", parseNumberInput(v))}
                 />
               </label>
             </div>

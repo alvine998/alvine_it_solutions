@@ -5,6 +5,8 @@ import type { LenisRef } from "lenis/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import AiRouter from "./components/AiRouter";
+import Pricing from "./components/Pricing";
 import Portfolio from "./components/Portfolio";
 import About from "./components/About";
 import OurTeam from "./components/OurTeam";
@@ -47,6 +49,8 @@ export default function App() {
         <main style={{ position: "relative", zIndex: 10 }}>
           <Hero />
           <Services />
+          <AiRouter />
+          <Pricing />
           <Portfolio />
           <About />
           <OurTeam />
