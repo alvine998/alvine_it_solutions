@@ -6,7 +6,8 @@
       "Shell(npx tsc --noEmit src/components/AdminLayout.tsx src/pages/AdminDashboard.tsx src/pages/AdminContacts.tsx src/pages/AdminInvoices.tsx 2 >& 1)",
       "Shell(npx tsc --noEmit 2 >& 1)",
       "Shell(grep:*)",
-      "Shell(bunx tsc --noEmit)"
+      "Shell(bunx tsc --noEmit)",
+      "Shell(git ls-files | grep -i env; echo \"---\"; git log --oneline -3 -- .env server/.env 2>/dev/null; echo \"---\"; git check-ignore .env server/.env 2>/dev/null; echo \"exit: $?\")"
     ],
     "deny": [],
     "defaultMode": "default"

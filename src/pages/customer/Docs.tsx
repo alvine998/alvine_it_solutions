@@ -1,10 +1,15 @@
+import { useEffect, useState } from "react";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
+import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { toast } from "../../lib/toast";
 
 export default function Docs() {
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
-  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); } catch {} };
+  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy failed"); } };
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const [base, setBase] = useState(FALLBACK_ROUTER_BASE);
+  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setBase(b); }); }, []);
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardBg = isLight ? "#fff" : "rgba(255,255,255,0.02)";
@@ -15,14 +20,14 @@ export default function Docs() {
   const subMuted = isLight ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.45)";
   const faint = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)";
 
-  const curl = `curl https://router.alvineitsolutions.com/v1/chat/completions \\
+  const curl = `curl ${base}/chat/completions \\
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`;
 
   const openaiJs = `import OpenAI from "openai";
 const client = new OpenAI({
-  baseURL: "https://router.alvineitsolutions.com/v1",
+  baseURL: "${base}",
   apiKey: process.env.ROUTER_TOKEN,
 });
 const res = await client.chat.completions.create({
@@ -32,7 +37,7 @@ const res = await client.chat.completions.create({
 
   const py = `from openai import OpenAI
 client = OpenAI(
-  base_url="https://router.alvineitsolutions.com/v1",
+  base_url="${base}",
   api_key="ROUTER_TOKEN",
 )
 res = client.chat.completions.create(
@@ -61,9 +66,9 @@ print(res.choices[0].message.content)`;
       <div style={{ display: "grid", gap: 12, fontFamily: "DM Mono, monospace", fontSize: 12, lineHeight: 1.7 }}>
         <div style={{ borderRadius: 12, border: `1px solid ${border}`, background: cardBg3, padding: 14, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
           <div style={{ color: "#6366f1", letterSpacing: 0.6, fontSize: 11, marginBottom: 6 }}>ENDPOINT</div>
-          <code style={{ color: isLight ? "#1c1917" : "#e0e7ff", wordBreak: "break-all" }}>https://router.alvineitsolutions.com/v1/chat/completions</code>
+          <code style={{ color: isLight ? "#1c1917" : "#e0e7ff", wordBreak: "break-all" }}>{base}/chat/completions</code>
           <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <button onClick={() => copy("https://router.alvineitsolutions.com/v1/chat/completions")} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy endpoint</button>
+            <button onClick={() => copy(`${base}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy endpoint</button>
             {token && <button onClick={() => copy(token)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>Copy token</button>}
           </div>
         </div>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
+import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { toast } from "../../lib/toast";
 
 type CreditCustomer = { _id: string; customer_id: string; balance: number };
-type CreditLog = { _id: string; credit_customer_id: string; credit_out: number; input_token: number; cached_token: number; output_token: number; createdAt: string };
+type CreditLog = { _id: string; credit_customer_id: string; credit_out: number; input_token: number; cached_token: number; output_token: number; model_name?: string; createdAt: string };
 
 export default function Usage() {
   const { theme } = useCustomerTheme();
@@ -16,6 +18,8 @@ export default function Usage() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
+  const [routerBase, setRouterBase] = useState(FALLBACK_ROUTER_BASE);
+  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setRouterBase(b); }); }, []);
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardSoft = isLight ? "#fff" : "rgba(255,255,255,0.02)";
@@ -67,7 +71,7 @@ export default function Usage() {
   const totalUsed = logs.reduce((a, l) => a + (l.credit_out || 0), 0);
   const totalTokens = logs.reduce((a, l) => a + (l.input_token || 0) + (l.cached_token || 0) + (l.output_token || 0), 0);
   const totalPages = Math.max(1, Math.ceil(totalLogs / 20));
-  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); } catch {} };
+  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy failed"); } };
 
   if (loading) return <div style={{ color: muted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>Loading usage…</div>;
 
@@ -75,7 +79,7 @@ export default function Usage() {
     <div style={{ display: "grid", gap: 16, color: fg }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
         <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 18, fontWeight: 800, color: fg }}>Usage</h2>
-        <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>baseURL → router.alvineitsolutions.com · model: auto</span>
+        <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }} title={routerBase}>baseURL → {routerBase.replace(/^https?:\/\//, "")} · model: auto</span>
         <button onClick={() => token && copy(token)} style={{ marginLeft: "auto", fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy token</button>
       </div>
 
@@ -117,12 +121,13 @@ export default function Usage() {
                 <th style={{ padding: "10px 14px", fontWeight: 500 }}>INPUT</th>
                 <th style={{ padding: "10px 14px", fontWeight: 500 }}>CACHED</th>
                 <th style={{ padding: "10px 14px", fontWeight: 500 }}>OUTPUT</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>MODEL</th>
                 <th style={{ padding: "10px 14px", fontWeight: 500 }}>TOTAL</th>
               </tr>
             </thead>
             <tbody>
               {logs.length === 0 ? (
-                <tr><td colSpan={6} style={{ padding: 28, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>No usage yet — make your first request and it will appear here.</td></tr>
+                <tr><td colSpan={7} style={{ padding: 28, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>No usage yet — make your first request and it will appear here.</td></tr>
               ) : logs.map(l => (
                 <tr key={l._id} style={{ borderBottom: `1px solid ${faint}` }}>
                   <td style={{ padding: "11px 14px", color: muted, whiteSpace: "nowrap" }}>{fmtDate(l.createdAt)}</td>
@@ -130,6 +135,7 @@ export default function Usage() {
                   <td style={{ padding: "11px 14px", color: muted }}>{Number(l.input_token).toLocaleString()}</td>
                   <td style={{ padding: "11px 14px", color: muted }}>{Number(l.cached_token).toLocaleString()}</td>
                   <td style={{ padding: "11px 14px", color: muted }}>{Number(l.output_token).toLocaleString()}</td>
+                  <td style={{ padding: "11px 14px", color: muted, fontFamily: "DM Mono, monospace", fontSize: 11 }}>{(l as any).model_name || "—"}</td>
                   <td style={{ padding: "11px 14px", color: muted, fontFamily: "DM Mono, monospace" }}>{(Number(l.input_token) + Number(l.cached_token) + Number(l.output_token)).toLocaleString()}</td>
                 </tr>
               ))}
@@ -141,13 +147,13 @@ export default function Usage() {
       <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.03)", padding: 14, boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
         <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted, marginBottom: 10 }}>QUICK START — cURL</div>
         <pre style={{ margin: 0, padding: 12, borderRadius: 12, background: codeBg, border: `1px solid ${faint}`, overflowX: "auto", fontFamily: "DM Mono, monospace", fontSize: 12, lineHeight: 1.6, color: isLight ? "#1c1917" : "#e0e7ff" }}>
-{`curl https://router.alvineitsolutions.com/v1/chat/completions \\
+{`curl ${routerBase}/chat/completions \\
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`}
         </pre>
         <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
-          <button onClick={() => copy(`curl https://router.alvineitsolutions.com/v1/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy snippet</button>
+          <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy snippet</button>
           <Link to="/dashboard/docs" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>Docs →</Link>
         </div>
       </div>

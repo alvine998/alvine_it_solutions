@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../lib/routerBaseUrl";
+import { toast } from "../lib/toast";
 
 type MeUser = { id: string; name: string; email: string; status: string };
 type CreditCustomer = { _id: string; customer_id: string; balance: number };
@@ -23,6 +25,8 @@ export default function CustomerDashboard() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
 
+  const [routerBase, setRouterBase] = useState(FALLBACK_ROUTER_BASE);
+  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setRouterBase(b); }); }, []);
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   useEffect(() => {
@@ -90,7 +94,7 @@ export default function CustomerDashboard() {
   };
 
   const copy = async (text: string) => {
-    try { await navigator.clipboard.writeText(text); } catch { /* ignore */ }
+    try { await navigator.clipboard.writeText(text); toast("Copied"); } catch { toast("Copy failed"); }
   };
 
   const fmtDate = (s: string) => new Date(s).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -139,7 +143,7 @@ export default function CustomerDashboard() {
             <div style={{ marginTop: 14, display: "flex", gap: 8, flexWrap: "wrap", fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.5)" }}>
               <span style={{ border: "1px solid rgba(255,255,255,0.1)", padding: "6px 10px", borderRadius: 20, background: "rgba(255,255,255,0.03)" }}>status: <span style={{ color: user?.status === "active" ? "#10b981" : "#f59e0b" }}>{user?.status ?? "—"}</span></span>
               <span style={{ border: "1px solid rgba(255,255,255,0.1)", padding: "6px 10px", borderRadius: 20, background: "rgba(255,255,255,0.03)" }}>model: auto</span>
-              <span style={{ border: "1px solid rgba(255,255,255,0.1)", padding: "6px 10px", borderRadius: 20, background: "rgba(255,255,255,0.03)" }}>baseURL: router.alvineitsolutions.com</span>
+              <span title={routerBase} style={{ border: "1px solid rgba(255,255,255,0.1)", padding: "6px 10px", borderRadius: 20, background: "rgba(255,255,255,0.03)" }}>baseURL: {routerBase.replace(/^https?:\/\//, "")}</span>
             </div>
           </div>
 
@@ -148,8 +152,8 @@ export default function CustomerDashboard() {
             <div style={{ background: "#0f0f1a", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 12 }}>
               <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>ENDPOINT</div>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <code style={{ flex: 1, fontFamily: "DM Mono, monospace", fontSize: 12, color: "#e0e7ff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>https://router.alvineitsolutions.com/v1/chat/completions</code>
-                <button onClick={() => copy("https://router.alvineitsolutions.com/v1/chat/completions")} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>Copy</button>
+                <code style={{ flex: 1, fontFamily: "DM Mono, monospace", fontSize: 12, color: "#e0e7ff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{routerBase}/chat/completions</code>
+                <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>Copy</button>
               </div>
               <div style={{ marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.35)" }}>Auth: <span style={{ color: "rgba(255,255,255,0.7)" }}>Authorization: Bearer &lt;token&gt;</span></div>
               <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#a5b4fc", cursor: "pointer" }}>Copy token</button>
@@ -226,13 +230,13 @@ export default function CustomerDashboard() {
         <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", padding: 16 }}>
           <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: "rgba(255,255,255,0.45)", marginBottom: 10 }}>QUICK START — cURL</div>
           <pre style={{ margin: 0, padding: 14, borderRadius: 12, background: "#0f0f1a", border: "1px solid rgba(255,255,255,0.08)", overflowX: "auto", fontFamily: "DM Mono, monospace", fontSize: 12.5, lineHeight: 1.6, color: "#e0e7ff" }}>
-{`curl https://router.alvineitsolutions.com/v1/chat/completions \\
+{`curl ${routerBase}/chat/completions \\
   -H "Authorization: Bearer $TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`}
           </pre>
           <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
-            <button onClick={() => copy(`curl https://router.alvineitsolutions.com/v1/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#fff", cursor: "pointer" }}>Copy snippet</button>
+            <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#fff", cursor: "pointer" }}>Copy snippet</button>
             <Link to="/#pricing" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#a5b4fc", textDecoration: "none" }}>Manage plan →</Link>
           </div>
         </div>

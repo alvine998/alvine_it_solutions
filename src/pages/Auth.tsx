@@ -1,6 +1,7 @@
 import { useState, useEffect, useId } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FALLBACK_ROUTER_BASE } from "../lib/routerBaseUrl";
 
 type Mode = "login" | "register";
 type PlanKey = "starter" | "pro" | "platinum";
@@ -328,7 +329,7 @@ export default function Auth() {
 
           {/* small spec */}
           <div style={{ marginTop: 22, display: "flex", gap: 16, flexWrap: "wrap", fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.32)" }}>
-            <span>baseURL → router.alvineitsolutions.com</span>
+            <span>baseURL → {FALLBACK_ROUTER_BASE.replace(/^https?:\/\//, "")}</span>
             <span>·</span>
             <span>model: auto</span>
             <span>·</span>

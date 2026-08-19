@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCustomer } from "../../components/CustomerLayout";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
+import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { toast } from "../../lib/toast";
 
 type CreditCustomer = { _id: string; customer_id: string; balance: number };
 type CreditLog = { _id: string; credit_customer_id: string; credit_out: number; input_token: number; cached_token: number; output_token: number; createdAt: string };
@@ -15,6 +17,8 @@ export default function Dashboard() {
   const [totalLogs, setTotalLogs] = useState(0);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
+  const [routerBase, setRouterBase] = useState(FALLBACK_ROUTER_BASE);
+  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setRouterBase(b); }); }, []);
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardBg = isLight ? "#fff" : "rgba(255,255,255,0.03)";
@@ -53,7 +57,7 @@ export default function Dashboard() {
     return () => { cancelled = true; };
   }, [user?.id, token]);
 
-  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); } catch {} };
+  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy failed"); } };
   const fmtDate = (s: string) => new Date(s).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
   const totalUsed = logs.reduce((a, l) => a + (l.credit_out || 0), 0);
   const totalTokens = logs.reduce((a, l) => a + (l.input_token || 0) + (l.cached_token || 0) + (l.output_token || 0), 0);
@@ -76,7 +80,7 @@ export default function Dashboard() {
           <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap", fontFamily: "DM Mono, monospace", fontSize: 11, color: muted }}>
             <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>status: <span style={{ color: user?.status === "active" ? "#10b981" : "#f59e0b", fontWeight: 700 }}>{user?.status ?? "—"}</span></span>
             <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>model: auto</span>
-            <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>baseURL: router.alvineitsolutions.com</span>
+            <span title={routerBase} style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>baseURL: {routerBase.replace(/^https?:\/\//, "")}</span>
           </div>
           <div style={{ marginTop: 14, display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Link to="/dashboard/chat" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "8px 12px", borderRadius: 8, background: "linear-gradient(135deg,#6366f1,#06b6d4)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Open Chat →</Link>
@@ -89,8 +93,8 @@ export default function Dashboard() {
           <div style={{ background: codeBg, border: `1px solid ${faintBorder}`, borderRadius: 12, padding: 12 }}>
             <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, marginBottom: 6 }}>ENDPOINT</div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <code style={{ flex: 1, fontFamily: "DM Mono, monospace", fontSize: 12, color: isLight ? "#1c1917" : "#e0e7ff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>https://router.alvineitsolutions.com/v1/chat/completions</code>
-              <button onClick={() => copy("https://router.alvineitsolutions.com/v1/chat/completions")} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer", whiteSpace: "nowrap" }}>Copy</button>
+              <code style={{ flex: 1, fontFamily: "DM Mono, monospace", fontSize: 12, color: isLight ? "#1c1917" : "#e0e7ff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{routerBase}/chat/completions</code>
+              <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer", whiteSpace: "nowrap" }}>Copy</button>
             </div>
             <div style={{ marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted }}>Auth: <span style={{ color: muted }}>Authorization: Bearer &lt;token&gt;</span></div>
             <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>Copy token</button>

@@ -22,7 +22,9 @@ interface RouterModelFormData {
   provider: string;
   model_id: string;
   base_url: string;
+  api_key: string;
   context_window: string;
+  credits_per_1k: string;
   status: ModelStatus;
 }
 
@@ -41,7 +43,9 @@ const emptyForm: RouterModelFormData = {
   provider: "",
   model_id: "",
   base_url: "",
+  api_key: "",
   context_window: "",
+  credits_per_1k: "1",
   status: "active",
 };
 
@@ -112,7 +116,9 @@ export default function AdminRouterModels() {
       provider: row.provider,
       model_id: row.model_id,
       base_url: row.base_url ?? "",
+      api_key: "",
       context_window: String(row.context_window ?? 0),
+      credits_per_1k: String((row as any).credits_per_1k ?? 1),
       status: row.status,
     });
     setError("");
@@ -134,14 +140,16 @@ export default function AdminRouterModels() {
       const token = localStorage.getItem("token");
       const url = editing ? `/api/router-models/${editing._id}` : "/api/router-models";
       const method = editing ? "PUT" : "POST";
-      const body = {
+      const body: any = {
         name: formData.name,
         provider: formData.provider,
         model_id: formData.model_id,
         base_url: formData.base_url,
         context_window: parseNumberInput(formData.context_window),
+        credits_per_1k: parseNumberInput(formData.credits_per_1k) || 1,
         status: formData.status,
       };
+      if (formData.api_key.trim()) body.api_key = formData.api_key.trim();
 
       const res = await fetch(url, {
         method,
@@ -666,14 +674,40 @@ export default function AdminRouterModels() {
 
                 <div>
                   <label style={{ display: "block", marginBottom: 8, fontSize: 13, color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
-                    Context Window (tokens)
+                    API Key (per model — stored securely)
                   </label>
-                  <NumberInput
-                    value={formData.context_window}
-                    onChange={(v) => setFormData({ ...formData, context_window: v })}
-                    placeholder="128000"
+                  <input
+                    type="password"
+                    value={formData.api_key}
+                    onChange={(e) => setFormData({ ...formData, api_key: e.target.value })}
+                    placeholder={editing ? "Leave blank to keep existing" : "sk-... or provider key"}
                     style={inputStyle}
                   />
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div>
+                    <label style={{ display: "block", marginBottom: 8, fontSize: 13, color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
+                      Context Window
+                    </label>
+                    <NumberInput
+                      value={formData.context_window}
+                      onChange={(v) => setFormData({ ...formData, context_window: v })}
+                      placeholder="128000"
+                      style={inputStyle}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", marginBottom: 8, fontSize: 13, color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
+                      Credits / 1k tokens
+                    </label>
+                    <NumberInput
+                      value={formData.credits_per_1k}
+                      onChange={(v) => setFormData({ ...formData, credits_per_1k: v })}
+                      placeholder="1"
+                      style={inputStyle}
+                    />
+                  </div>
                 </div>
 
                 <div>

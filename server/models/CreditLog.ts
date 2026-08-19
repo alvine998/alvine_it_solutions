@@ -6,6 +6,7 @@ export interface ICreditLog extends Document {
   input_token: number;
   cached_token: number;
   output_token: number;
+  model_name?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +18,7 @@ const CreditLogSchema = new Schema<ICreditLog>(
     input_token: { type: Number, required: true, min: 0, default: 0 },
     cached_token: { type: Number, required: true, min: 0, default: 0 },
     output_token: { type: Number, required: true, min: 0, default: 0 },
+    model_name: { type: String, trim: true, default: "" },
   },
   { timestamps: true, collection: "credit_logs" }
 );

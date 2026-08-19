@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCustomer } from "../../components/CustomerLayout";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
+import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { toast } from "../../lib/toast";
 
 export default function Profile() {
   const { user, token, refreshMe } = useCustomer();
@@ -11,6 +13,8 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
+  const [routerBase, setRouterBase] = useState(FALLBACK_ROUTER_BASE);
+  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setRouterBase(b); }); }, []);
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardBg = isLight ? "#fff" : "rgba(255,255,255,0.03)";
@@ -50,7 +54,7 @@ export default function Profile() {
     finally { setSaving(false); }
   };
 
-  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); } catch {} };
+  const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy failed"); } };
 
   return (
     <div style={{ display: "grid", gap: 16, maxWidth: 640, color: fg }}>
@@ -102,8 +106,8 @@ export default function Profile() {
       <div style={{ borderRadius: 12, border: `1px solid ${border}`, background: cardSoft, padding: 14, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
         <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: subMuted, marginBottom: 8 }}>API ACCESS</div>
         <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-          <code style={{ flex: 1, minWidth: 200, fontFamily: "DM Mono, monospace", fontSize: 11.5, color: isLight ? "#1c1917" : "#e0e7ff", background: isLight ? "#f5f5f4" : "#0f0f1a", border: `1px solid ${border}`, padding: "9px 11px", borderRadius: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>https://router.alvineitsolutions.com/v1/chat/completions</code>
-          <button onClick={() => copy("https://router.alvineitsolutions.com/v1/chat/completions")} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "8px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy endpoint</button>
+          <code style={{ flex: 1, minWidth: 200, fontFamily: "DM Mono, monospace", fontSize: 11.5, color: isLight ? "#1c1917" : "#e0e7ff", background: isLight ? "#f5f5f4" : "#0f0f1a", border: `1px solid ${border}`, padding: "9px 11px", borderRadius: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{routerBase}/chat/completions</code>
+          <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "8px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy endpoint</button>
         </div>
         <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>Copy token</button>
       </div>

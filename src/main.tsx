@@ -12,6 +12,7 @@ import CustomerChat from './pages/customer/Chat.tsx'
 import CustomerUsage from './pages/customer/Usage.tsx'
 import CustomerOrders from './pages/customer/Orders.tsx'
 import CustomerDocs from './pages/customer/Docs.tsx'
+import CustomerApiKeys from './pages/customer/ApiKeys.tsx'
 import CustomerProfile from './pages/customer/Profile.tsx'
 import AdminLogin from './pages/AdminLogin.tsx'
 import AdminDashboard from './pages/AdminDashboard.tsx'
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="orders" element={<CustomerOrders />} />
           <Route path="billing" element={<CustomerOrders />} />
           <Route path="docs" element={<CustomerDocs />} />
+          <Route path="api-keys" element={<CustomerApiKeys />} />
           <Route path="profile" element={<CustomerProfile />} />
         </Route>
         <Route path="/generate/invoice" element={<InvoiceGenerator />} />

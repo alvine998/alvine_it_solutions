@@ -80,6 +80,17 @@ const NAV = [
     ),
   },
   {
+    path: "/dashboard/api-keys",
+    label: "API Keys",
+    desc: "Customer keys",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+        <path d="M21 11a4 4 0 0 1-4 4H7l-4 4V5a2 2 0 0 1 2-2h10a4 4 0 0 1 4 4v4Z" />
+        <path d="M12 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
+      </svg>
+    ),
+  },
+  {
     path: "/dashboard/profile",
     label: "Profile",
     desc: "Account",

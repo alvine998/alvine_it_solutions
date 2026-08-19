@@ -1,11 +1,11 @@
 {
   "name": "alvine_it_solution",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.1",
   "type": "module",
   "author": {
     "name": "Alvine Yoga Pratama",
-    "email": "alvinecocm2018@gmail.com"
+    "email": "alvinecom2018@gmail.com"
   },
   "license": "MIT",
   "scripts": {

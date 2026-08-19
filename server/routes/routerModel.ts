@@ -47,7 +47,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 // POST /api/router-models
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { name, provider, model_id, base_url, context_window, status } = req.body;
+    const { name, provider, model_id, base_url, api_key, context_window, credits_per_1k, status } = req.body;
     if (!name || !provider || !model_id) {
       return res.status(400).json({ error: "name, provider and model_id are required" });
     }
@@ -56,11 +56,15 @@ router.post("/", async (req: Request, res: Response) => {
       provider: String(provider).trim(),
       model_id: String(model_id).trim(),
       base_url: String(base_url || "").trim(),
+      api_key: String(api_key || "").trim(),
       context_window: Number(context_window) || 0,
+      credits_per_1k: Number(credits_per_1k) > 0 ? Number(credits_per_1k) : 1,
       status: status || "active",
     });
     await doc.save();
-    res.status(201).json({ message: "Created", router_model: doc });
+    const out: any = doc.toObject();
+    delete out.api_key;
+    res.status(201).json({ message: "Created", router_model: out });
   } catch (e: any) {
     console.error(e);
     if (e.code === 11000) return res.status(409).json({ error: "Model name already exists" });
@@ -71,17 +75,21 @@ router.post("/", async (req: Request, res: Response) => {
 // PUT /api/router-models/:id
 router.put("/:id", async (req: Request, res: Response) => {
   try {
-    const { name, provider, model_id, base_url, context_window, status } = req.body;
-    const doc = await RouterModel.findById(req.params.id);
+    const { name, provider, model_id, base_url, api_key, context_window, credits_per_1k, status } = req.body;
+    const doc = await RouterModel.findById(req.params.id).select("+api_key");
     if (!doc) return res.status(404).json({ error: "Router model not found" });
     if (name) doc.name = String(name).trim();
     if (provider) doc.provider = String(provider).trim();
     if (model_id) doc.model_id = String(model_id).trim();
     if (base_url !== undefined) doc.base_url = String(base_url || "").trim();
+    if (api_key !== undefined) doc.api_key = String(api_key || "").trim();
     if (context_window !== undefined) doc.context_window = Number(context_window) || 0;
+    if (credits_per_1k !== undefined) doc.credits_per_1k = Number(credits_per_1k) > 0 ? Number(credits_per_1k) : 1;
     if (status) doc.status = status;
     await doc.save();
-    res.json({ message: "Updated", router_model: doc });
+    const out: any = doc.toObject();
+    delete out.api_key;
+    res.json({ message: "Updated", router_model: out });
   } catch (e: any) {
     console.error(e);
     if (e.code === 11000) return res.status(409).json({ error: "Model name already exists" });

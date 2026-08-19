@@ -14,6 +14,7 @@ import customerPlanRoutes from "./routes/customerPlan";
 import planRoutes from "./routes/plan";
 import orderRoutes from "./routes/order";
 import paymentMethodRoutes from "./routes/paymentMethod";
+import customerApiKeyRoutes from "./routes/customerApiKey";
 
 const app = express();
 const PORT = process.env.PORT || 4005;
@@ -39,6 +40,7 @@ app.use("/api/customer-plans", customerPlanRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payment-methods", paymentMethodRoutes);
+app.use("/api/customer-api-keys", customerApiKeyRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
