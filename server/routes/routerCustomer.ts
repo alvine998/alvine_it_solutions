@@ -466,20 +466,13 @@ async function handleChatCompletions(req: Request, res: Response) {
         return [primary];
       };
       const candidates = buildCandidates(baseUrl);
-      const upstreamBody: any = { model: rm.model_id, messages, stream: true };
-      for (const k of [
-        "temperature",
-        "top_p",
-        "max_tokens",
-        "max_completion_tokens",
-        "presence_penalty",
-        "frequency_penalty",
-        "stop",
-        "n",
-      ] as const) {
-        if ((req.body as any)[k] !== undefined)
-          upstreamBody[k] = (req.body as any)[k];
-      }
+      // passthrough all OpenAI params (tools, tool_choice, response_format, reasoning_effort, etc.)
+      // so opencode tool-calling and max_tokens are not silently dropped
+      const { model: _m1, messages: _msgs1, stream: _s1, ...passthrough1 } = req.body as any;
+      const upstreamBody: any = { model: rm.model_id, messages, stream: true, ...passthrough1 };
+      upstreamBody.model = rm.model_id;
+      upstreamBody.messages = messages;
+      upstreamBody.stream = true;
       const headers: Record<string, string> = {
         "Content-Type": "application/json",
       };
@@ -679,20 +672,10 @@ async function handleChatCompletions(req: Request, res: Response) {
       return [primary];
     };
     const candidates = buildCandidates(baseUrl);
-    const upstreamBody: any = { model: rm.model_id, messages };
-    for (const k of [
-      "temperature",
-      "top_p",
-      "max_tokens",
-      "max_completion_tokens",
-      "presence_penalty",
-      "frequency_penalty",
-      "stop",
-      "n",
-    ] as const) {
-      if ((req.body as any)[k] !== undefined)
-        upstreamBody[k] = (req.body as any)[k];
-    }
+    const { model: _m2, messages: _msgs2, stream: _s2, ...passthrough2 } = req.body as any;
+    const upstreamBody: any = { model: rm.model_id, messages, ...passthrough2 };
+    upstreamBody.model = rm.model_id;
+    upstreamBody.messages = messages;
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
     };
