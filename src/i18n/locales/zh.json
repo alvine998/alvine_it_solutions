@@ -672,7 +672,7 @@
       "pythonTitle": "Python（OpenAI SDK）",
       "phpTitle": "PHP（Guzzle）",
       "goTitle": "Go（net/http）",
-      "note": "将 $BASE 替换为你的端点，$TOKEN 替换为你的 token 或 API 密钥。模型始终为 auto。"
+      "note": "将 $BASE 替换为你的端点，并使用 API Keys 页面中的 API 密钥（sk-...）— 无需登录。模型始终为 auto。"
     }
   }
 }

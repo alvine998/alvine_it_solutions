@@ -11,7 +11,6 @@ import CustomerDashboardPage from './pages/customer/Dashboard.tsx'
 import CustomerChat from './pages/customer/Chat.tsx'
 import CustomerUsage from './pages/customer/Usage.tsx'
 import CustomerOrders from './pages/customer/Orders.tsx'
-import CustomerDocs from './pages/customer/Docs.tsx'
 import CustomerDocumentation from './pages/customer/Documentation.tsx'
 import CustomerIntegration from './pages/customer/Integration.tsx'
 import CustomerApiKeys from './pages/customer/ApiKeys.tsx'
@@ -42,7 +41,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path="usage" element={<CustomerUsage />} />
           <Route path="orders" element={<CustomerOrders />} />
           <Route path="billing" element={<CustomerOrders />} />
-          <Route path="docs" element={<CustomerDocs />} />
           <Route path="documentation" element={<CustomerDocumentation />} />
           <Route path="integration" element={<CustomerIntegration />} />
           <Route path="api-keys" element={<CustomerApiKeys />} />

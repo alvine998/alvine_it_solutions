@@ -11,8 +11,7 @@ export default function Integration() {
   const [base, setBase] = useState(FALLBACK_ROUTER_BASE);
   const [active, setActive] = useState("curl");
   useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setBase(b); }); }, []);
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  const authVal = token || "$TOKEN";
+  const authVal = "sk-...";
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardBg = isLight ? "#fff" : "rgba(255,255,255,0.02)";
@@ -25,13 +24,13 @@ export default function Integration() {
   const copy = async (code: string) => { try { await navigator.clipboard.writeText(code); toast("Copied"); } catch { toast("Copy failed"); } };
   const snippet: Record<string, string> = {
     curl: `curl ${base}/chat/completions \\
-  -H "Authorization: Bearer ${authVal}" \\
+  -H "X-Api-Key: ${authVal}" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`,
     node: `import OpenAI from "openai";
 const client = new OpenAI({
   baseURL: "${base}",
-  apiKey: "${authVal}", // ${token ? "your dashboard token" : "replace $TOKEN"} — or use X-Api-Key: sk-...
+  apiKey: "${authVal}", // your API key (sk-...) from the API Keys page — no login required
 });
 const res = await client.chat.completions.create({
   model: "auto",
@@ -40,7 +39,7 @@ const res = await client.chat.completions.create({
     python: `from openai import OpenAI
 client = OpenAI(
   base_url="${base}",
-  api_key="${authVal}",  # ${token ? "dashboard token" : "replace $TOKEN"} — or X-Api-Key: sk-...
+  api_key="${authVal}",  # your API key (sk-...) from the API Keys page — no login required
 )
 res = client.chat.completions.create(
   model="auto",
@@ -53,7 +52,7 @@ use GuzzleHttp\\Client;
 $client = new Client();
 $response = $client->post("${base}/chat/completions", [
   "headers" => [
-    "Authorization" => "Bearer ${authVal}",
+    "X-Api-Key" => "${authVal}",
     "Content-Type" => "application/json",
   ],
   "json" => [
@@ -73,7 +72,7 @@ import (
 func main() {
   body := []byte(\`{"model":"auto","messages":[{"role":"user","content":"Hello"}]}\`)
   req, _ := http.NewRequest("POST", "${base}/chat/completions", bytes.NewBuffer(body))
-  req.Header.Set("Authorization", "Bearer ${authVal}")
+  req.Header.Set("X-Api-Key", "${authVal}")
   req.Header.Set("Content-Type", "application/json")
   res, _ := http.DefaultClient.Do(req)
   defer res.Body.Close()
@@ -123,11 +122,6 @@ func main() {
         <pre style={{ margin: 0, padding: 16, background: codeBg, color: isLight ? "#1c1917" : "#e0e7ff", fontFamily: "DM Mono, monospace", fontSize: 12.5, lineHeight: 1.6, overflowX: "auto", minHeight: 180 }}>{snippet[active]}</pre>
       </div>
 
-       {!token && (
-        <div style={{ padding: "10px 12px", borderRadius: 10, background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.28)", color: isLight ? "#92400e" : "#fde68a", fontFamily: "DM Mono, monospace", fontSize: 12 }}>
-          No API key / token found — sign in, then copy your token from the dashboard or create a key in API Keys. Snippets above use $TOKEN placeholder until you log in.
-        </div>
-       )}
       <div style={{ borderRadius: 12, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(16,185,129,0.06)", padding: 14, fontFamily: "DM Mono, monospace", fontSize: 12, lineHeight: 1.7, color: muted, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
         <span style={{ color: "#10b981" }}>✓</span> {t("customer.integration.note")}
       </div>

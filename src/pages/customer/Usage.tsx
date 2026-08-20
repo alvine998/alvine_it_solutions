@@ -156,7 +156,7 @@ export default function Usage() {
         </pre>
         <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
           <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.usage.copySnippet")}</button>
-          <Link to="/dashboard/docs" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>{t("customer.usage.docsLink")}</Link>
+          <Link to="/dashboard/documentation" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>{t("customer.usage.docsLink")}</Link>
         </div>
       </div>
       <style>{`@media(max-width: 860px){ .usage-stats{ grid-template-columns: 1fr !important; } }`}</style>

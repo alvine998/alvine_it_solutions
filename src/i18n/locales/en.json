@@ -674,7 +674,7 @@
       "pythonTitle": "Python (OpenAI SDK)",
       "phpTitle": "PHP (Guzzle)",
       "goTitle": "Go (net/http)",
-      "note": "Replace $BASE with your endpoint and $TOKEN with your token or API key. The model is always auto."
+      "note": "Replace $BASE with your endpoint and use your API key (sk-...) from the API Keys page — no login required. The model is always auto."
     }
   }
 }
