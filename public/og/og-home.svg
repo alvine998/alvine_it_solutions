@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a14"/>
+      <stop offset="1" stop-color="#14142b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.15" r="0.9">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="157.5" x2="1200" y2="157.5"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="472.5" x2="1200" y2="472.5"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- brand mark -->
+  <g transform="translate(80, 74)">
+    <rect width="56" height="56" rx="14" fill="url(#accent)"/>
+    <text x="28" y="38" font-family="Space Grotesk, Arial, sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle">A</text>
+  </g>
+  <text x="156" y="116" font-family="Space Grotesk, Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">Alvine IT Solution</text>
+
+  <!-- headline -->
+  <text x="80" y="310" font-family="Space Grotesk, Arial, sans-serif" font-size="72" font-weight="800" fill="#ffffff">We Build</text>
+  <text x="80" y="395" font-family="Space Grotesk, Arial, sans-serif" font-size="72" font-weight="800" fill="url(#accent)">Digital Experiences</text>
+
+  <!-- subline -->
+  <text x="80" y="470" font-family="Inter, Arial, sans-serif" font-size="26" fill="#a5b4fc">Desktop Apps · Websites · RESTful APIs · Mobile Apps</text>
+
+  <!-- footer -->
+  <text x="80" y="556" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8b8ba3">Software House &amp; Digital Solutions</text>
+  <text x="1120" y="556" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8b8ba3" text-anchor="end">alvine.id</text>
+</svg>

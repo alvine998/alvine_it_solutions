@@ -7,7 +7,7 @@ export interface IPaymentMethod extends Document {
   type: PaymentMethodType;
   account_holder: string;
   account_number: string;
-  image?: string; // base64 data URL (used for QRIS)
+  image?: string; // QRIS image URL on Cloudflare R2 (public bucket / CDN)
   status: "active" | "inactive";
   createdAt: Date;
   updatedAt: Date;

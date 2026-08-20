@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
 import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
 import { toast } from "../../lib/toast";
@@ -8,6 +9,7 @@ type CreditCustomer = { _id: string; customer_id: string; balance: number };
 type CreditLog = { _id: string; credit_customer_id: string; credit_out: number; input_token: number; cached_token: number; output_token: number; model_name?: string; createdAt: string };
 
 export default function Usage() {
+  const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -73,61 +75,61 @@ export default function Usage() {
   const totalPages = Math.max(1, Math.ceil(totalLogs / 20));
   const copy = async (t: string) => { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy failed"); } };
 
-  if (loading) return <div style={{ color: muted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>Loading usage…</div>;
+  if (loading) return <div style={{ color: muted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>{t("customer.usage.loading")}</div>;
 
   return (
     <div style={{ display: "grid", gap: 16, color: fg }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-        <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 18, fontWeight: 800, color: fg }}>Usage</h2>
-        <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }} title={routerBase}>baseURL → {routerBase.replace(/^https?:\/\//, "")} · model: auto</span>
-        <button onClick={() => token && copy(token)} style={{ marginLeft: "auto", fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy token</button>
+        <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 18, fontWeight: 800, color: fg }}>{t("customer.usage.title")}</h2>
+        <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }} title={routerBase}>{t("customer.usage.baseUrlBadge", { base: routerBase.replace(/^https?:\/\//, "") })}</span>
+        <button onClick={() => token && copy(token)} style={{ marginLeft: "auto", fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.common.copyToken")}</button>
       </div>
 
       {err && <div role="alert" style={{ padding: "12px 14px", borderRadius: 12, background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.25)", color: isLight ? "#9f1239" : "#fecaca", fontFamily: "DM Mono, monospace", fontSize: 13 }}>{err}</div>}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }} className="usage-stats">
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(99,102,241,0.16), rgba(139,92,246,0.06))", border: `1px solid ${isLight ? "rgba(99,102,241,0.18)" : "rgba(99,102,241,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>CREDIT BALANCE</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.usage.creditBalance")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.6, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{credit?.balance?.toLocaleString?.() ?? "0"}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>available credits</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.usage.availableCredits")}</div>
         </div>
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(6,182,214,0.14), rgba(6,182,214,0.04))", border: `1px solid ${isLight ? "rgba(6,182,214,0.18)" : "rgba(6,182,214,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>CREDITS USED (page)</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.usage.creditsUsedPage")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{totalUsed.toLocaleString()}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{totalLogs} total requests</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.usage.totalRequests", { count: totalLogs })}</div>
         </div>
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(16,185,129,0.14), rgba(16,185,129,0.04))", border: `1px solid ${isLight ? "rgba(16,185,129,0.18)" : "rgba(16,185,129,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>TOKENS (page)</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.usage.tokensPage")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{totalTokens.toLocaleString()}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>input + cached + output</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.usage.tokenBreakdown")}</div>
         </div>
       </div>
 
       <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: cardSoft, overflow: "hidden", boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
         <div style={{ padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${border}`, gap: 12, flexWrap: "wrap" }}>
-          <h3 style={{ margin: 0, fontSize: 13, fontWeight: 700, fontFamily: "Space Grotesk, sans-serif", color: fg }}>Recent usage</h3>
+          <h3 style={{ margin: 0, fontSize: 13, fontWeight: 700, fontFamily: "Space Grotesk, sans-serif", color: fg }}>{t("customer.usage.recentUsage")}</h3>
           <div style={{ display: "flex", gap: 8, alignItems: "center", fontFamily: "DM Mono, monospace", fontSize: 12, color: muted }}>
-            <span>Page {page} / {totalPages}</span>
-            <button disabled={page <= 1} onClick={() => setPage(p => Math.max(1, p - 1))} style={{ padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: page <= 1 ? "transparent" : isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: page <= 1 ? "not-allowed" : "pointer", opacity: page <= 1 ? 0.4 : 1 }}>Prev</button>
-            <button disabled={page >= totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))} style={{ padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: page >= totalPages ? "transparent" : isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: page >= totalPages ? "not-allowed" : "pointer", opacity: page >= totalPages ? 0.4 : 1 }}>Next</button>
+            <span>{t("customer.usage.pageXofY", { page, total: totalPages })}</span>
+            <button disabled={page <= 1} onClick={() => setPage(p => Math.max(1, p - 1))} style={{ padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: page <= 1 ? "transparent" : isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: page <= 1 ? "not-allowed" : "pointer", opacity: page <= 1 ? 0.4 : 1 }}>{t("customer.usage.prev")}</button>
+            <button disabled={page >= totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))} style={{ padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: page >= totalPages ? "transparent" : isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: page >= totalPages ? "not-allowed" : "pointer", opacity: page >= totalPages ? 0.4 : 1 }}>{t("customer.usage.next")}</button>
           </div>
         </div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ textAlign: "left", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: subMuted, borderBottom: `1px solid ${faint}` }}>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>DATE</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>CREDIT OUT</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>INPUT</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>CACHED</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>OUTPUT</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>MODEL</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>TOTAL</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colDate")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colCreditOut")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colInput")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colCached")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colOutput")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colModel")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.usage.colTotal")}</th>
               </tr>
             </thead>
             <tbody>
               {logs.length === 0 ? (
-                <tr><td colSpan={7} style={{ padding: 28, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>No usage yet — make your first request and it will appear here.</td></tr>
+                <tr><td colSpan={7} style={{ padding: 28, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>{t("customer.usage.noUsage")}</td></tr>
               ) : logs.map(l => (
                 <tr key={l._id} style={{ borderBottom: `1px solid ${faint}` }}>
                   <td style={{ padding: "11px 14px", color: muted, whiteSpace: "nowrap" }}>{fmtDate(l.createdAt)}</td>
@@ -145,16 +147,16 @@ export default function Usage() {
       </div>
 
       <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.03)", padding: 14, boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
-        <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted, marginBottom: 10 }}>QUICK START — cURL</div>
+        <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted, marginBottom: 10 }}>{t("customer.usage.quickStart")}</div>
         <pre style={{ margin: 0, padding: 12, borderRadius: 12, background: codeBg, border: `1px solid ${faint}`, overflowX: "auto", fontFamily: "DM Mono, monospace", fontSize: 12, lineHeight: 1.6, color: isLight ? "#1c1917" : "#e0e7ff" }}>
 {`curl ${routerBase}/chat/completions \\
-  -H "Authorization: Bearer $TOKEN" \\
+  -H "Authorization: Bearer ${token || "$TOKEN"}" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`}
         </pre>
         <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
-          <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy snippet</button>
-          <Link to="/dashboard/docs" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>Docs →</Link>
+          <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.usage.copySnippet")}</button>
+          <Link to="/dashboard/docs" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>{t("customer.usage.docsLink")}</Link>
         </div>
       </div>
       <style>{`@media(max-width: 860px){ .usage-stats{ grid-template-columns: 1fr !important; } }`}</style>

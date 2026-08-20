@@ -2,6 +2,7 @@ import { useState, useEffect, useId } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FALLBACK_ROUTER_BASE } from "../lib/routerBaseUrl";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 type Mode = "login" | "register";
 type PlanKey = "starter" | "pro" | "platinum";
@@ -17,20 +18,22 @@ interface PlanOption {
 }
 
 const PLAN_DATA: Record<PlanKey, { credits: string; price: string; per: string }> = {
-  starter: { credits: "500", price: "$2", per: "/ month" },
-  pro: { credits: "3,500", price: "$10", per: "/ month" },
-  platinum: { credits: "12,000", price: "$29", per: "/ month" },
+  starter: { credits: "500", price: "IDR 150.000", per: "/ month" },
+  pro: { credits: "3,500", price: "IDR 500.000", per: "/ month" },
+  platinum: { credits: "12,000", price: "IDR 1.200.000", per: "/ month" },
 };
 
 const LEGACY_PLAN_KEYS = ["starter", "pro", "platinum"] as const;
 
 export default function Auth() {
   const { t, i18n } = useTranslation();
+  usePageMeta("auth", { noindex: true });
   const navigate = useNavigate();
   const [sp] = useSearchParams();
   const nameId = useId();
   const emailId = useId();
   const pwId = useId();
+  const refId = useId();
 
   const initialMode: Mode =
     (sp.get("mode") as Mode) === "login" ? "login" : (sp.get("mode") as Mode) === "register" ? "register" : "register";
@@ -43,6 +46,7 @@ export default function Auth() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [refCode, setRefCode] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
@@ -89,7 +93,7 @@ export default function Auth() {
     try {
       const path = mode === "login" ? "/api/router-customers/auth/login" : "/api/router-customers/auth/register";
       const url = ROUTER_BASE ? `${ROUTER_BASE}${path}` : path;
-      const body = mode === "login" ? { email, password } : { name, email, password };
+      const body = mode === "login" ? { email, password } : { name, email, password, ref_code: refCode.trim() };
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -496,6 +500,36 @@ export default function Auth() {
                   </button>
                 </div>
               </div>
+              {mode === "register" && (
+                <div>
+                  <label htmlFor={refId} style={{ display: "block", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: "#57534e", marginBottom: 6 }}>
+                    {t("auth.refCodeLabel").toUpperCase()}
+                  </label>
+                  <input
+                    id={refId}
+                    value={refCode}
+                    onChange={(e) => setRefCode(e.target.value.toUpperCase())}
+                    placeholder={t("auth.refCodePlaceholder")}
+                    autoComplete="off"
+                    style={{
+                      width: "100%",
+                      padding: "11px 13px",
+                      borderRadius: 10,
+                      border: "1px solid #d6d3d1",
+                      background: "#fff",
+                      color: "#1c1917",
+                      fontSize: 14,
+                      fontFamily: "DM Mono, monospace",
+                      letterSpacing: 0.4,
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                  <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(28,25,23,0.45)", marginTop: 6, lineHeight: 1.6 }}>
+                    {t("auth.refCodeHint")}
+                  </div>
+                </div>
+              )}
             </div>
 
             {err && (

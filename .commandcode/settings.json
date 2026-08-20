@@ -7,7 +7,10 @@
       "Shell(npx tsc --noEmit 2 >& 1)",
       "Shell(grep:*)",
       "Shell(bunx tsc --noEmit)",
-      "Shell(git ls-files | grep -i env; echo \"---\"; git log --oneline -3 -- .env server/.env 2>/dev/null; echo \"---\"; git check-ignore .env server/.env 2>/dev/null; echo \"exit: $?\")"
+      "Shell(git ls-files | grep -i env; echo \"---\"; git log --oneline -3 -- .env server/.env 2>/dev/null; echo \"---\"; git check-ignore .env server/.env 2>/dev/null; echo \"exit: $?\")",
+      "Shell(which rsvg-convert convert magick inkscape 2>/dev/null; echo \"---\"; ls /Users/alvineyoga/Documents/new/non\\ jobs/alvine_it_solution/public/images)",
+      "Shell(ls /Users/alvineyoga/Documents/new/non\\ jobs/alvine_it_solution/server/node_modules/.package-lock.json 2>/dev/null; ls /Users/alvineyoga/Documents/new/non\\ jobs/alvine_it_solution/server/node_modules | grep -iE \"sharp|canvas|jimp|resvg\" | head; echo \"---bun---\"; which bun)",
+      "Shell(ls -la dist/ dist/og/ 2>/dev/null; echo \"---robots---\"; cat dist/robots.txt 2>/dev/null; echo \"---sitemap---\"; head -5 dist/sitemap.xml 2>/dev/null)"
     ],
     "deny": [],
     "defaultMode": "default"

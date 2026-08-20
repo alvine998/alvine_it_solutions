@@ -231,7 +231,7 @@ export default function CustomerDashboard() {
           <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: "rgba(255,255,255,0.45)", marginBottom: 10 }}>QUICK START — cURL</div>
           <pre style={{ margin: 0, padding: 14, borderRadius: 12, background: "#0f0f1a", border: "1px solid rgba(255,255,255,0.08)", overflowX: "auto", fontFamily: "DM Mono, monospace", fontSize: 12.5, lineHeight: 1.6, color: "#e0e7ff" }}>
 {`curl ${routerBase}/chat/completions \\
-  -H "Authorization: Bearer $TOKEN" \\
+  -H "Authorization: Bearer ${token || "$TOKEN"}" \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`}
           </pre>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
 import { toast } from "../../lib/toast";
 
@@ -13,6 +14,7 @@ type RouterModelOpt = {
 };
 
 export default function Chat() {
+  const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
   const token =
@@ -20,8 +22,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
-      content:
-        "Hi — I'm your AI router. Pick a model below (auto = cheapest active). Credits billed per 1k tokens.",
+      content: t("customer.chat.greeting"),
     },
   ]);
   const [input, setInput] = useState("");
@@ -128,11 +129,11 @@ export default function Chat() {
           msg = `${msg} — tried: ${data.tried.join(", ")}`;
         if (res.status === 402)
           throw new Error(
-            `${msg} — balance: ${data.balance ?? balance ?? 0}. Top up in Billing.`,
+            `${msg} — balance: ${data.balance ?? balance ?? 0}. ${t("customer.chat.topUp")}`,
           );
         if (res.status === 503)
           throw new Error(
-            msg + " (admin: set base_url + API key in Router Models)",
+            msg + " " + t("customer.chat.adminRouterModels"),
           );
         throw new Error(msg.length > 1200 ? msg.slice(0, 1200) + "…" : msg);
       }
@@ -294,7 +295,7 @@ export default function Chat() {
           {
             role: "assistant",
             content:
-              "No active router model. Admin → Router Models: add base URL + API key, set status active.",
+              t("customer.chat.noModelError"),
           },
         ]);
       }
@@ -345,7 +346,7 @@ export default function Chat() {
             color: muted,
           }}
         >
-          CHAT
+          {t("customer.chat.chat")}
         </span>
         <select
           value={selected}
@@ -377,7 +378,7 @@ export default function Chat() {
               color: "#f59e0b",
             }}
           >
-            No models — admin must add one
+            {t("customer.chat.noModels")}
           </span>
         )}
         <span
@@ -408,7 +409,7 @@ export default function Chat() {
             cursor: "pointer",
           }}
         >
-          Copy token
+          {t("customer.common.copyToken")}
         </button>
         <button
           onClick={() => {
@@ -426,7 +427,7 @@ export default function Chat() {
             cursor: "pointer",
           }}
         >
-          Refresh
+          {t("customer.apiKeys.refresh")}
         </button>
       </div>
 
@@ -488,7 +489,7 @@ export default function Chat() {
               padding: "4px 2px",
             }}
           >
-            thinking…
+            {t("customer.chat.thinking")}
           </div>
         )}
       </div>
@@ -531,7 +532,7 @@ export default function Chat() {
               send();
             }
           }}
-          placeholder="Message… (Shift+Enter for new line)"
+          placeholder={t("customer.chat.placeholder")}
           rows={1}
           style={{
             flex: 1,
@@ -570,7 +571,7 @@ export default function Chat() {
             whiteSpace: "nowrap",
           }}
         >
-          Send →
+          {t("customer.chat.send")}
         </button>
       </form>
     </div>

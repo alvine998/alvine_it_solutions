@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useCustomer } from "../../components/CustomerLayout";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
 import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
@@ -6,6 +7,7 @@ import { toast } from "../../lib/toast";
 
 export default function Profile() {
   const { user, token, refreshMe } = useCustomer();
+  const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
   const [name, setName] = useState(user?.name ?? "");
@@ -58,7 +60,7 @@ export default function Profile() {
 
   return (
     <div style={{ display: "grid", gap: 16, maxWidth: 640, color: fg }}>
-      <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 18, fontWeight: 800, color: fg }}>Profile</h2>
+      <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 18, fontWeight: 800, color: fg }}>{t("customer.profile.title")}</h2>
 
       <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: cardBg, padding: 16, display: "grid", gap: 12, boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
@@ -70,14 +72,29 @@ export default function Profile() {
           <span style={{ marginLeft: "auto", fontFamily: "DM Mono, monospace", fontSize: 11, padding: "5px 9px", borderRadius: 20, background: user?.status === "active" ? "rgba(16,185,129,0.14)" : "rgba(245,158,11,0.12)", border: `1px solid ${user?.status === "active" ? "rgba(16,185,129,0.25)" : "rgba(245,158,11,0.25)"}`, color: user?.status === "active" ? "#10b981" : "#f59e0b" }}>{user?.status ?? "—"}</span>
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>ID: {user?.id ?? "—"}</span>
-          <button onClick={() => user?.id && copy(user.id)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "5px 10px", borderRadius: 20, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy ID</button>
+          <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, border: `1px solid ${border}`, padding: "5px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>{t("customer.profile.idLabel", { id: user?.id ?? "—" })}</span>
+          <button onClick={() => user?.id && copy(user.id)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "5px 10px", borderRadius: 20, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.profile.copyId")}</button>
+        </div>
+      </div>
+
+      {/* referral code — earn 100 credits per referred buyer, up to 3 times */}
+      <div style={{ borderRadius: 16, border: "1px solid rgba(99,102,241,0.3)", background: isLight ? "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,214,0.05))" : "linear-gradient(135deg, rgba(99,102,241,0.14), rgba(6,182,214,0.07))", padding: 16, display: "grid", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: "#6366f1" }}>{t("customer.profile.referralEyebrow")}</span>
+          <span style={{ marginLeft: "auto", fontFamily: "DM Mono, monospace", fontSize: 11, padding: "4px 9px", borderRadius: 20, background: "rgba(16,185,129,0.14)", border: "1px solid rgba(16,185,129,0.25)", color: "#10b981" }}>{t("customer.profile.referralReward")}</span>
+        </div>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <code style={{ flex: 1, minWidth: 180, fontFamily: "DM Mono, monospace", fontSize: 15, fontWeight: 700, letterSpacing: 1, color: isLight ? "#1c1917" : "#e0e7ff", background: isLight ? "#fff" : "#0f0f1a", border: `1px solid ${border}`, padding: "10px 12px", borderRadius: 10 }}>{user?.ref_code ?? "—"}</code>
+          <button onClick={() => user?.ref_code && copy(user.ref_code)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "9px 13px", borderRadius: 10, border: "1px solid rgba(99,102,241,0.35)", background: "linear-gradient(135deg,#6366f1,#06b6d4)", color: "#fff", cursor: "pointer", fontWeight: 700 }}>{t("customer.profile.copyCode")}</button>
+        </div>
+        <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12.5, lineHeight: 1.6, color: muted }}>
+          {t("customer.profile.referralDesc")}
         </div>
       </div>
 
       <form onSubmit={save} style={{ borderRadius: 16, border: `1px solid ${border}`, background: cardSoft, padding: 16, display: "grid", gap: 14, boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
         <div>
-          <label style={{ display: "block", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: muted, marginBottom: 6 }}>NAME</label>
+          <label style={{ display: "block", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: muted, marginBottom: 6 }}>{t("customer.profile.name")}</label>
           <input
             value={name}
             onChange={e => setName(e.target.value)}
@@ -86,30 +103,30 @@ export default function Profile() {
           />
         </div>
         <div>
-          <label style={{ display: "block", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: muted, marginBottom: 6 }}>EMAIL</label>
+          <label style={{ display: "block", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: muted, marginBottom: 6 }}>{t("customer.profile.email")}</label>
           <input
             value={email}
             readOnly
             style={{ width: "100%", boxSizing: "border-box", padding: "11px 13px", borderRadius: 10, border: `1px solid ${border}`, background: inputBgReadonly, color: muted, fontSize: 14 }}
           />
-          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: faintMuted, marginTop: 6 }}>Email change requires support — contact us.</div>
+          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: faintMuted, marginTop: 6 }}>{t("customer.profile.emailChangeNote")}</div>
         </div>
 
         {err && <div role="alert" style={{ padding: "10px 12px", borderRadius: 10, background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.22)", color: isLight ? "#9f1239" : "#fecaca", fontFamily: "DM Mono, monospace", fontSize: 12 }}>{err}</div>}
         {msg && <div role="status" style={{ padding: "10px 12px", borderRadius: 10, background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.22)", color: isLight ? "#065f46" : "#86efac", fontFamily: "DM Mono, monospace", fontSize: 12 }}>{msg}</div>}
 
         <button type="submit" disabled={saving} style={{ padding: "11px 16px", borderRadius: 10, border: "1px solid rgba(99,102,241,0.35)", background: saving ? (isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)") : "linear-gradient(135deg,#6366f1,#06b6d4)", color: saving ? muted : "#fff", fontWeight: 700, fontFamily: "Space Grotesk, sans-serif", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.6 : 1 }}>
-          {saving ? "Saving…" : "Save changes"}
+          {saving ? t("customer.profile.saving") : t("customer.profile.saveChanges")}
         </button>
       </form>
 
       <div style={{ borderRadius: 12, border: `1px solid ${border}`, background: cardSoft, padding: 14, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-        <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: subMuted, marginBottom: 8 }}>API ACCESS</div>
+        <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: subMuted, marginBottom: 8 }}>{t("customer.profile.apiAccess")}</div>
         <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <code style={{ flex: 1, minWidth: 200, fontFamily: "DM Mono, monospace", fontSize: 11.5, color: isLight ? "#1c1917" : "#e0e7ff", background: isLight ? "#f5f5f4" : "#0f0f1a", border: `1px solid ${border}`, padding: "9px 11px", borderRadius: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{routerBase}/chat/completions</code>
-          <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "8px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>Copy endpoint</button>
+          <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "8px 11px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.profile.copyEndpoint")}</button>
         </div>
-        <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>Copy token</button>
+        <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "7px 11px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>{t("customer.common.copyToken")}</button>
       </div>
     </div>
   );

@@ -84,6 +84,7 @@ export default function AdminPaymentMethods() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<PaymentMethod | null>(null);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fetchRows = async () => {
@@ -153,21 +154,35 @@ export default function AdminPaymentMethods() {
     setError("");
   };
 
-  const handleImageFile = (file: File | undefined) => {
+  const handleImageFile = async (file: File | undefined) => {
     if (!file) return;
     if (!file.type.startsWith("image/")) {
       setError("Please select an image file (PNG/JPG)");
       return;
     }
-    if (file.size > 500 * 1024) {
-      setError("Image must be under 500 KB");
+    if (file.size > 2 * 1024 * 1024) {
+      setError("Image must be under 2 MB");
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFormData((prev) => ({ ...prev, image: String(reader.result || "") }));
-    };
-    reader.readAsDataURL(file);
+    setError("");
+    setUploading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const body = new FormData();
+      body.append("image", file);
+      const res = await fetch("/api/payment-methods/upload-qris", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to upload image");
+      setFormData((prev) => ({ ...prev, image: data.url }));
+    } catch (err: any) {
+      setError(err.message || "Failed to upload image");
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -717,18 +732,20 @@ export default function AdminPaymentMethods() {
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
+                          disabled={uploading}
                           style={{
                             padding: "10px 16px",
                             borderRadius: 10,
                             background: "rgba(99, 102, 241, 0.15)",
                             color: "#a5b4fc",
                             border: "1px solid rgba(99, 102, 241, 0.3)",
-                            cursor: "pointer",
+                            cursor: uploading ? "not-allowed" : "pointer",
                             fontSize: 13,
                             fontWeight: 600,
+                            opacity: uploading ? 0.6 : 1,
                           }}
                         >
-                          Replace Image
+                          {uploading ? "Uploading…" : "Replace Image"}
                         </button>
                         <button
                           type="button"
@@ -758,12 +775,14 @@ export default function AdminPaymentMethods() {
                           border: "1px dashed rgba(255,255,255,0.2)",
                           background: "rgba(255,255,255,0.03)",
                           color: "rgba(255,255,255,0.6)",
-                          cursor: "pointer",
+                          cursor: uploading ? "not-allowed" : "pointer",
                           fontSize: 13,
                           fontWeight: 500,
+                          opacity: uploading ? 0.6 : 1,
                         }}
+                        disabled={uploading}
                       >
-                        Upload QRIS image (PNG/JPG, max 500 KB)
+                        {uploading ? "Uploading to CDN…" : "Upload QRIS image (PNG/JPG, max 2 MB)"}
                       </button>
                     )}
                   </div>

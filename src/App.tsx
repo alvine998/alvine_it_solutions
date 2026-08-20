@@ -13,6 +13,8 @@ import OurTeam from "./components/OurTeam";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Scene3D from "./components/Scene3D";
+import Seo from "./components/Seo";
+import { usePageMeta } from "./hooks/usePageMeta";
 
 function ScrollMeter() {
   const { scrollYProgress } = useScroll();
@@ -39,14 +41,34 @@ function WhatsAppButton() {
 
 export default function App() {
   const lenisRef = useRef<LenisRef>(null);
+  usePageMeta("home");
 
   return (
     <ReactLenis root options={{ autoRaf: true, lerp: 0.09 }} ref={lenisRef}>
+      <Seo />
+      <a
+        href="#main-content"
+        style={{
+          position: "absolute",
+          left: -9999,
+          top: 0,
+          zIndex: 9999,
+          background: "#6366f1",
+          color: "#fff",
+          padding: "10px 16px",
+          borderRadius: 8,
+          fontFamily: "Inter, sans-serif",
+        }}
+        onFocus={(e) => (e.currentTarget.style.left = "8px")}
+        onBlur={(e) => (e.currentTarget.style.left = "-9999px")}
+      >
+        Skip to content
+      </a>
       <div style={{ background: "#0a0a14", minHeight: "100vh" }}>
         <Scene3D />
         <ScrollMeter />
         <Navbar />
-        <main style={{ position: "relative", zIndex: 10 }}>
+        <main id="main-content" style={{ position: "relative", zIndex: 10 }}>
           <Hero />
           <Services />
           <AiRouter />

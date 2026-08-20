@@ -1,4 +1,51 @@
 {
+  "seo": {
+    "home": {
+      "title": "Alvine IT Solution — 软件公司与数字解决方案",
+      "description": "我们构建桌面应用、网站、RESTful API 和移动应用。位于印尼的软件公司，为企业提供定制数字解决方案。",
+      "ogImage": "/og/og-home.png"
+    },
+    "services": {
+      "title": "服务 — 桌面应用、网站、API 与移动应用 | Alvine IT Solution",
+      "description": "定制软件开发服务：跨平台桌面应用、响应式网站、可扩展的 RESTful API 以及原生移动应用。"
+    },
+    "aiRouter": {
+      "title": "AI Router — 一个 API 调用所有大模型 | Alvine IT Solution",
+      "description": "兼容 OpenAI 的 AI 路由器，具备智能模型路由、成本优化、自动回退和可观测性。一个模型 — auto。按积分付费，无需猜测。"
+    },
+    "pricing": {
+      "title": "AI Router 定价 — 积分制套餐 | Alvine IT Solution",
+      "description": "AI Router 简单的积分制定价：Starter、Pro 和 Platinum 套餐。按积分付费，无需猜测。"
+    },
+    "portfolio": {
+      "title": "作品集 — 我们构建的项目 | Alvine IT Solution",
+      "description": "Alvine IT Solution 的精选项目：房地产平台、库存管理、招聘门户、移动应用和物流解决方案。"
+    },
+    "about": {
+      "title": "关于我们 — Alvine IT Solution",
+      "description": "Alvine IT Solution 是一家软件公司，致力于构建推动业务增长的创新软件 — 简洁代码、现代架构、以用户为中心的设计。"
+    },
+    "team": {
+      "title": "我们的团队 — Alvine IT Solution",
+      "description": "认识 Alvine IT Solution 背后的团队：开发人员、设计师和策略师，打造卓越的数字产品。"
+    },
+    "contact": {
+      "title": "联系我们 — 开始您的项目 | Alvine IT Solution",
+      "description": "联系 Alvine IT Solution。告诉我们您的项目，一起打造非凡的产品。"
+    },
+    "auth": {
+      "title": "登录或注册 — AI Router | Alvine IT Solution",
+      "description": "登录以管理您的 AI Router 积分和使用情况。"
+    },
+    "invoice": {
+      "title": "发票生成器 — 创建并打印发票 | Alvine IT Solution",
+      "description": "免费的在线发票生成器。您输入的内容会即时更新文档 — 打印或保存为 PDF。"
+    },
+    "dashboard": {
+      "title": "仪表板 — Alvine IT Solution",
+      "description": "管理您的 AI Router 账户、积分和使用情况。"
+    }
+  },
   "nav": {
     "brand": "Alvine IT SOLUTIONS",
     "home": "首页",
@@ -302,11 +349,19 @@
     "noFeatures": "暂无功能列表",
     "footnote": "积分在计费周期内永不过期。需要更多？",
     "footnoteLink": "联系销售",
+    "referral": {
+      "eyebrow": "推荐 — 免费积分",
+      "title": "最高可赚取 300 免费积分",
+      "desc": "分享您的推荐码。当有人用它注册并购买套餐时，您将获得 100 免费积分 — 每个推荐码最多 3 次。",
+      "step1": "在个人资料中获取您的推荐码",
+      "step2": "朋友用您的推荐码注册",
+      "step3": "他们购买套餐 → 您获得 +100"
+    },
     "plans": {
       "starter": {
         "name": "入门版",
         "desc": "先试试。",
-        "price": "$2",
+        "price": "IDR 150.000",
         "credits": "500 积分",
         "period": "/ 月",
         "cta": "开始使用",
@@ -321,7 +376,7 @@
       "pro": {
         "name": "专业版",
         "desc": "适合常规开发者。",
-        "price": "$10",
+        "price": "IDR 500.000",
         "credits": "3,500 积分",
         "period": "/ 月",
         "cta": "选择专业版",
@@ -336,7 +391,7 @@
       "platinum": {
         "name": "铂金版",
         "desc": "适合重度用户与团队。",
-        "price": "$29",
+        "price": "IDR 1.200.000",
         "credits": "12,000 积分",
         "period": "/ 月",
         "cta": "选择铂金版",
@@ -379,11 +434,245 @@
     "pwHint": "至少 6 位",
     "legalLine": "继续即表示同意条款。积分按 auto 的每 1k tokens 计量。",
     "showPassword": "显示密码",
-    "hidePassword": "隐藏密码"
+    "hidePassword": "隐藏密码",
+    "refCodeLabel": "推荐码（可选）",
+    "refCodePlaceholder": "例如 ALVINE-X7K2Q",
+    "refCodeHint": "有推荐码？输入它 — 当您购买第一个套餐时，推荐码所有者将获得 100 免费积分。"
   },
   "dashboard": {
     "switchToDark": "切换到深色",
     "switchToLight": "切换到浅色",
     "viewSite": "查看网站"
+  },
+  "customer": {
+    "common": {
+      "loading": "加载中…",
+      "copy": "复制",
+      "copyToken": "复制 token",
+      "modelAuto": "模型: auto",
+      "billedPer1k": "积分按每 1k token 计费 · 模型: auto"
+    },
+    "dashboard": {
+      "loading": "加载控制台…",
+      "eyebrow": "AI 路由 — 控制台",
+      "welcome": "欢迎回来，{{name}}",
+      "monitorLine": "监控 {{email}} 的积分、用量与 API 访问",
+      "status": "状态:",
+      "baseUrl": "baseURL: {{base}}",
+      "openChat": "打开对话 →",
+      "viewUsage": "查看用量 →",
+      "apiAccess": "API 访问",
+      "endpoint": "端点",
+      "auth": "认证: Authorization: Bearer <token>",
+      "swapNote": "只需替换 OpenAI 的 baseURL，保留你的 SDK。积分按每 1k token 计费。",
+      "creditBalance": "积分余额",
+      "availableCredits": "可用积分",
+      "creditsUsed": "已用积分（示例）",
+      "totalRequests": "{{count}} 次总请求",
+      "tokens": "Token（示例）",
+      "tokenBreakdown": "输入 + 缓存 + 输出",
+      "recentUsage": "近期用量",
+      "viewAll": "查看全部 →",
+      "colDate": "日期",
+      "colCreditOut": "消耗积分",
+      "colTokens": "Token",
+      "noUsage": "暂无用量 — 发出你的第一个请求。"
+    },
+    "usage": {
+      "loading": "加载用量…",
+      "title": "用量",
+      "baseUrlBadge": "baseURL → {{base}} · 模型: auto",
+      "creditBalance": "积分余额",
+      "availableCredits": "可用积分",
+      "creditsUsedPage": "已用积分（本页）",
+      "totalRequests": "{{count}} 次总请求",
+      "tokensPage": "Token（本页）",
+      "tokenBreakdown": "输入 + 缓存 + 输出",
+      "recentUsage": "近期用量",
+      "pageXofY": "第 {{page}} / {{total}} 页",
+      "prev": "上一页",
+      "next": "下一页",
+      "colDate": "日期",
+      "colCreditOut": "消耗积分",
+      "colInput": "输入",
+      "colCached": "缓存",
+      "colOutput": "输出",
+      "colModel": "模型",
+      "colTotal": "总计",
+      "noUsage": "暂无用量 — 发出你的第一个请求，将显示在此处。",
+      "quickStart": "快速开始 — cURL",
+      "copySnippet": "复制片段",
+      "docsLink": "文档 →"
+    },
+    "billing": {
+      "loading": "加载账单…",
+      "title": "账单",
+      "activeBadge": "当前: {{plan}}",
+      "plansNote": "套餐实时来自 GET /api/plans — 管理员的修改会显示在此。选择一个套餐创建订单，然后在 Orders 中支付。",
+      "orderCreated": "已为 {{plan}} 创建订单。前往 Orders 支付。",
+      "viewOrdersLink": "查看订单 →",
+      "noPlans": "暂无激活套餐。请在 管理 → 套餐 中创建一个。兜底价格：入门版 IDR 150.000/500、专业版 IDR 500.000/3.5k、铂金版 IDR 1.200.000/12k。",
+      "current": "当前",
+      "modelAutoNote": "模型: auto · 按每 1k token 计费",
+      "placing": "创建中…",
+      "renew": "续费 / 延长 →",
+      "choosePlan": "选择此套餐 →",
+      "createsPending": "将创建待支付订单 → 在 Orders 中支付",
+      "goToOrders": "前往 Orders →",
+      "viewPricing": "查看价格",
+      "refreshPlans": "刷新套餐"
+    },
+    "orders": {
+      "title": "订单",
+      "choosePlan": "选择套餐 — 下单",
+      "loadingPlans": "加载套餐…",
+      "noPlans": "暂无激活套餐。管理 → 套餐 创建一个。",
+      "orderThisPlan": "下单此套餐 →",
+      "placing": "创建中…",
+      "myOrders": "我的订单",
+      "filterAll": "全部",
+      "filterPending": "待支付",
+      "filterAwaiting": "待验证",
+      "filterPaid": "已支付",
+      "filterCancelled": "已取消",
+      "countOrders": "{{count}} 个订单",
+      "loadingOrders": "加载订单…",
+      "noOrders": "暂无订单。在上方选择一个套餐创建你的第一个订单。",
+      "colDate": "日期",
+      "colPlan": "套餐",
+      "colAmount": "金额",
+      "colCredits": "积分",
+      "colStatus": "状态",
+      "colPeriod": "周期",
+      "colAction": "操作",
+      "periodDash": "—",
+      "pay": "支付 →",
+      "cancel": "取消",
+      "paidBadge": "已支付 ✓",
+      "awaiting": "待验证",
+      "chatAdmin": "在 Telegram 联系管理员 →",
+      "footerNote": "付款由我们团队核实。提交凭证后，我们会核对（匹配唯一的后 3 位）并为您充值套餐。准备好后可把 POST /api/orders/:id/pay 替换为网关 webhook。",
+      "modalPayment": "支付",
+      "modalPayFor": "支付 {{plan}}",
+      "summaryPlan": "套餐",
+      "summaryAmount": "金额",
+      "summaryCredits": "积分",
+      "exactAmountNote": "请转账上方精确金额。后 3 位是唯一识别码，便于我们自动匹配你的付款。",
+      "payWith": "支付方式",
+      "noMethods": "尚未配置支付方式。上传凭证并确认即可提交。",
+      "paymentProof": "付款凭证",
+      "replace": "替换",
+      "remove": "移除",
+      "uploadProof": "上传付款凭证（截图）",
+      "uploading": "上传中…",
+      "confirmPayment": "确认支付 →",
+      "submitNote": "提交凭证后，我们团队将核实付款并激活你的套餐。",
+      "submitting": "提交中…",
+      "submittedTitle": "待验证",
+      "submittedDesc": "你为 {{plan}} 提交的付款凭证已收到。我们团队将核实并尽快激活你的套餐。",
+      "confirmedTitle": "支付已确认",
+      "confirmedDesc": "{{plan}} 现已激活，积分已加入你的余额。",
+      "balance": "余额: {{balance}} 积分",
+      "referral": "通过推荐码 {{code}} 获得 +{{reward}} 推荐积分（剩余 {{remaining}}/3）",
+      "done": "完成"
+    },
+    "profile": {
+      "title": "个人资料",
+      "name": "姓名",
+      "email": "邮箱",
+      "emailChangeNote": "修改邮箱需联系客服。",
+      "saving": "保存中…",
+      "saveChanges": "保存修改",
+      "updated": "资料已更新。",
+      "referralEyebrow": "推荐码",
+      "referralReward": "+100 积分 / 每位买家 · 最多 3 次",
+      "copyCode": "复制推荐码",
+      "referralDesc": "分享此码 — 当有人使用它注册并购买套餐后，你将获得 100 免费积分。每个码最多 3 次 = 共 300 积分。",
+      "idLabel": "ID: {{id}}",
+      "copyId": "复制 ID",
+      "apiAccess": "API 访问",
+      "copyEndpoint": "复制端点"
+    },
+    "apiKeys": {
+      "title": "API 密钥",
+      "intro": "密钥前缀为 sk-。对 /chat/completions 使用 X-Api-Key: sk-... 或 Authorization: Bearer sk-...。原始密钥仅在创建时显示一次。",
+      "newKeyCopy": "新密钥 — 立即复制（不会再次显示）",
+      "keyMeta": "密钥: {{prefix}}…{{last4}} · {{name}}",
+      "dismiss": "关闭",
+      "newKeyName": "新密钥名称",
+      "namePlaceholder": "例如 production、local-dev",
+      "creating": "创建中…",
+      "createKey": "创建密钥",
+      "nameRequired": "请填写名称",
+      "yourKeys": "你的密钥 · {{count}} · 最多 10 个激活",
+      "refresh": "刷新",
+      "noKeys": "暂无密钥 — 在上方创建一个。",
+      "colName": "名称",
+      "colKey": "密钥",
+      "colStatus": "状态",
+      "colLastUsed": "最近使用",
+      "colCreated": "创建时间",
+      "colActions": "操作",
+      "lastUsedDash": "—",
+      "save": "保存",
+      "cancel": "取消",
+      "rename": "重命名",
+      "revoke": "吊销",
+      "delete": "删除",
+      "revokeConfirm": "吊销此密钥？使用它的现有集成将停止工作。",
+      "deleteConfirm": "永久删除此密钥？",
+      "usageTitle": "用法",
+      "usageBearer": "同样支持: Authorization: Bearer sk-...（同一密钥）。控制台仍可使用 JWT 登录。"
+    },
+    "chat": {
+      "greeting": "你好 — 我是你的 AI 路由器。在下方选择模型（auto = 最便宜的可用模型）。积分按每 1k token 计费。",
+      "chat": "对话",
+      "noModels": "无可用模型 — 管理员需先添加一个",
+      "copyToken": "复制 token",
+      "refresh": "刷新",
+      "thinking": "思考中…",
+      "placeholder": "输入消息…（Shift+Enter 换行）",
+      "send": "发送 →",
+      "noModelError": "无激活的路由模型。管理 → 路由模型: 添加 base URL + API key，并设为激活。",
+      "topUp": "请在账单充值。",
+      "adminRouterModels": "管理员: 在路由模型中设置 base_url + API key"
+    },
+    "docs": {
+      "title": "文档",
+      "intro": "兼容 OpenAI。只需修改 baseURL。认证方式 Authorization: Bearer <token>。模型始终为 auto（路由器自动选择最佳）。",
+      "endpoint": "端点",
+      "copyEndpoint": "复制端点",
+      "copyToken": "复制 token",
+      "auth": "认证",
+      "model": "模型",
+      "curl": "cURL",
+      "node": "Node.js（OpenAI SDK）",
+      "python": "Python（OpenAI SDK）",
+      "billingNote": "✓ 计费按每 1k token 通过积分结算 — 用量详见 Usage。需要帮助？通过 WhatsApp 联系我们。"
+    },
+    "documentation": {
+      "title": "文档",
+      "subtitle": "了解 AI 路由器如何工作 — 积分、auto 模型与认证。",
+      "overviewTitle": "什么是 AI 路由器？",
+      "overview": "一个兼容 OpenAI 的端点，将每个请求路由到能够应答的最便宜、最快的模型。你发送提示词，路由器选择供应商。无需指定模型，无供应商锁定。",
+      "creditsTitle": "积分如何计费",
+      "credits": "每个请求按每 1,000 token 从你的积分余额中扣费，包含输入、缓存与输出 token。可随时在账单充值 — 积分在计费周期内不会过期。",
+      "autoTitle": "auto 模型",
+      "auto": "始终发送 model: \"auto\"。路由器会根据意图、延迟与成本为每条提示词匹配最佳可用模型，并在供应商限流或故障时自动降级。",
+      "authTitle": "认证",
+      "auth": "使用控制台 token 或 API 密钥进行认证。在每个发往 /chat/completions 的请求中通过 Authorization: Bearer <token> 或 X-Api-Key: sk-... 传递。",
+      "fallbackTitle": "降级与可观测",
+      "fallback": "若主供应商失败，路由器会自动重试下一个最佳模型。每个请求的成本与延迟都会记录在用量中。"
+    },
+    "integration": {
+      "title": "集成",
+      "subtitle": "可与任意 OpenAI SDK 直接接入。只需修改 baseURL — 其余保持不变。",
+      "curlTitle": "cURL",
+      "nodeTitle": "Node.js（OpenAI SDK）",
+      "pythonTitle": "Python（OpenAI SDK）",
+      "phpTitle": "PHP（Guzzle）",
+      "goTitle": "Go（net/http）",
+      "note": "将 $BASE 替换为你的端点，$TOKEN 替换为你的 token 或 API 密钥。模型始终为 auto。"
+    }
   }
 }

@@ -6,3 +6,87 @@
 - Prefers lightweight, dependency-minimal implementations (e.g., Canvas 2D over Three.js/WebGL) when the visual effect can be achieved with simpler technology. Values reduced bundle size and broad device compatibility. Confidence: 0.75
 - Prefers interactive canvas/WebGL scenes to support touch events (touchmove, touchend) on mobile devices, not just mouse events. Confidence: 0.85
 - Prefers canvas rendering complexity (node/particle count, edge distance, signal count) and device pixel ratio to be reduced on mobile for performance. Confidence: 0.80
+- Prefers Bun as the JavaScript/TypeScript runtime for both frontend and backend projects. Confidence: 0.95
+- Prefers TypeScript with strict mode across the full stack (frontend and backend). Confidence: 0.95
+- Prefers Express.js for building backend API servers. Confidence: 0.85
+- Prefers Mongoose with typed TypeScript interfaces for MongoDB data modeling. Confidence: 0.90
+- Prefers monorepo structure with backend in a separate `server/` directory and its own `package.json`. Confidence: 0.90
+- Prefers structured backend code with separate `routes/` and `models/` directories. Confidence: 0.90
+- Prefers Docker Compose for deployment orchestration, including database and reverse proxy services. Confidence: 0.95
+- Prefers healthchecks on all Docker Compose services with `depends_on: condition: service_healthy` so dependent services wait for healthy backends before starting. Confidence: 0.90
+- Prefers health check commands that use tools already present in the base Docker image (e.g., add `curl` via `apk add` in the Dockerfile for nginx:alpine, use `bun -e "await fetch(...)"` for Bun services, use `nginx -t` for bare nginx). Avoids relying on utilities not pre-installed in the image. Confidence: 0.85
+- Deploys to a Linux Ubuntu VPS for production. Expects deploy scripts and Docker configurations to target Linux (not macOS). Confidence: 0.80
+- Prefers `env_file` in Docker Compose to load environment variables (e.g., MONGODB_URI) from `.env` rather than duplicating values in `environment:`. Confidence: 0.88
+- Prefers blue-green deployment strategy for frontend services with automated swap and rollback support. Confidence: 0.85
+- Prefers deploy scripts with multiple modes (deploy, setup, server-only, full rebuild, status, logs, rollback) and colored terminal output. Confidence: 0.88
+- Prefers pre-flight checks in deploy scripts (Docker installed, `.env` exists) before attempting deployment. Confidence: 0.85
+- Prefers Nginx as a reverse proxy to unify frontend and API under a single origin. Confidence: 0.90
+- Prefers relative API paths (e.g., `/api`) with Vite dev proxy and Nginx production proxy over hardcoded absolute URLs. Confidence: 0.90
+- When adding new UI features, prefers updating i18n translations for all supported locales in the same pass. Confidence: 0.95
+- Prefers async/await with try/catch error handling in backend route handlers. Confidence: 0.85
+- Prefers MongoDB Atlas (cloud-hosted) over local/self-hosted MongoDB for database services. Confidence: 0.90
+- Prefers resilient server startup: HTTP listener should start immediately so health checks pass, with database and other dependencies connected in the background. Health endpoint should reflect actual readiness (e.g., "ok" vs "degraded") rather than crashing the process on dependency failure. Confidence: 0.88
+- Uses CSS class files (e.g., `InvoiceGenerator.css` alongside `InvoiceGenerator.tsx`) for page-level component styling with custom dark-theme CSS, rather than inline style objects. Confidence: 0.75
+- Prefers a dark theme with `#0a0a14` base background, rgba-white text opacity hierarchy, purple/indigo gradient accents (#6366f1, #8b5cf6), large border-radius (12–16px), and subtle rgba-white borders for card separation. Expects all pages (including admin) to consistently use this palette — will flag cream/vanilla/light backgrounds as bugs. Confidence: 0.94
+- Prefers the font pairing Space Grotesk for headings/display text and Inter for body/UI text. Confidence: 0.88
+- Uses Indonesian Rupiah (IDR) as the business currency, formatted with `id-ID` locale; expects every user-facing amount display — money helpers, hardcoded fallback prices, i18n price strings, payment modals — to consistently show IDR (e.g. `IDR 150.000`), with no leftover `- Prefers product interfaces to support English, Indonesian, and Mandarin Chinese localization. Confidence: 0.98
+- Prefers UI controls, including language switchers, to use colors and text contrast that match the site's existing theme and design tokens. Confidence: 0.95
+- Prefers shared components in the `components/` directory to be imported and reused by `App.tsx`, rather than duplicating them as inline implementations or leaving dead component files unused. Confidence: 0.93
+- Prefers the language switcher to be visibly accessible in the main desktop navbar. Confidence: 0.92
+- Prefers lightweight, dependency-minimal implementations (e.g., Canvas 2D over Three.js/WebGL) when the visual effect can be achieved with simpler technology. Values reduced bundle size and broad device compatibility. Confidence: 0.75
+- Prefers interactive canvas/WebGL scenes to support touch events (touchmove, touchend) on mobile devices, not just mouse events. Confidence: 0.85
+- Prefers canvas rendering complexity (node/particle count, edge distance, signal count) and device pixel ratio to be reduced on mobile for performance. Confidence: 0.80
+- Prefers Bun as the JavaScript/TypeScript runtime for both frontend and backend projects. Confidence: 0.95
+- Prefers TypeScript with strict mode across the full stack (frontend and backend). Confidence: 0.95
+- Prefers Express.js for building backend API servers. Confidence: 0.85
+- Prefers Mongoose with typed TypeScript interfaces for MongoDB data modeling. Confidence: 0.90
+- Prefers monorepo structure with backend in a separate `server/` directory and its own `package.json`. Confidence: 0.90
+- Prefers structured backend code with separate `routes/` and `models/` directories. Confidence: 0.90
+- Prefers Docker Compose for deployment orchestration, including database and reverse proxy services. Confidence: 0.95
+- Prefers healthchecks on all Docker Compose services with `depends_on: condition: service_healthy` so dependent services wait for healthy backends before starting. Confidence: 0.90
+- Prefers health check commands that use tools already present in the base Docker image (e.g., add `curl` via `apk add` in the Dockerfile for nginx:alpine, use `bun -e "await fetch(...)"` for Bun services, use `nginx -t` for bare nginx). Avoids relying on utilities not pre-installed in the image. Confidence: 0.85
+- Deploys to a Linux Ubuntu VPS for production. Expects deploy scripts and Docker configurations to target Linux (not macOS). Confidence: 0.80
+- Prefers `env_file` in Docker Compose to load environment variables (e.g., MONGODB_URI) from `.env` rather than duplicating values in `environment:`. Confidence: 0.88
+- Prefers blue-green deployment strategy for frontend services with automated swap and rollback support. Confidence: 0.85
+- Prefers deploy scripts with multiple modes (deploy, setup, server-only, full rebuild, status, logs, rollback) and colored terminal output. Confidence: 0.88
+- Prefers pre-flight checks in deploy scripts (Docker installed, `.env` exists) before attempting deployment. Confidence: 0.85
+- Prefers Nginx as a reverse proxy to unify frontend and API under a single origin. Confidence: 0.90
+- Prefers relative API paths (e.g., `/api`) with Vite dev proxy and Nginx production proxy over hardcoded absolute URLs. Confidence: 0.90
+- When adding new UI features, prefers updating i18n translations for all supported locales in the same pass. Confidence: 0.95
+- Prefers async/await with try/catch error handling in backend route handlers. Confidence: 0.85
+- Prefers MongoDB Atlas (cloud-hosted) over local/self-hosted MongoDB for database services. Confidence: 0.90
+- Prefers resilient server startup: HTTP listener should start immediately so health checks pass, with database and other dependencies connected in the background. Health endpoint should reflect actual readiness (e.g., "ok" vs "degraded") rather than crashing the process on dependency failure. Confidence: 0.88
+- Uses CSS class files (e.g., `InvoiceGenerator.css` alongside `InvoiceGenerator.tsx`) for page-level component styling with custom dark-theme CSS, rather than inline style objects. Confidence: 0.75
+- Prefers a dark theme with `#0a0a14` base background, rgba-white text opacity hierarchy, purple/indigo gradient accents (#6366f1, #8b5cf6), large border-radius (12–16px), and subtle rgba-white borders for card separation. Expects all pages (including admin) to consistently use this palette — will flag cream/vanilla/light backgrounds as bugs. Confidence: 0.94
+- Prefers the font pairing Space Grotesk for headings/display text and Inter for body/UI text. Confidence: 0.88
+- Prefers `en-GB` locale for date formatting (day-first). Confidence: 0.85
+- Prefers hand-written inline SVG icons over icon libraries (e.g., Lucide, Heroicons). Confidence: 0.85
+- Prefers reusable layout wrapper components (sidebar + top header + children slot) for shared admin/page chrome, extracted into `src/components/`. Confidence: 0.88
+- Prefers modal-based create/edit forms (overlay dialogs) over separate pages for CRUD operations in admin panels. Confidence: 0.88
+- Expects delete confirmation dialogs before any destructive action (e.g., "Are you sure? This action cannot be undone."). Confidence: 0.92
+- Prefers search input and dropdown filters (e.g., status, type) on admin list pages for data navigation. Confidence: 0.87
+- Expects server-side pagination (page/limit query params, total/totalPages in response) on admin list endpoints, with prev/next navigation controls on the frontend. Confidence: 0.88
+- Prefers tab-based navigation (visually styled button group) for switching between mutually exclusive status views (e.g., Active / Blacklist) on admin list pages, with a live count badge on each tab. Confidence: 0.85
+- Expects auth-aware navigation on public pages: signed-in users clicking a purchase/order CTA (e.g., pricing plan buttons) must go straight to the order flow (dashboard billing page, with the selected plan carried via query param) and never be bounced through the auth/login page again; only signed-out users should be routed to `/auth`. Explicitly reported "it should be direct to order page because I have signed in." Confidence: 0.85
+- Gives terse, minimal feature requests (e.g., "can CRUD customer", "create page for customer plan and at server add crud for customer_plan (id, customer_id, plan_id, start_date, due_date)", "add crud AI router plan on admin and server", "seed AI router plans with now plan starter, pro, and platinum", "admin page anad server can crud model of AI router") and expects the assistant to infer and deliver the full stack in one pass: model → routes → route registration → admin UI → sidebar nav → frontend routing → type-check. Confidence: 0.98
+- Expects TypeScript type-checking (`bunx tsc --noEmit`, scoped to changed files) after implementing new features to verify compilation. Confidence: 0.90
+- Expects new features that extend an existing codebase to follow the established in-repo conventions — reads the closest sibling files (e.g., server model/routes, admin page, App/main routing, sidebar layout) before writing code, and mirrors their patterns (naming, file structure, route mounting, UI structure) rather than inventing new ones. Confidence: 0.75
+- Expects placeholder text on all form input fields to guide users with example values or hints (e.g., "John Doe" for name, "john@company.com" for email). Confidence: 0.85
+- Prefers radio-button group pickers (visually styled as button pills via hidden input + styled span) for mutually exclusive option selection in forms (e.g., payment method, payment stage). Confidence: 0.85
+- Expects semantic ARIA attributes on form controls (e.g., `role="radiogroup"`, `aria-label`) for accessibility. Confidence: 0.80
+- Prefers calendar-based views (monthly grid with entry chips) over list/table views for date-oriented data such as timelines. Confidence: 0.88
+- Expects README documentation to be updated in the same pass when deployment infrastructure (Docker Compose, deploy scripts, port changes) is added or modified. Confidence: 0.85
+- Wants security review findings persisted as a dedicated `security.md` document at the project root (severity-ordered findings, file/line references, fixes, remediation order), rather than left only in chat. Confidence: 0.65
+- Prefers comprehensive README documentation including architecture diagrams (ASCII art), service/port tables, all CLI command references, project structure trees, and local dev setup instructions. Confidence: 0.82
+- Runs multiple projects on the same server; prefers using non-standard host ports (e.g., 3025) to avoid conflicts with other projects rather than stopping or displacing existing services. Confidence: 0.85
+- Prefers public-facing content (e.g., the home page AI router pricing) to be data-driven: admin CRUD sets the data ("set") and the public page fetches and renders it from the same API ("get"), so admin edits reflect immediately — instead of hardcoded frontend constants. Confidence: 0.78
+- Routes AI model traffic through a third-party router service (9router) as the upstream: the app stores only the 9router API key per router model (not direct provider keys like OpenAI `sk-...`), and provider credential management (openai/anthropic keys, active/inactive status) happens on the 9router account side, outside this repo. Expects this repo's proxy to forward upstream errors verbatim and to treat "no active credentials for provider" as a 9router-side config issue, not a code bug. Confidence: 0.7
+- Prefers the agent not to run sudo/root-level commands, even for cleanup of stale root-owned build artifacts (declined `sudo rm -rf dist` when it blocked `bun run build`); expects the agent to stop, leave such files alone, and rely on the passing type-check rather than escalating privileges. Confidence: 0.7
+- Prefers every numeric input field to display thousand separators live as the user types (id-ID `.` grouping, e.g. `150.000`), not just in formatted output — applies to prices, quantities, credits, percentages, and durations alike. Confidence: 0.9
+- Prefers the mouse/trackpad scroll wheel to never increment or change numeric input values (e.g., blur the field on wheel) — the browser's default scroll-to-change behavior must be disabled. Confidence: 0.9
+- Prefers numeric inputs to disallow negative values entirely (no minus sign); implements this as digits-only `type="text"` + `inputMode="numeric"` fields with min/max clamps still enforced, rather than native `type="number"`. Confidence: 0.88
+- Prefers public-facing content (e.g., the home page AI router pricing) to be data-driven: admin CRUD sets the data ("set") and the public page fetches and renders it from the same API ("get"), so admin edits reflect immediately — instead of hardcoded frontend constants. Confidence: 0.78
+- Prefers stored/logged values that surface in user-facing UI (e.g., credit_logs `model_name`) to be human-readable display names (the model's `name` like "GPT-4o", or "auto"), never the raw internal/upstream ID (e.g., `gpt-4o` model_id or a Mongo ObjectId). Confidence: 0.8
+- Prefers new promotional features (e.g., a referral program awarding "free credits up to 300") to be showcased as a marketing banner on the public Home page (Pricing section), not only inside the logged-in app. Confidence: 0.6
+- Prefers new promotional features (e.g., a referral program awarding "free credits up to 300") to be showcased as a marketing banner on the public Home page (Pricing section), not only inside the logged-in app. Confidence: 0.6
+- Prefers transactional/checkout actions (e.g., a mock "Pay" action on an order) to open a dedicated payment UI — a payment modal or payment page with order summary and payment-method selection — rather than instantly executing the payment in one click. Confidence: 0.8

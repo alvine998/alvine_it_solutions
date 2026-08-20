@@ -12,6 +12,8 @@ import CustomerChat from './pages/customer/Chat.tsx'
 import CustomerUsage from './pages/customer/Usage.tsx'
 import CustomerOrders from './pages/customer/Orders.tsx'
 import CustomerDocs from './pages/customer/Docs.tsx'
+import CustomerDocumentation from './pages/customer/Documentation.tsx'
+import CustomerIntegration from './pages/customer/Integration.tsx'
 import CustomerApiKeys from './pages/customer/ApiKeys.tsx'
 import CustomerProfile from './pages/customer/Profile.tsx'
 import AdminLogin from './pages/AdminLogin.tsx'
@@ -25,6 +27,8 @@ import AdminRouterModels from './pages/AdminRouterModels.tsx'
 import AdminCustomerPlans from './pages/AdminCustomerPlans.tsx'
 import AdminPlans from './pages/AdminPlans.tsx'
 import AdminPaymentMethods from './pages/AdminPaymentMethods.tsx'
+import AdminOrders from './pages/AdminOrders.tsx'
+import AdminSettings from './pages/AdminSettings.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -39,6 +43,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="orders" element={<CustomerOrders />} />
           <Route path="billing" element={<CustomerOrders />} />
           <Route path="docs" element={<CustomerDocs />} />
+          <Route path="documentation" element={<CustomerDocumentation />} />
+          <Route path="integration" element={<CustomerIntegration />} />
           <Route path="api-keys" element={<CustomerApiKeys />} />
           <Route path="profile" element={<CustomerProfile />} />
         </Route>
@@ -54,6 +60,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/admin/customer-plans" element={<AdminCustomerPlans />} />
         <Route path="/admin/plans" element={<AdminPlans />} />
         <Route path="/admin/payment-methods" element={<AdminPaymentMethods />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/admin/settings" element={<AdminSettings />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

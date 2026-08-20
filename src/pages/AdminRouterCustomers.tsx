@@ -8,6 +8,8 @@ interface RouterCustomer {
   name: string;
   email: string;
   status: RouterStatus;
+  ref_code?: string;
+  ref_used_by?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -411,6 +413,12 @@ export default function AdminRouterCustomers() {
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 600, color: "#fff" }}>{row.name}</div>
                     <p style={{ margin: "4px 0 0", color: "rgba(255,255,255,0.5)", fontSize: 13 }}>{row.email}</p>
+                    {row.ref_code && (
+                      <p style={{ margin: "4px 0 0", fontSize: 12, fontFamily: "DM Mono, monospace" }}>
+                        <span style={{ color: "rgba(99,102,241,0.8)" }}>{row.ref_code}</span>
+                        <span style={{ color: "rgba(255,255,255,0.35)" }}> · {row.ref_used_by ?? 0}/3 used</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 

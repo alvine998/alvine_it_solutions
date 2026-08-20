@@ -1,4 +1,51 @@
 {
+  "seo": {
+    "home": {
+      "title": "Alvine IT Solution — Software House & Digital Agency",
+      "description": "We build desktop apps, websites, RESTful APIs, and mobile apps. Software house in Indonesia delivering custom digital solutions for businesses.",
+      "ogImage": "/og/og-home.png"
+    },
+    "services": {
+      "title": "Services — Desktop, Web, API & Mobile Apps | Alvine IT Solution",
+      "description": "Custom software development services: cross-platform desktop apps, responsive websites, scalable RESTful APIs, and native mobile applications."
+    },
+    "aiRouter": {
+      "title": "AI Router — One API for Every LLM | Alvine IT Solution",
+      "description": "OpenAI-compatible AI router with smart model routing, cost optimization, auto fallback, and observability. One model — auto. Pay for credits, not guesswork."
+    },
+    "pricing": {
+      "title": "AI Router Pricing — Credit-Based Plans | Alvine IT Solution",
+      "description": "Simple credit-based pricing for the AI Router: Starter, Pro, and Platinum plans. Pay for credits, not guesswork."
+    },
+    "portfolio": {
+      "title": "Portfolio — Projects We've Built | Alvine IT Solution",
+      "description": "Featured projects by Alvine IT Solution: property platforms, inventory management, job portals, mobile apps, and logistics solutions."
+    },
+    "about": {
+      "title": "About Us — Alvine IT Solution",
+      "description": "Alvine IT Solution is a software house building innovative software that drives business growth — clean code, modern architecture, user-centric design."
+    },
+    "team": {
+      "title": "Our Team — Alvine IT Solution",
+      "description": "Meet the team behind Alvine IT Solution: developers, designers, and strategists crafting exceptional digital products."
+    },
+    "contact": {
+      "title": "Contact Us — Start Your Project | Alvine IT Solution",
+      "description": "Get in touch with Alvine IT Solution. Tell us about your project and let's build something amazing together."
+    },
+    "auth": {
+      "title": "Log In or Register — AI Router | Alvine IT Solution",
+      "description": "Sign in to manage your AI Router credits and usage."
+    },
+    "invoice": {
+      "title": "Invoice Generator — Create & Print Invoices | Alvine IT Solution",
+      "description": "Free online invoice generator. Everything you type updates the document instantly — print or save as PDF."
+    },
+    "dashboard": {
+      "title": "Dashboard — Alvine IT Solution",
+      "description": "Manage your AI Router account, credits, and usage."
+    }
+  },
   "nav": {
     "brand": "Alvine IT SOLUTIONS",
     "home": "Home",
@@ -304,11 +351,19 @@
     "noFeatures": "No features listed yet",
     "footnote": "Credits never expire within billing period. Need more? ",
     "footnoteLink": "Contact sales",
+    "referral": {
+      "eyebrow": "Referral — Free Credits",
+      "title": "Earn up to 300 free credits",
+      "desc": "Share your referral code. When someone registers with it and buys a plan, you get 100 free credits — up to 3 times per code.",
+      "step1": "Get your code in Profile",
+      "step2": "Friend registers with your code",
+      "step3": "They buy a plan → you get +100"
+    },
     "plans": {
       "starter": {
         "name": "Starter",
         "desc": "Try it out.",
-        "price": "$2",
+        "price": "IDR 150.000",
         "credits": "500 credits",
         "period": "/ month",
         "cta": "Get Started",
@@ -323,7 +378,7 @@
       "pro": {
         "name": "Pro",
         "desc": "For regular builders.",
-        "price": "$10",
+        "price": "IDR 500.000",
         "credits": "3,500 credits",
         "period": "/ month",
         "cta": "Get Pro",
@@ -338,7 +393,7 @@
       "platinum": {
         "name": "Platinum",
         "desc": "For power users & teams.",
-        "price": "$29",
+        "price": "IDR 1.200.000",
         "credits": "12,000 credits",
         "period": "/ month",
         "cta": "Go Platinum",
@@ -381,11 +436,245 @@
     "pwHint": "min 6 characters",
     "legalLine": "By continuing you agree to the terms. Credits are metered per 1k tokens on auto.",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "refCodeLabel": "Referral code (optional)",
+    "refCodePlaceholder": "e.g. ALVINE-X7K2Q",
+    "refCodeHint": "Have a code? Enter it — when you buy your first plan, the code owner gets 100 free credits."
   },
   "dashboard": {
     "switchToDark": "Switch to dark",
     "switchToLight": "Switch to light",
     "viewSite": "View site"
+  },
+  "customer": {
+    "common": {
+      "loading": "Loading…",
+      "copy": "Copy",
+      "copyToken": "Copy token",
+      "modelAuto": "model: auto",
+      "billedPer1k": "Credits billed per 1k tokens · model: auto"
+    },
+    "dashboard": {
+      "loading": "Loading dashboard…",
+      "eyebrow": "AI ROUTER — DASHBOARD",
+      "welcome": "Welcome back, {{name}}",
+      "monitorLine": "Monitor credits, usage and API access for {{email}}",
+      "status": "status:",
+      "baseUrl": "baseURL: {{base}}",
+      "openChat": "Open Chat →",
+      "viewUsage": "View usage →",
+      "apiAccess": "API ACCESS",
+      "endpoint": "ENDPOINT",
+      "auth": "Auth: Authorization: Bearer <token>",
+      "swapNote": "Swap OpenAI baseURL only — keep your SDK. Billing per 1k tokens via credits.",
+      "creditBalance": "CREDIT BALANCE",
+      "availableCredits": "available credits",
+      "creditsUsed": "CREDITS USED (sample)",
+      "totalRequests": "{{count}} total requests",
+      "tokens": "TOKENS (sample)",
+      "tokenBreakdown": "input + cached + output",
+      "recentUsage": "Recent usage",
+      "viewAll": "View all →",
+      "colDate": "DATE",
+      "colCreditOut": "CREDIT OUT",
+      "colTokens": "TOKENS",
+      "noUsage": "No usage yet — make your first request."
+    },
+    "usage": {
+      "loading": "Loading usage…",
+      "title": "Usage",
+      "baseUrlBadge": "baseURL → {{base}} · model: auto",
+      "creditBalance": "CREDIT BALANCE",
+      "availableCredits": "available credits",
+      "creditsUsedPage": "CREDITS USED (page)",
+      "totalRequests": "{{count}} total requests",
+      "tokensPage": "TOKENS (page)",
+      "tokenBreakdown": "input + cached + output",
+      "recentUsage": "Recent usage",
+      "pageXofY": "Page {{page}} / {{total}}",
+      "prev": "Prev",
+      "next": "Next",
+      "colDate": "DATE",
+      "colCreditOut": "CREDIT OUT",
+      "colInput": "INPUT",
+      "colCached": "CACHED",
+      "colOutput": "OUTPUT",
+      "colModel": "MODEL",
+      "colTotal": "TOTAL",
+      "noUsage": "No usage yet — make your first request and it will appear here.",
+      "quickStart": "QUICK START — cURL",
+      "copySnippet": "Copy snippet",
+      "docsLink": "Docs →"
+    },
+    "billing": {
+      "loading": "Loading billing…",
+      "title": "Billing",
+      "activeBadge": "active: {{plan}}",
+      "plansNote": "Plans are live from GET /api/plans — admin edits appear here. Pick a plan to create an order, then pay in Orders.",
+      "orderCreated": "Order created for {{plan}}. Go to Orders to pay.",
+      "viewOrdersLink": "View orders →",
+      "noPlans": "No active plans yet. Create one in Admin → Plans. Hardcoded fallback prices: Starter IDR 150.000/500, Pro IDR 500.000/3.5k, Platinum IDR 1.200.000/12k.",
+      "current": "CURRENT",
+      "modelAutoNote": "model: auto · billed per 1k tokens",
+      "placing": "Placing…",
+      "renew": "Renew / extend →",
+      "choosePlan": "Choose this plan →",
+      "createsPending": "Creates pending order → pay in Orders",
+      "goToOrders": "Go to Orders →",
+      "viewPricing": "View pricing",
+      "refreshPlans": "Refresh plans"
+    },
+    "orders": {
+      "title": "Orders",
+      "choosePlan": "CHOOSE A PLAN — ORDER",
+      "loadingPlans": "Loading plans…",
+      "noPlans": "No active plans yet. Admin → Plans to create one.",
+      "orderThisPlan": "Order this plan →",
+      "placing": "Placing…",
+      "myOrders": "My orders",
+      "filterAll": "all",
+      "filterPending": "pending",
+      "filterAwaiting": "awaiting_verification",
+      "filterPaid": "paid",
+      "filterCancelled": "cancelled",
+      "countOrders": "{{count}} orders",
+      "loadingOrders": "Loading orders…",
+      "noOrders": "No orders yet. Pick a plan above to create your first order.",
+      "colDate": "DATE",
+      "colPlan": "PLAN",
+      "colAmount": "AMOUNT",
+      "colCredits": "CREDITS",
+      "colStatus": "STATUS",
+      "colPeriod": "PERIOD",
+      "colAction": "ACTION",
+      "periodDash": "—",
+      "pay": "Pay →",
+      "cancel": "Cancel",
+      "paidBadge": "Paid ✓",
+      "awaiting": "Awaiting verification",
+      "chatAdmin": "Chat admin on Telegram →",
+      "footerNote": "Payments are verified by our team. Submit your proof and we'll confirm the transfer (matching the unique last 3 digits), then credit your plan. Replace POST /api/orders/:id/pay with a gateway webhook when ready.",
+      "modalPayment": "PAYMENT",
+      "modalPayFor": "Pay for {{plan}}",
+      "summaryPlan": "Plan",
+      "summaryAmount": "Amount",
+      "summaryCredits": "Credits",
+      "exactAmountNote": "Transfer the exact amount above. The last 3 digits are a unique code so we can match your payment automatically.",
+      "payWith": "PAY WITH",
+      "noMethods": "No payment methods configured yet. Upload your proof and confirm to submit.",
+      "paymentProof": "PAYMENT PROOF",
+      "replace": "Replace",
+      "remove": "Remove",
+      "uploadProof": "Upload payment proof (screenshot)",
+      "uploading": "Uploading…",
+      "confirmPayment": "Confirm payment →",
+      "submitNote": "Submit your proof and our team will verify the payment, then activate your plan.",
+      "submitting": "Submitting…",
+      "submittedTitle": "Awaiting verification",
+      "submittedDesc": "Your payment proof for {{plan}} was submitted. Our team will verify it and activate your plan shortly.",
+      "confirmedTitle": "Payment confirmed",
+      "confirmedDesc": "{{plan}} is now active. Credits added to your balance.",
+      "balance": "Balance: {{balance}} credits",
+      "referral": "+{{reward}} referral credits earned by code {{code}} ({{remaining}}/3 left)",
+      "done": "Done"
+    },
+    "profile": {
+      "title": "Profile",
+      "name": "NAME",
+      "email": "EMAIL",
+      "emailChangeNote": "Email change requires support — contact us.",
+      "saving": "Saving…",
+      "saveChanges": "Save changes",
+      "updated": "Profile updated.",
+      "referralEyebrow": "REFERRAL CODE",
+      "referralReward": "+100 credits / buyer · max 3",
+      "copyCode": "Copy code",
+      "referralDesc": "Share this code — when someone registers with it and buys a plan, you get 100 free credits. Up to 3 times per code = 300 credits total.",
+      "idLabel": "ID: {{id}}",
+      "copyId": "Copy ID",
+      "apiAccess": "API ACCESS",
+      "copyEndpoint": "Copy endpoint"
+    },
+    "apiKeys": {
+      "title": "API Keys",
+      "intro": "Keys have prefix sk-. Use X-Api-Key: sk-... or Authorization: Bearer sk-... for /chat/completions. Raw key shown once on create.",
+      "newKeyCopy": "NEW KEY — COPY NOW (won't be shown again)",
+      "keyMeta": "Key: {{prefix}}…{{last4}} · {{name}}",
+      "dismiss": "Dismiss",
+      "newKeyName": "NEW KEY NAME",
+      "namePlaceholder": "e.g. production, local-dev",
+      "creating": "Creating…",
+      "createKey": "Create key",
+      "nameRequired": "Name required",
+      "yourKeys": "YOUR KEYS · {{count}} · limit 10 active",
+      "refresh": "Refresh",
+      "noKeys": "No keys yet — create one above.",
+      "colName": "NAME",
+      "colKey": "KEY",
+      "colStatus": "STATUS",
+      "colLastUsed": "LAST USED",
+      "colCreated": "CREATED",
+      "colActions": "ACTIONS",
+      "lastUsedDash": "—",
+      "save": "Save",
+      "cancel": "Cancel",
+      "rename": "Rename",
+      "revoke": "Revoke",
+      "delete": "Delete",
+      "revokeConfirm": "Revoke this key? Existing integrations using it will stop working.",
+      "deleteConfirm": "Delete this key permanently?",
+      "usageTitle": "Usage",
+      "usageBearer": "Also accepted: Authorization: Bearer sk-... (same key). JWT login still works for dashboard."
+    },
+    "chat": {
+      "greeting": "Hi — I'm your AI router. Pick a model below (auto = cheapest active). Credits billed per 1k tokens.",
+      "chat": "CHAT",
+      "noModels": "No models — admin must add one",
+      "copyToken": "Copy token",
+      "refresh": "Refresh",
+      "thinking": "thinking…",
+      "placeholder": "Message… (Shift+Enter for new line)",
+      "send": "Send →",
+      "noModelError": "No active router model. Admin → Router Models: add base URL + API key, set status active.",
+      "topUp": "Top up in Billing.",
+      "adminRouterModels": "admin: set base_url + API key in Router Models"
+    },
+    "docs": {
+      "title": "Docs",
+      "intro": "OpenAI-compatible. Change baseURL only. Auth via Authorization: Bearer <token>. Model is always auto (router picks best).",
+      "endpoint": "ENDPOINT",
+      "copyEndpoint": "Copy endpoint",
+      "copyToken": "Copy token",
+      "auth": "AUTH",
+      "model": "MODEL",
+      "curl": "cURL",
+      "node": "Node.js (OpenAI SDK)",
+      "python": "Python (OpenAI SDK)",
+      "billingNote": "✓ Billing is per 1k tokens via credits — see Usage for consumption. Need help? Chat via WhatsApp."
+    },
+    "documentation": {
+      "title": "Documentation",
+      "subtitle": "How the AI Router works — credits, the auto model, and authentication.",
+      "overviewTitle": "What is the AI Router?",
+      "overview": "One OpenAI-compatible endpoint that routes every request to the cheapest, fastest model that can answer. You send prompts; the router picks the provider. No model pinning, no vendor lock-in.",
+      "creditsTitle": "How credits work",
+      "credits": "Every request is billed per 1,000 tokens against your credit balance. Input, cached, and output tokens are counted. Top up any time from Billing — credits never expire within the billing period.",
+      "autoTitle": "The auto model",
+      "auto": "Always send model: \"auto\". The router matches each prompt to the best available model by intent, latency, and cost, with automatic fallback if a provider is rate-limited or down.",
+      "authTitle": "Authentication",
+      "auth": "Authenticate with your dashboard token or an API key. Pass it as Authorization: Bearer <token> or X-Api-Key: sk-... on every request to /chat/completions.",
+      "fallbackTitle": "Fallback & observability",
+      "fallback": "If the primary provider fails, the router retries the next best model automatically. Every request is logged with cost and latency in Usage."
+    },
+    "integration": {
+      "title": "Integration",
+      "subtitle": "Drop-in with any OpenAI SDK. Change only the baseURL — everything else stays the same.",
+      "curlTitle": "cURL",
+      "nodeTitle": "Node.js (OpenAI SDK)",
+      "pythonTitle": "Python (OpenAI SDK)",
+      "phpTitle": "PHP (Guzzle)",
+      "goTitle": "Go (net/http)",
+      "note": "Replace $BASE with your endpoint and $TOKEN with your token or API key. The model is always auto."
+    }
   }
 }

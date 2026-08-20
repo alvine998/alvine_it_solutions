@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth";
 import customerRoutes from "./routes/customer";
 import timelineRoutes from "./routes/timeline";
 import routerCustomerRoutes from "./routes/routerCustomer";
+import RouterCustomer from "./models/RouterCustomer";
 import routerModelRoutes from "./routes/routerModel";
 import creditCustomerRoutes from "./routes/creditCustomer";
 import creditLogRoutes from "./routes/creditLog";
@@ -15,6 +16,7 @@ import planRoutes from "./routes/plan";
 import orderRoutes from "./routes/order";
 import paymentMethodRoutes from "./routes/paymentMethod";
 import customerApiKeyRoutes from "./routes/customerApiKey";
+import settingRoutes from "./routes/setting";
 
 const app = express();
 const PORT = process.env.PORT || 4005;
@@ -41,6 +43,7 @@ app.use("/api/plans", planRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payment-methods", paymentMethodRoutes);
 app.use("/api/customer-api-keys", customerApiKeyRoutes);
+app.use("/api/settings", settingRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
@@ -57,9 +60,14 @@ app.listen(PORT, () => {
 console.log(`Connecting to MongoDB...`);
 mongoose
   .connect(MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     dbConnected = true;
     console.log("Connected to MongoDB");
+    try {
+      await (RouterCustomer as any).backfillRefCodes();
+    } catch (e) {
+      console.error("ref_code backfill error:", e);
+    }
   })
   .catch((error) => {
     console.error("MongoDB connection error:", error.message);

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { createInvoice, getInvoice, updateInvoice } from "../lib/api";
 import NumberInput from "../components/NumberInput";
 import { parseNumberInput } from "../lib/numbers";
+import { usePageMeta } from "../hooks/usePageMeta";
 import "./InvoiceGenerator.css";
 
 type LineItem = {
@@ -92,6 +93,7 @@ function formatDate(value: string) {
 
 export default function InvoiceGenerator() {
   const { t } = useTranslation();
+  usePageMeta("invoice");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("edit");

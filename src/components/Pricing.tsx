@@ -35,8 +35,18 @@ function CrossIcon() {
 
 export default function Pricing() {
   const { t } = useTranslation();
+  const [authed, setAuthed] = useState(false);
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const check = () => setAuthed(!!localStorage.getItem("token") && !!(localStorage.getItem("user") || localStorage.getItem("router_customer")));
+    check();
+    window.addEventListener("storage", check);
+    const onFocus = () => check();
+    window.addEventListener("focus", onFocus);
+    return () => { window.removeEventListener("storage", check); window.removeEventListener("focus", onFocus); };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -191,7 +201,7 @@ export default function Pricing() {
                 </div>
 
                 <Link
-                  to={`/auth?plan=${plan._id}&mode=register`}
+                  to={authed ? `/dashboard/billing?plan=${plan._id}` : `/auth?plan=${plan._id}&mode=register`}
                   style={{
                     display: "block", textAlign: "center", textDecoration: "none",
                     padding: "13px 20px", borderRadius: 50,
@@ -228,6 +238,64 @@ export default function Pricing() {
           );
         })}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        style={{
+          marginTop: 32,
+          padding: "24px 28px",
+          borderRadius: 20,
+          background: "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(99,102,241,0.08))",
+          border: "1px solid rgba(16,185,129,0.25)",
+          display: "grid",
+          gridTemplateColumns: "auto 1fr",
+          gap: 20,
+          alignItems: "center",
+        }}
+        className="pricing-referral"
+      >
+        <div
+          style={{
+            width: 54,
+            height: 54,
+            borderRadius: 16,
+            flexShrink: 0,
+            background: "linear-gradient(135deg, #10b981, #6366f1)",
+            display: "grid",
+            placeItems: "center",
+            color: "#fff",
+            boxShadow: "0 0 24px rgba(16,185,129,0.35)",
+          }}
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+        </div>
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
+            <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1.2, color: "#10b981", fontWeight: 700 }}>{t("pricing.referral.eyebrow")}</span>
+            <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 800, color: "#fff" }}>{t("pricing.referral.title")}</span>
+          </div>
+          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
+            {t("pricing.referral.desc")}
+          </div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11.5 }}>
+            {(["step1", "step2", "step3"] as const).map((k, i) => (
+              <span key={k} style={{ padding: "6px 11px", borderRadius: 20, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.75)" }}>
+                {i + 1}. {t(`pricing.referral.${k}`)}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+      <style>{`@media(max-width:640px){ .pricing-referral{ grid-template-columns: 1fr !important; text-align: center; } .pricing-referral > div:first-child{ margin: 0 auto; } }`}</style>
 
       <motion.div
         initial={{ opacity: 0 }}

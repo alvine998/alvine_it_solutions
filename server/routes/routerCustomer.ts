@@ -102,7 +102,7 @@ async function resolveCustomerId(req: Request): Promise<string | null> {
 // ── AUTH: must be before /:id so "auth" isn't captured as an id ──
 router.post("/auth/register", async (req: Request, res: Response) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, ref_code } = req.body;
     if (!name || !email || !password)
       return res
         .status(400)
@@ -115,12 +115,25 @@ router.post("/auth/register", async (req: Request, res: Response) => {
     const exists = await RouterCustomer.findOne({ email: emailLc });
     if (exists)
       return res.status(409).json({ error: "Email already registered" });
+
+    // Optional referral code — must belong to an existing customer
+    let referredBy = "";
+    const rawRef = String(ref_code || "").trim().toUpperCase();
+    if (rawRef) {
+      const referrer = await RouterCustomer.findOne({ ref_code: rawRef }).select("_id ref_code");
+      if (!referrer)
+        return res.status(400).json({ error: "Invalid referral code" });
+      referredBy = referrer.ref_code;
+    }
+
     const doc = new RouterCustomer({
       name: String(name).trim(),
       email: emailLc,
       password,
       status: "active",
+      referred_by: referredBy,
     });
+    doc.ref_code = await (RouterCustomer as any).assignRefCode(doc);
     await doc.save();
     await CreditCustomer.findOneAndUpdate(
       { customer_id: doc._id },
@@ -137,6 +150,7 @@ router.post("/auth/register", async (req: Request, res: Response) => {
       name: doc.name,
       email: doc.email,
       status: doc.status,
+      ref_code: doc.ref_code,
     };
     res.status(201).json({
       message: "Registration successful",
@@ -175,6 +189,7 @@ router.post("/auth/login", async (req: Request, res: Response) => {
       name: doc.name,
       email: doc.email,
       status: doc.status,
+      ref_code: doc.ref_code,
     };
     res.json({
       message: "Login successful",
@@ -203,6 +218,7 @@ router.get("/auth/me", async (req: Request, res: Response) => {
         name: doc.name,
         email: doc.email,
         status: doc.status,
+        ref_code: doc.ref_code,
       },
     });
   } catch (e) {
@@ -275,6 +291,7 @@ router.post("/", async (req: Request, res: Response) => {
       password,
       status: status || "active",
     });
+    doc.ref_code = await (RouterCustomer as any).assignRefCode(doc);
     await doc.save();
     await CreditCustomer.create({ customer_id: doc._id, balance: 0 });
     const out: any = doc.toObject();
@@ -385,6 +402,11 @@ router.post("/chat/completions", async (req: Request, res: Response) => {
       String(
         process.env.ROUTER_API_KEY || process.env.OPENAI_API_KEY || "",
       ).trim();
+    if (!resolvedKey) {
+      return res.status(503).json({
+        error: `Upstream API key not configured — Router model "${rm.name}" has no api_key. Set it in Admin → Router Models (or set ROUTER_API_KEY env). Remote returned: API key required for remote API access.`,
+      });
+    }
 
     const cc = await CreditCustomer.findOne({ customer_id: customer._id });
     if (!cc)

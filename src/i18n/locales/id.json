@@ -1,4 +1,51 @@
 {
+  "seo": {
+    "home": {
+      "title": "Alvine IT Solution — Software House & Solusi Digital",
+      "description": "Kami membangun aplikasi desktop, website, RESTful API, dan aplikasi mobile. Software house di Indonesia yang menyediakan solusi digital custom untuk bisnis Anda.",
+      "ogImage": "/og/og-home.png"
+    },
+    "services": {
+      "title": "Layanan — Aplikasi Desktop, Web, API & Mobile | Alvine IT Solution",
+      "description": "Layanan pengembangan software custom: aplikasi desktop lintas platform, website responsif, RESTful API yang scalable, dan aplikasi mobile native."
+    },
+    "aiRouter": {
+      "title": "AI Router — Satu API untuk Semua LLM | Alvine IT Solution",
+      "description": "AI router kompatibel OpenAI dengan routing model cerdas, optimasi biaya, fallback otomatis, dan observability. Satu model — auto. Bayar kredit, bukan tebak-tebakan."
+    },
+    "pricing": {
+      "title": "Harga AI Router — Paket Berbasis Kredit | Alvine IT Solution",
+      "description": "Harga berbasis kredit yang sederhana untuk AI Router: paket Starter, Pro, dan Platinum. Bayar kredit, bukan tebak-tebakan."
+    },
+    "portfolio": {
+      "title": "Portofolio — Proyek yang Kami Kerjakan | Alvine IT Solution",
+      "description": "Proyek unggulan Alvine IT Solution: platform properti, manajemen inventori, portal lowongan kerja, aplikasi mobile, dan solusi logistik."
+    },
+    "about": {
+      "title": "Tentang Kami — Alvine IT Solution",
+      "description": "Alvine IT Solution adalah software house yang membangun software inovatif untuk mendorong pertumbuhan bisnis — clean code, arsitektur modern, desain yang berpusat pada pengguna."
+    },
+    "team": {
+      "title": "Tim Kami — Alvine IT Solution",
+      "description": "Kenali tim di balik Alvine IT Solution: developer, desainer, dan strategis yang membuat produk digital luar biasa."
+    },
+    "contact": {
+      "title": "Hubungi Kami — Mulai Proyek Anda | Alvine IT Solution",
+      "description": "Hubungi Alvine IT Solution. Ceritakan proyek Anda dan mari kita bangun sesuatu yang luar biasa bersama."
+    },
+    "auth": {
+      "title": "Masuk atau Daftar — AI Router | Alvine IT Solution",
+      "description": "Masuk untuk mengelola kredit dan penggunaan AI Router Anda."
+    },
+    "invoice": {
+      "title": "Generator Invoice — Buat & Cetak Invoice | Alvine IT Solution",
+      "description": "Generator invoice online gratis. Semua yang Anda ketik langsung memperbarui dokumen — cetak atau simpan sebagai PDF."
+    },
+    "dashboard": {
+      "title": "Dasbor — Alvine IT Solution",
+      "description": "Kelola akun, kredit, dan penggunaan AI Router Anda."
+    }
+  },
   "nav": {
     "brand": "Alvine IT SOLUTIONS",
     "home": "Beranda",
@@ -302,11 +349,19 @@
     "noFeatures": "Belum ada fitur",
     "footnote": "Kredit tidak hangus dalam periode tagihan. Butuh lebih banyak?",
     "footnoteLink": "Hubungi sales",
+    "referral": {
+      "eyebrow": "Referral — Kredit Gratis",
+      "title": "Dapatkan hingga 300 kredit gratis",
+      "desc": "Bagikan kode referral Anda. Saat seseorang mendaftar dengan kode itu dan membeli paket, Anda mendapat 100 kredit gratis — maksimal 3 kali per kode.",
+      "step1": "Ambil kode Anda di Profil",
+      "step2": "Teman mendaftar dengan kode Anda",
+      "step3": "Mereka beli paket → Anda dapat +100"
+    },
     "plans": {
       "starter": {
         "name": "Starter",
         "desc": "Coba dulu.",
-        "price": "$2",
+        "price": "IDR 150.000",
         "credits": "500 kredit",
         "period": "/ bulan",
         "cta": "Mulai",
@@ -321,7 +376,7 @@
       "pro": {
         "name": "Pro",
         "desc": "Untuk builder rutin.",
-        "price": "$10",
+        "price": "IDR 500.000",
         "credits": "3.500 kredit",
         "period": "/ bulan",
         "cta": "Pilih Pro",
@@ -336,7 +391,7 @@
       "platinum": {
         "name": "Platinum",
         "desc": "Untuk power user & tim.",
-        "price": "$29",
+        "price": "IDR 1.200.000",
         "credits": "12.000 kredit",
         "period": "/ bulan",
         "cta": "Pilih Platinum",
@@ -379,11 +434,245 @@
     "pwHint": "min 6 karakter",
     "legalLine": "Dengan melanjutkan Anda menyetujui ketentuan. Kredit dihitung per 1k token pada auto.",
     "showPassword": "Tampilkan password",
-    "hidePassword": "Sembunyikan password"
+    "hidePassword": "Sembunyikan password",
+    "refCodeLabel": "Kode referral (opsional)",
+    "refCodePlaceholder": "mis. ALVINE-X7K2Q",
+    "refCodeHint": "Punya kode? Masukkan — saat Anda membeli paket pertama, pemilik kode mendapat 100 kredit gratis."
   },
   "dashboard": {
     "switchToDark": "Ke gelap",
     "switchToLight": "Ke terang",
     "viewSite": "Lihat situs"
+  },
+  "customer": {
+    "common": {
+      "loading": "Memuat…",
+      "copy": "Salin",
+      "copyToken": "Salin token",
+      "modelAuto": "model: auto",
+      "billedPer1k": "Kredit ditagih per 1k token · model: auto"
+    },
+    "dashboard": {
+      "loading": "Memuat dasbor…",
+      "eyebrow": "AI ROUTER — DASHBOARD",
+      "welcome": "Selamat datang kembali, {{name}}",
+      "monitorLine": "Pantau kredit, penggunaan, dan akses API untuk {{email}}",
+      "status": "status:",
+      "baseUrl": "baseURL: {{base}}",
+      "openChat": "Buka Chat →",
+      "viewUsage": "Lihat penggunaan →",
+      "apiAccess": "AKSES API",
+      "endpoint": "ENDPOINT",
+      "auth": "Auth: Authorization: Bearer <token>",
+      "swapNote": "Cukup ganti baseURL OpenAI — pertahankan SDK Anda. Penagihan per 1k token via kredit.",
+      "creditBalance": "SALDO KREDIT",
+      "availableCredits": "kredit tersedia",
+      "creditsUsed": "KREDIT TERPAKAI (sampel)",
+      "totalRequests": "{{count}} total permintaan",
+      "tokens": "TOKEN (sampel)",
+      "tokenBreakdown": "input + cached + output",
+      "recentUsage": "Penggunaan terbaru",
+      "viewAll": "Lihat semua →",
+      "colDate": "TANGGAL",
+      "colCreditOut": "KREDIT KELUAR",
+      "colTokens": "TOKEN",
+      "noUsage": "Belum ada penggunaan — buat permintaan pertama Anda."
+    },
+    "usage": {
+      "loading": "Memuat penggunaan…",
+      "title": "Penggunaan",
+      "baseUrlBadge": "baseURL → {{base}} · model: auto",
+      "creditBalance": "SALDO KREDIT",
+      "availableCredits": "kredit tersedia",
+      "creditsUsedPage": "KREDIT TERPAKAI (halaman)",
+      "totalRequests": "{{count}} total permintaan",
+      "tokensPage": "TOKEN (halaman)",
+      "tokenBreakdown": "input + cached + output",
+      "recentUsage": "Penggunaan terbaru",
+      "pageXofY": "Halaman {{page}} / {{total}}",
+      "prev": "Sebelumnya",
+      "next": "Berikutnya",
+      "colDate": "TANGGAL",
+      "colCreditOut": "KREDIT KELUAR",
+      "colInput": "INPUT",
+      "colCached": "CACHED",
+      "colOutput": "OUTPUT",
+      "colModel": "MODEL",
+      "colTotal": "TOTAL",
+      "noUsage": "Belum ada penggunaan — buat permintaan pertama Anda dan akan muncul di sini.",
+      "quickStart": "MULAI CEPAT — cURL",
+      "copySnippet": "Salin cuplikan",
+      "docsLink": "Dokumentasi →"
+    },
+    "billing": {
+      "loading": "Memuat tagihan…",
+      "title": "Tagihan",
+      "activeBadge": "aktif: {{plan}}",
+      "plansNote": "Paket diambil langsung dari GET /api/plans — perubahan admin muncul di sini. Pilih paket untuk membuat order, lalu bayar di Orders.",
+      "orderCreated": "Order dibuat untuk {{plan}}. Buka Orders untuk membayar.",
+      "viewOrdersLink": "Lihat order →",
+      "noPlans": "Belum ada paket aktif. Buat satu di Admin → Plans. Harga cadangan: Starter IDR 150.000/500, Pro IDR 500.000/3,5k, Platinum IDR 1.200.000/12k.",
+      "current": "SAAT INI",
+      "modelAutoNote": "model: auto · ditagih per 1k token",
+      "placing": "Membuat…",
+      "renew": "Perbarui / perpanjang →",
+      "choosePlan": "Pilih paket ini →",
+      "createsPending": "Membuat order tertunda → bayar di Orders",
+      "goToOrders": "Buka Orders →",
+      "viewPricing": "Lihat harga",
+      "refreshPlans": "Segarkan paket"
+    },
+    "orders": {
+      "title": "Orders",
+      "choosePlan": "PILIH PAKET — ORDER",
+      "loadingPlans": "Memuat paket…",
+      "noPlans": "Belum ada paket aktif. Admin → Plans untuk membuatnya.",
+      "orderThisPlan": "Order paket ini →",
+      "placing": "Membuat…",
+      "myOrders": "Order saya",
+      "filterAll": "semua",
+      "filterPending": "pending",
+      "filterAwaiting": "menunggu_verifikasi",
+      "filterPaid": "dibayar",
+      "filterCancelled": "dibatalkan",
+      "countOrders": "{{count}} order",
+      "loadingOrders": "Memuat order…",
+      "noOrders": "Belum ada order. Pilih paket di atas untuk membuat order pertama Anda.",
+      "colDate": "TANGGAL",
+      "colPlan": "PAKET",
+      "colAmount": "JUMLAH",
+      "colCredits": "KREDIT",
+      "colStatus": "STATUS",
+      "colPeriod": "PERIODE",
+      "colAction": "AKSI",
+      "periodDash": "—",
+      "pay": "Bayar →",
+      "cancel": "Batal",
+      "paidBadge": "Lunas ✓",
+      "awaiting": "Menunggu verifikasi",
+      "chatAdmin": "Chat admin di Telegram →",
+      "footerNote": "Pembayaran diverifikasi oleh tim kami. Kirim bukti dan kami akan konfirmasi transfer (cocokkan 3 digit unik terakhir), lalu menambahkan kredit paket Anda. Ganti POST /api/orders/:id/pay dengan webhook gateway bila sudah siap.",
+      "modalPayment": "PEMBAYARAN",
+      "modalPayFor": "Bayar untuk {{plan}}",
+      "summaryPlan": "Paket",
+      "summaryAmount": "Jumlah",
+      "summaryCredits": "Kredit",
+      "exactAmountNote": "Transfer jumlah persis di atas. 3 digit terakhir adalah kode unik agar kami dapat mencocokkan pembayaran Anda otomatis.",
+      "payWith": "BAYAR DENGAN",
+      "noMethods": "Belum ada metode pembayaran. Unggah bukti dan konfirmasi untuk mengirim.",
+      "paymentProof": "BUKTI PEMBAYARAN",
+      "replace": "Ganti",
+      "remove": "Hapus",
+      "uploadProof": "Unggah bukti pembayaran (screenshot)",
+      "uploading": "Mengunggah…",
+      "confirmPayment": "Konfirmasi pembayaran →",
+      "submitNote": "Kirim bukti Anda dan tim kami akan verifikasi pembayaran, lalu mengaktifkan paket Anda.",
+      "submitting": "Mengirim…",
+      "submittedTitle": "Menunggu verifikasi",
+      "submittedDesc": "Bukti pembayaran Anda untuk {{plan}} telah dikirim. Tim kami akan memverifikasi dan mengaktifkan paket Anda segera.",
+      "confirmedTitle": "Pembayaran dikonfirmasi",
+      "confirmedDesc": "{{plan}} kini aktif. Kredit ditambahkan ke saldo Anda.",
+      "balance": "Saldo: {{balance}} kredit",
+      "referral": "+{{reward}} kredit referral dari kode {{code}} ({{remaining}}/3 tersisa)",
+      "done": "Selesai"
+    },
+    "profile": {
+      "title": "Profil",
+      "name": "NAMA",
+      "email": "EMAIL",
+      "emailChangeNote": "Perubahan email membutuhkan bantuan — hubungi kami.",
+      "saving": "Menyimpan…",
+      "saveChanges": "Simpan perubahan",
+      "updated": "Profil diperbarui.",
+      "referralEyebrow": "KODE REFERRAL",
+      "referralReward": "+100 kredit / pembeli · maks 3",
+      "copyCode": "Salin kode",
+      "referralDesc": "Bagikan kode ini — saat seseorang mendaftar menggunakannya dan membeli paket, Anda mendapat 100 kredit gratis. Hingga 3 kali per kode = total 300 kredit.",
+      "idLabel": "ID: {{id}}",
+      "copyId": "Salin ID",
+      "apiAccess": "AKSES API",
+      "copyEndpoint": "Salin endpoint"
+    },
+    "apiKeys": {
+      "title": "API Key",
+      "intro": "Key memiliki awalan sk-. Gunakan X-Api-Key: sk-... atau Authorization: Bearer sk-... untuk /chat/completions. Key mentah hanya ditampilkan sekali saat dibuat.",
+      "newKeyCopy": "KEY BARU — SALIN SEKARANG (tidak akan ditampilkan lagi)",
+      "keyMeta": "Key: {{prefix}}…{{last4}} · {{name}}",
+      "dismiss": "Tutup",
+      "newKeyName": "NAMA KEY BARU",
+      "namePlaceholder": "mis. production, local-dev",
+      "creating": "Membuat…",
+      "createKey": "Buat key",
+      "nameRequired": "Nama wajib diisi",
+      "yourKeys": "KEY ANDA · {{count}} · batas 10 aktif",
+      "refresh": "Segarkan",
+      "noKeys": "Belum ada key — buat satu di atas.",
+      "colName": "NAMA",
+      "colKey": "KEY",
+      "colStatus": "STATUS",
+      "colLastUsed": "TERAKHIR DIGUNAKAN",
+      "colCreated": "DIBUAT",
+      "colActions": "AKSI",
+      "lastUsedDash": "—",
+      "save": "Simpan",
+      "cancel": "Batal",
+      "rename": "Ganti nama",
+      "revoke": "Cabut",
+      "delete": "Hapus",
+      "revokeConfirm": "Cabut key ini? Integrasi yang menggunakannya akan berhenti bekerja.",
+      "deleteConfirm": "Hapus key ini secara permanen?",
+      "usageTitle": "Penggunaan",
+      "usageBearer": "Juga diterima: Authorization: Bearer sk-... (key sama). Login JWT masih berfungsi untuk dasbor."
+    },
+    "chat": {
+      "greeting": "Hai — saya router AI Anda. Pilih model di bawah (auto = termurah yang aktif). Kredit ditagih per 1k token.",
+      "chat": "CHAT",
+      "noModels": "Tidak ada model — admin harus menambahkan satu",
+      "copyToken": "Salin token",
+      "refresh": "Segarkan",
+      "thinking": "berpikir…",
+      "placeholder": "Pesan… (Shift+Enter untuk baris baru)",
+      "send": "Kirim →",
+      "noModelError": "Tidak ada model router aktif. Admin → Router Models: tambahkan base URL + API key, set status aktif.",
+      "topUp": "Top up di Billing.",
+      "adminRouterModels": "admin: atur base_url + API key di Router Models"
+    },
+    "docs": {
+      "title": "Dokumentasi",
+      "intro": "Kompatibel OpenAI. Cukup ubah baseURL. Auth via Authorization: Bearer <token>. Model selalu auto (router memilih yang terbaik).",
+      "endpoint": "ENDPOINT",
+      "copyEndpoint": "Salin endpoint",
+      "copyToken": "Salin token",
+      "auth": "AUTH",
+      "model": "MODEL",
+      "curl": "cURL",
+      "node": "Node.js (OpenAI SDK)",
+      "python": "Python (OpenAI SDK)",
+      "billingNote": "✓ Penagihan per 1k token via kredit — lihat Usage untuk konsumsi. Butuh bantuan? Chat via WhatsApp."
+    },
+    "documentation": {
+      "title": "Dokumentasi",
+      "subtitle": "Cara kerja AI Router — kredit, model auto, dan autentikasi.",
+      "overviewTitle": "Apa itu AI Router?",
+      "overview": "Satu endpoint kompatibel OpenAI yang merutekan setiap permintaan ke model termurah dan tercepat yang mampu menjawab. Anda mengirim prompt; router memilih provider-nya. Tanpa penentuan model manual, tanpa kunci vendor.",
+      "creditsTitle": "Cara kerja kredit",
+      "credits": "Setiap permintaan ditagih per 1.000 token terhadap saldo kredit Anda. Token input, cached, dan output dihitung. Top up kapan saja dari Billing — kredit tidak hangus dalam periode tagihan.",
+      "autoTitle": "Model auto",
+      "auto": "Selalu kirim model: \"auto\". Router mencocokkan setiap prompt ke model terbaik yang tersedia berdasarkan intent, latensi, dan biaya, dengan fallback otomatis jika provider terkena limit atau down.",
+      "authTitle": "Autentikasi",
+      "auth": "Autentikasi dengan token dasbor atau API key. Kirim sebagai Authorization: Bearer <token> atau X-Api-Key: sk-... pada setiap permintaan ke /chat/completions.",
+      "fallbackTitle": "Fallback & observability",
+      "fallback": "Jika provider utama gagal, router otomatis mencoba model terbaik berikutnya. Setiap permintaan dicatat dengan biaya dan latensi di Usage."
+    },
+    "integration": {
+      "title": "Integrasi",
+      "subtitle": "Langung digunakan dengan SDK OpenAI apa pun. Cukup ubah baseURL — sisanya tetap sama.",
+      "curlTitle": "cURL",
+      "nodeTitle": "Node.js (OpenAI SDK)",
+      "pythonTitle": "Python (OpenAI SDK)",
+      "phpTitle": "PHP (Guzzle)",
+      "goTitle": "Go (net/http)",
+      "note": "Ganti $BASE dengan endpoint Anda dan $TOKEN dengan token atau API key. Model selalu auto."
+    }
   }
 }

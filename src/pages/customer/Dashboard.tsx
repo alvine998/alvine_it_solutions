@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useCustomer } from "../../components/CustomerLayout";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
 import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
@@ -10,6 +11,7 @@ type CreditLog = { _id: string; credit_customer_id: string; credit_out: number; 
 
 export default function Dashboard() {
   const { user, token } = useCustomer();
+  const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
   const [credit, setCredit] = useState<CreditCustomer | null>(null);
@@ -63,43 +65,43 @@ export default function Dashboard() {
   const totalTokens = logs.reduce((a, l) => a + (l.input_token || 0) + (l.cached_token || 0) + (l.output_token || 0), 0);
   const selectedPlan = typeof window !== "undefined" ? localStorage.getItem("selectedPlan") : null;
 
-  if (loading) return <div style={{ color: muted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>Loading dashboard…</div>;
+  if (loading) return <div style={{ color: muted, fontFamily: "DM Mono, monospace", fontSize: 13 }}>{t("customer.dashboard.loading")}</div>;
 
   return (
     <div style={{ display: "grid", gap: 16, color: fg }}>
       <div style={{ display: "grid", gridTemplateColumns: "1.35fr 0.85fr", gap: 14 }} className="dash-hero">
         <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: isLight ? "linear-gradient(180deg, rgba(99,102,241,0.08), #fff)" : "linear-gradient(180deg, rgba(99,102,241,0.12), rgba(255,255,255,0.02))", padding: 18, overflow: "hidden" }}>
-          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1.2, color: isLight ? "#6366f1" : "#06b6d4", marginBottom: 8 }}>AI ROUTER — DASHBOARD</div>
+          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1.2, color: isLight ? "#6366f1" : "#06b6d4", marginBottom: 8 }}>{t("customer.dashboard.eyebrow")}</div>
           <h2 style={{ margin: 0, fontFamily: "Space Grotesk, sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: -0.6, lineHeight: 1.1, color: fg }}>
-            Welcome back, <span style={{ background: "linear-gradient(135deg,#6366f1,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{user?.name ?? "—"}</span>
+            {t("customer.dashboard.welcome", { name: user?.name ?? "—" })}
           </h2>
           <p style={{ margin: "8px 0 0", color: muted, fontSize: 13.5, lineHeight: 1.6 }}>
-            Monitor credits, usage and API access for <span style={{ color: fg, fontWeight: 600 }}>{user?.email ?? "—"}</span>
+            {t("customer.dashboard.monitorLine", { email: user?.email ?? "—" })}
             {selectedPlan ? <span style={{ marginLeft: 8, fontFamily: "DM Mono, monospace", fontSize: 11, background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.25)", padding: "3px 8px", borderRadius: 20, color: "#6366f1" }}>{selectedPlan.toUpperCase()}</span> : null}
           </p>
           <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap", fontFamily: "DM Mono, monospace", fontSize: 11, color: muted }}>
-            <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>status: <span style={{ color: user?.status === "active" ? "#10b981" : "#f59e0b", fontWeight: 700 }}>{user?.status ?? "—"}</span></span>
-            <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>model: auto</span>
-            <span title={routerBase} style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>baseURL: {routerBase.replace(/^https?:\/\//, "")}</span>
+            <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>{t("customer.dashboard.status")} <span style={{ color: user?.status === "active" ? "#10b981" : "#f59e0b", fontWeight: 700 }}>{user?.status ?? "—"}</span></span>
+            <span style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>{t("customer.common.modelAuto")}</span>
+            <span title={routerBase} style={{ border: `1px solid ${border}`, padding: "6px 10px", borderRadius: 20, background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.03)" }}>{t("customer.dashboard.baseUrl", { base: routerBase.replace(/^https?:\/\//, "") })}</span>
           </div>
           <div style={{ marginTop: 14, display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Link to="/dashboard/chat" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "8px 12px", borderRadius: 8, background: "linear-gradient(135deg,#6366f1,#06b6d4)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Open Chat →</Link>
-            <Link to="/dashboard/usage" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "8px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, textDecoration: "none" }}>View usage →</Link>
+            <Link to="/dashboard/chat" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "8px 12px", borderRadius: 8, background: "linear-gradient(135deg,#6366f1,#06b6d4)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>{t("customer.dashboard.openChat")}</Link>
+            <Link to="/dashboard/usage" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "8px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, textDecoration: "none" }}>{t("customer.dashboard.viewUsage")}</Link>
           </div>
         </div>
 
         <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: cardBg, padding: 14, display: "grid", gap: 10, alignContent: "start", boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted }}>API ACCESS</div>
+          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted }}>{t("customer.dashboard.apiAccess")}</div>
           <div style={{ background: codeBg, border: `1px solid ${faintBorder}`, borderRadius: 12, padding: 12 }}>
-            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, marginBottom: 6 }}>ENDPOINT</div>
+            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted, marginBottom: 6 }}>{t("customer.dashboard.endpoint")}</div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <code style={{ flex: 1, fontFamily: "DM Mono, monospace", fontSize: 12, color: isLight ? "#1c1917" : "#e0e7ff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{routerBase}/chat/completions</code>
-              <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer", whiteSpace: "nowrap" }}>Copy</button>
-            </div>
-            <div style={{ marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted }}>Auth: <span style={{ color: muted }}>Authorization: Bearer &lt;token&gt;</span></div>
-            <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>Copy token</button>
+            <button onClick={() => copy(`${routerBase}/chat/completions`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer", whiteSpace: "nowrap" }}>{t("customer.common.copy")}</button>
+             </div>
+            <div style={{ marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11, color: subMuted }}>{t("customer.dashboard.auth")}</div>
+            <button onClick={() => token && copy(token)} style={{ marginTop: 8, fontFamily: "DM Mono, monospace", fontSize: 11, padding: "6px 10px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", cursor: "pointer" }}>{t("customer.common.copyToken")}</button>
           </div>
-          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, lineHeight: 1.6, color: subMuted }}>Swap OpenAI baseURL only — keep your SDK. Billing per 1k tokens via credits.</div>
+          <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, lineHeight: 1.6, color: subMuted }}>{t("customer.dashboard.swapNote")}</div>
         </div>
       </div>
 
@@ -107,39 +109,39 @@ export default function Dashboard() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }} className="dash-stats">
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(99,102,241,0.16), rgba(139,92,246,0.06))", border: `1px solid ${isLight ? "rgba(99,102,241,0.18)" : "rgba(99,102,241,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>CREDIT BALANCE</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.dashboard.creditBalance")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.6, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{credit?.balance?.toLocaleString?.() ?? "0"}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>available credits</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.dashboard.availableCredits")}</div>
         </div>
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(6,182,214,0.14), rgba(6,182,214,0.04))", border: `1px solid ${isLight ? "rgba(6,182,214,0.18)" : "rgba(6,182,214,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>CREDITS USED (sample)</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.dashboard.creditsUsed")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{totalUsed.toLocaleString()}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{totalLogs} total requests</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.dashboard.totalRequests", { count: totalLogs })}</div>
         </div>
         <div style={{ borderRadius: 16, padding: 18, background: isLight ? "#fff" : "linear-gradient(135deg, rgba(16,185,129,0.14), rgba(16,185,129,0.04))", border: `1px solid ${isLight ? "rgba(16,185,129,0.18)" : "rgba(16,185,129,0.22)"}`, boxShadow: isLight ? "0 1px 10px rgba(0,0,0,0.04)" : "none" }}>
-          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>TOKENS (sample)</div>
+          <div style={{ fontSize: 11, color: muted, fontFamily: "DM Mono, monospace", letterSpacing: 0.4 }}>{t("customer.dashboard.tokens")}</div>
           <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "Space Grotesk, sans-serif", marginTop: 6, color: fg }}>{totalTokens.toLocaleString()}</div>
-          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>input + cached + output</div>
+          <div style={{ fontSize: 11, color: subMuted, fontFamily: "DM Mono, monospace", marginTop: 4 }}>{t("customer.dashboard.tokenBreakdown")}</div>
         </div>
       </div>
 
       <div style={{ borderRadius: 16, border: `1px solid ${border}`, background: cardBgSoft, overflow: "hidden", boxShadow: isLight ? "0 1px 12px rgba(0,0,0,0.04)" : "none" }}>
         <div style={{ padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${border}` }}>
-          <h3 style={{ margin: 0, fontSize: 13, fontWeight: 700, fontFamily: "Space Grotesk, sans-serif", color: fg }}>Recent usage</h3>
-          <Link to="/dashboard/usage" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, color: "#6366f1", textDecoration: "none" }}>View all →</Link>
+          <h3 style={{ margin: 0, fontSize: 13, fontWeight: 700, fontFamily: "Space Grotesk, sans-serif", color: fg }}>{t("customer.dashboard.recentUsage")}</h3>
+          <Link to="/dashboard/usage" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, color: "#6366f1", textDecoration: "none" }}>{t("customer.dashboard.viewAll")}</Link>
         </div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ textAlign: "left", fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.6, color: subMuted, borderBottom: `1px solid ${faintBorder}` }}>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>DATE</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>CREDIT OUT</th>
-                <th style={{ padding: "10px 14px", fontWeight: 500 }}>TOKENS</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.dashboard.colDate")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.dashboard.colCreditOut")}</th>
+                <th style={{ padding: "10px 14px", fontWeight: 500 }}>{t("customer.dashboard.colTokens")}</th>
               </tr>
             </thead>
             <tbody>
               {logs.length === 0 ? (
-                <tr><td colSpan={3} style={{ padding: 24, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 12 }}>No usage yet — make your first request.</td></tr>
+                <tr><td colSpan={3} style={{ padding: 24, textAlign: "center", color: subMuted, fontFamily: "DM Mono, monospace", fontSize: 12 }}>{t("customer.dashboard.noUsage")}</td></tr>
               ) : logs.map(l => (
                 <tr key={l._id} style={{ borderBottom: `1px solid ${faintBorder}` }}>
                   <td style={{ padding: "11px 14px", color: muted, whiteSpace: "nowrap" }}>{fmtDate(l.createdAt)}</td>

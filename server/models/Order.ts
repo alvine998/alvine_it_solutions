@@ -5,9 +5,11 @@ export interface IOrder extends Document {
   plan_id: Types.ObjectId;
   amount: number;
   credits: number;
-  status: "pending" | "paid" | "cancelled" | "expired";
+  status: "pending" | "awaiting_verification" | "paid" | "cancelled" | "expired";
   payment_method?: string;
   payment_ref?: string;
+  evidence_url?: string;
+  submitted_at?: Date;
   start_date?: Date;
   due_date?: Date;
   createdAt: Date;
@@ -20,9 +22,15 @@ const OrderSchema = new Schema<IOrder>(
     plan_id: { type: Schema.Types.ObjectId, ref: "Plan", required: true },
     amount: { type: Number, required: true, min: 0 },
     credits: { type: Number, required: true, min: 0 },
-    status: { type: String, enum: ["pending", "paid", "cancelled", "expired"], default: "pending" },
+    status: {
+      type: String,
+      enum: ["pending", "awaiting_verification", "paid", "cancelled", "expired"],
+      default: "pending",
+    },
     payment_method: { type: String, trim: true },
     payment_ref: { type: String, trim: true },
+    evidence_url: { type: String, trim: true, default: "" },
+    submitted_at: { type: Date },
     start_date: { type: Date },
     due_date: { type: Date },
   },

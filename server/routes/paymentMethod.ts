@@ -1,7 +1,32 @@
 import { Router, Request, Response } from "express";
+import multer from "multer";
 import PaymentMethod from "../models/PaymentMethod";
+import { requireAuth } from "../middleware/auth";
+import { uploadToR2 } from "../lib/r2";
 
 const router = Router();
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2 MB
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) cb(null, true);
+    else cb(new Error("Only image files are allowed"));
+  },
+});
+
+// POST /api/payment-methods/upload-qris
+// Uploads a QRIS image to Cloudflare R2 (Object Storage) and returns the public URL.
+router.post("/upload-qris", requireAuth, upload.single("image"), async (req: Request, res: Response) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: "No image file provided" });
+    const url = await uploadToR2(new Uint8Array(req.file.buffer), req.file.mimetype);
+    res.status(201).json({ url });
+  } catch (e: any) {
+    console.error("QRIS upload error:", e);
+    res.status(500).json({ error: e.message || "Failed to upload QRIS image" });
+  }
+});
 
 // GET /api/payment-methods?status=&type=&search=&page=&limit=
 router.get("/", async (req: Request, res: Response) => {
