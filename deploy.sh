@@ -12,11 +12,13 @@ set -euo pipefail
 #   ./deploy.sh --logs       Tail all logs
 #   ./deploy.sh --down       Stop all services
 #   ./deploy.sh --rollback   Switch back to previous frontend
+#   ./deploy.sh --heal       Fix proxy→stopped-slot mismatch (no build)
 # ──────────────────────────────────────────────
 
 PROXY_CONF="nginx/proxy.conf"
 COMPOSE="docker compose"
 HEALTH_TIMEOUT=60
+VERIFY_TIMEOUT=15
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -104,6 +106,79 @@ nginx_reload() {
   $COMPOSE exec -T nginx nginx -s reload
 }
 
+# ── Verify nginx actually serves frontend ────
+# Prevents 502 downtime: ensures proxy → live slot is reachable
+# before we stop the old slot.
+
+verify_proxy() {
+  local timeout="${1:-$VERIFY_TIMEOUT}"
+  info "Verifying nginx serves frontend (max ${timeout}s)..."
+  for _ in $(seq 1 "$timeout"); do
+    if curl -sf http://localhost:3025/ >/dev/null 2>&1; then
+      ok "Proxy verification passed"
+      return 0
+    fi
+    sleep 1
+  done
+  err "Proxy verification failed — curl http://localhost:3025/ did not return 2xx"
+  return 1
+}
+
+# ── Heal: ensure live slot container is actually running ──
+# Fixes the "green exited + proxy points to green = 502" case.
+# Called at start of deploy and exposed as --heal for manual recovery.
+
+heal_live_slot() {
+  local live other cid running
+  live=$(current_slot)
+  cid=$($COMPOSE ps -q "app-$live" 2>/dev/null | head -1 || true)
+  running="false"
+  if [ -n "${cid:-}" ]; then
+    running=$(docker inspect --format='{{.State.Running}}' "$cid" 2>/dev/null || echo "false")
+  fi
+  if [ "$running" = "true" ]; then
+    return 0
+  fi
+
+  warn "Live slot app-$live is not running — healing..."
+  # Try restarting the live slot first (cheapest, keeps proxy.conf)
+  $COMPOSE up -d "app-$live" 2>/dev/null || true
+  if wait_healthy "app-$live" 30 2>/dev/null; then
+    if verify_proxy 10 2>/dev/null; then
+      ok "Healed: app-$live restarted and serving"
+      return 0
+    fi
+  fi
+
+  # Live slot won't heal — try the other slot and flip proxy
+  if [ "$live" = "blue" ]; then other="green"; else other="blue"; fi
+  cid=$($COMPOSE ps -q "app-$other" 2>/dev/null | head -1 || true)
+  running="false"
+  if [ -n "${cid:-}" ]; then
+    running=$(docker inspect --format='{{.State.Running}}' "$cid" 2>/dev/null || echo "false")
+  fi
+  if [ "$running" != "true" ]; then
+    info "Other slot app-$other also not running — starting it..."
+    $COMPOSE up -d "app-$other" 2>/dev/null || true
+    if ! wait_healthy "app-$other" 30; then
+      err "Heal failed: neither app-blue nor app-green is healthy"
+      $COMPOSE ps || true
+      return 1
+    fi
+  fi
+
+  warn "Switching traffic $live → $other to restore service"
+  swap_traffic "$live" "$other" || return 1
+  nginx_reload || return 1
+  sleep 1
+  if verify_proxy 10; then
+    ok "Healed: traffic switched to app-$other"
+    return 0
+  fi
+  err "Heal: switched to $other but proxy still not serving"
+  return 1
+}
+
 # ── Wait for container health ─────────────────
 
 wait_healthy() {
@@ -156,12 +231,17 @@ cmd_setup() {
 
   wait_healthy "server" || warn "Server not healthy yet — check logs with ./deploy.sh --logs"
   wait_healthy "nginx"  || true
+  # Ensure proxy actually serves — heal if mismatch after fresh up
+  verify_proxy 10 || heal_live_slot || warn "Setup: proxy not serving yet"
   info "Nginx available at http://localhost:3025"
   info "API server on port 4005"
 }
 
 cmd_deploy() {
   preflight
+
+  # Auto-heal before deploy — prevents deploying on top of a down site
+  heal_live_slot || warn "Pre-deploy heal had issues — continuing anyway..."
 
   local current target
   current=$(current_slot)
@@ -216,6 +296,19 @@ cmd_deploy() {
   fi
   ok "Traffic now routed to $target"
 
+  # ── Critical: verify via nginx BEFORE stopping old slot ──
+  # This is what prevents the reported downtime (proxy → exited container = 502)
+  sleep 2
+  if ! verify_proxy; then
+    err "Proxy not serving after switch — reverting $target → $current"
+    swap_traffic "$target" "$current" || true
+    nginx_reload || true
+    sleep 1
+    # Keep old slot running, stop failed new slot
+    $COMPOSE stop "app-$target" || true
+    exit 1
+  fi
+
   info "Stopping app-$current..."
   $COMPOSE stop "app-$current" || true
   ok "app-$current stopped"
@@ -253,6 +346,7 @@ cmd_full() {
 
   wait_healthy "server" || warn "Server not healthy — check logs."
   wait_healthy "nginx"  || true
+  verify_proxy 10 || warn "Full rebuild: proxy not serving yet — run ./deploy.sh --heal"
 
   echo ""
   ok "Full rebuild complete. All services started."
@@ -264,13 +358,30 @@ cmd_status() {
   echo ""
   info "Service status:"
   echo ""
-  $COMPOSE ps
+  $COMPOSE ps -a
   echo ""
   local current
   current=$(current_slot)
   echo -e "Live frontend slot: ${GREEN}$current${NC}"
   echo ""
   $COMPOSE ps --format "table {{.Service}}\t{{.State}}\t{{.Status}}" 2>/dev/null || true
+  echo ""
+  # Quick downtime hint
+  local cid running
+  cid=$($COMPOSE ps -q "app-$current" 2>/dev/null | head -1 || true)
+  running="false"
+  if [ -n "${cid:-}" ]; then
+    running=$(docker inspect --format='{{.State.Running}}' "$cid" 2>/dev/null || echo "false")
+  fi
+  if [ "$running" != "true" ]; then
+    warn "Live slot app-$current is NOT running — site is likely down! Run: ./deploy.sh --heal"
+  else
+    if curl -sf http://localhost:3025/ >/dev/null 2>&1; then
+      ok "Proxy serving OK"
+    else
+      warn "Proxy not serving — try: ./deploy.sh --heal"
+    fi
+  fi
 }
 
 cmd_logs() {
@@ -313,9 +424,28 @@ cmd_rollback() {
 
   swap_traffic "$current" "$target"
   nginx_reload
+  sleep 1
+  if ! verify_proxy; then
+    err "Rollback verification failed — proxy not serving"
+    exit 1
+  fi
   ok "Rolled back to $target"
   info "Stopping app-$current..."
   $COMPOSE stop "app-$current" || true
+}
+
+cmd_heal() {
+  preflight
+  info "Healing proxy → live slot mismatch..."
+  if heal_live_slot; then
+    ok "Heal succeeded"
+    $COMPOSE ps -a
+    echo -e "Live slot: ${GREEN}$(current_slot)${NC}"
+  else
+    err "Heal failed — check logs with ./deploy.sh --logs"
+    $COMPOSE ps -a
+    exit 1
+  fi
 }
 
 # ── Main ──────────────────────────────────────
@@ -328,14 +458,15 @@ case "${1:-deploy}" in
   --logs)     cmd_logs ;;
   --down)     cmd_down ;;
   --rollback) cmd_rollback ;;
+  --heal)     cmd_heal ;;
   deploy|--deploy) cmd_deploy ;;
   -h|--help|help)
-    echo "Usage: $0 [--setup|--server|--full|--status|--logs|--down|--rollback]"
+    echo "Usage: $0 [--setup|--server|--full|--status|--logs|--down|--rollback|--heal]"
     echo "  (no arg) defaults to blue-green deploy"
     ;;
   *)
     err "Unknown option: $1"
-    echo "Usage: $0 [--setup|--server|--full|--status|--logs|--down|--rollback]"
+    echo "Usage: $0 [--setup|--server|--full|--status|--logs|--down|--rollback|--heal]"
     exit 1
     ;;
 esac
