@@ -8,6 +8,7 @@ import CreditCustomer from "../models/CreditCustomer";
 import RouterCustomer from "../models/RouterCustomer";
 import { requireAdmin } from "../middleware/auth";
 import { uploadToR2 } from "../lib/r2";
+import { notifyPaymentSubmitted } from "../lib/telegram";
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
@@ -65,6 +66,30 @@ router.post("/:id/submit", auth, async (req: Request, res: Response) => {
     order.status = "awaiting_verification";
     order.submitted_at = new Date();
     await order.save();
+
+    // Non-blocking Telegram notification to admin
+    (async () => {
+      try {
+        const [plan, customer]: any[] = await Promise.all([
+          order.plan_id ? Plan.findById(order.plan_id).select("name").lean() : null,
+          RouterCustomer.findById(customerId).select("name email").lean(),
+        ]);
+        await notifyPaymentSubmitted({
+          orderId: String(order._id),
+          amount: order.amount,
+          credits: order.credits,
+          paymentMethod: String(order.payment_method || payment_method || "manual"),
+          paymentRef: String(order.payment_ref || payment_ref || ""),
+          evidenceUrl: String(order.evidence_url || evidence_url || ""),
+          planName: plan?.name || String(order.plan_id),
+          customerName: customer?.name || "",
+          customerEmail: customer?.email || "",
+        });
+      } catch (err) {
+        console.error("[telegram] notifyPaymentSubmitted failed:", err);
+      }
+    })();
+
     res.json({ message: "Payment submitted, awaiting verification", order });
   } catch (e) { console.error(e); res.status(500).json({ error: "Failed to submit payment" }); }
 });
