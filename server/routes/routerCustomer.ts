@@ -621,12 +621,16 @@ async function handleChatCompletions(req: Request, res: Response) {
                 model_name: rm.name || rm.model_id || "",
               });
             }
-            // append a final SSE event carrying the credit info so the client can update balance
-            try {
-              res.write(
-                `data: ${JSON.stringify({ _credits: { credit_out: creditOut, balance: cc.balance, model: rm.model_id } })}\n\n`,
-              );
-            } catch {}
+            // _credits via SSE breaks strict OpenAI validators (opencode / @ai-sdk/openai-compatible)
+            // only emit when client opts in via header; opencode gets pure OpenAI chunks
+            const wantCredits = String(req.headers["x-alvine-credits"] || req.headers["x-include-credits"] || "").trim() === "1";
+            if (wantCredits) {
+              try {
+                res.write(
+                  `data: ${JSON.stringify({ _credits: { credit_out: creditOut, balance: cc.balance, model: rm.model_id } })}\n\n`,
+                );
+              } catch {}
+            }
           }
         } catch (e: any) {
           console.error("chat stream billing error:", e?.message || e);
@@ -867,11 +871,15 @@ async function handleChatCompletions(req: Request, res: Response) {
           upstream_status: 502,
         });
     }
-    (data as any)._credits = {
-      credit_out: creditOut,
-      balance: cc.balance,
-      model: rm.model_id,
-    };
+    // _credits breaks strict OpenAI response validators (opencode) — only attach when opted in
+    const wantCredits = String(req.headers["x-alvine-credits"] || req.headers["x-include-credits"] || "").trim() === "1";
+    if (wantCredits) {
+      (data as any)._credits = {
+        credit_out: creditOut,
+        balance: cc.balance,
+        model: rm.model_id,
+      };
+    }
     res.json(data);
   } catch (e: any) {
     console.error("chat/completions error:", e?.message || e);

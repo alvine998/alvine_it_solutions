@@ -106,6 +106,7 @@ export default function Chat() {
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          "X-Alvine-Credits": "1",
         },
         body: JSON.stringify({
           messages: nextMessages.map((m) => ({
