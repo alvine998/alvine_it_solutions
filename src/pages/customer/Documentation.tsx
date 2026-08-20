@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
-import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { FALLBACK_ROUTER_BASE } from "../../lib/routerBaseUrl";
 
 export default function Documentation() {
   const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
-  const [base, setBase] = useState(FALLBACK_ROUTER_BASE);
-  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setBase(b); }); }, []);
+  const base = FALLBACK_ROUTER_BASE;
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardBg = isLight ? "#fff" : "rgba(255,255,255,0.03)";

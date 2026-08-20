@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
-import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { FALLBACK_ROUTER_BASE } from "../../lib/routerBaseUrl";
 import { toast } from "../../lib/toast";
 
 export default function Integration() {
   const { t } = useTranslation();
   const { theme } = useCustomerTheme();
   const isLight = theme === "light";
-  const [base, setBase] = useState(FALLBACK_ROUTER_BASE);
+  const base = FALLBACK_ROUTER_BASE;
   const [active, setActive] = useState("curl");
-  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setBase(b); }); }, []);
   const authVal = "sk-...";
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
@@ -30,7 +29,7 @@ export default function Integration() {
     node: `import OpenAI from "openai";
 const client = new OpenAI({
   baseURL: "${base}",
-  apiKey: "${authVal}", // your API key (sk-...) from the API Keys page — no login required
+  apiKey: "${authVal}", // or process.env.API_KEY — X-Api-Key / Bearer sk-... both work
 });
 const res = await client.chat.completions.create({
   model: "auto",
@@ -39,7 +38,7 @@ const res = await client.chat.completions.create({
     python: `from openai import OpenAI
 client = OpenAI(
   base_url="${base}",
-  api_key="${authVal}",  # your API key (sk-...) from the API Keys page — no login required
+  api_key="${authVal}",
 )
 res = client.chat.completions.create(
   model="auto",

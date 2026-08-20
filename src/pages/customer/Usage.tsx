@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCustomerTheme } from "../../hooks/useCustomerTheme";
-import { FALLBACK_ROUTER_BASE, fetchActiveRouterBase } from "../../lib/routerBaseUrl";
+import { FALLBACK_ROUTER_BASE } from "../../lib/routerBaseUrl";
 import { toast } from "../../lib/toast";
 
 type CreditCustomer = { _id: string; customer_id: string; balance: number };
@@ -20,8 +20,7 @@ export default function Usage() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
-  const [routerBase, setRouterBase] = useState(FALLBACK_ROUTER_BASE);
-  useEffect(() => { fetchActiveRouterBase().then(b => { if (b) setRouterBase(b); }); }, []);
+  const routerBase = FALLBACK_ROUTER_BASE;
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const cardSoft = isLight ? "#fff" : "rgba(255,255,255,0.02)";
@@ -150,12 +149,12 @@ export default function Usage() {
         <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 0.8, color: subMuted, marginBottom: 10 }}>{t("customer.usage.quickStart")}</div>
         <pre style={{ margin: 0, padding: 12, borderRadius: 12, background: codeBg, border: `1px solid ${faint}`, overflowX: "auto", fontFamily: "DM Mono, monospace", fontSize: 12, lineHeight: 1.6, color: isLight ? "#1c1917" : "#e0e7ff" }}>
 {`curl ${routerBase}/chat/completions \\
-  -H "Authorization: Bearer ${token || "$TOKEN"}" \\
+  -H "X-Api-Key: sk-..." \\
   -H "Content-Type: application/json" \\
   -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`}
         </pre>
         <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
-          <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "Authorization: Bearer ${token ?? ""}" -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.usage.copySnippet")}</button>
+          <button onClick={() => copy(`curl ${routerBase}/chat/completions -H "X-Api-Key: sk-..." -H "Content-Type: application/json" -d '{"model":"auto","messages":[{"role":"user","content":"Hello"}]}'`)} style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: `1px solid ${border}`, background: isLight ? "#fff" : "rgba(255,255,255,0.06)", color: fg, cursor: "pointer" }}>{t("customer.usage.copySnippet")}</button>
           <Link to="/dashboard/documentation" style={{ fontFamily: "DM Mono, monospace", fontSize: 12, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.15)", color: "#6366f1", textDecoration: "none" }}>{t("customer.usage.docsLink")}</Link>
         </div>
       </div>
