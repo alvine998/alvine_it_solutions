@@ -4,6 +4,64 @@ import CreditLog from "../models/CreditLog";
 
 const router = Router();
 
+// GET /api/credit-logs/stats?credit_customer_id= — aggregates for Usage page
+router.get("/stats", async (req: Request, res: Response) => {
+  try {
+    const { credit_customer_id } = req.query as any;
+    if (!credit_customer_id) return res.status(400).json({ error: "credit_customer_id required" });
+    const match: any = { credit_customer_id: (CreditLog as any).db ? undefined : undefined };
+    // validate ObjectId
+    let oid: any;
+    try { oid = new (await import("mongoose")).default.Types.ObjectId(String(credit_customer_id)); } catch { return res.status(400).json({ error: "Invalid credit_customer_id" }); }
+    const now = new Date();
+    const startOfToday = new Date(now); startOfToday.setHours(0,0,0,0);
+    const startOfYesterday = new Date(startOfToday); startOfYesterday.setDate(startOfYesterday.getDate() - 1);
+    const endOfYesterday = new Date(startOfToday);
+    const startOfWeek = new Date(startOfToday); startOfWeek.setDate(startOfToday.getDate() - startOfToday.getDay()); // Sunday
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    const sumFor = async (gte: Date, lt?: Date) => {
+      const f: any = { credit_customer_id: oid, createdAt: { $gte: gte } as any };
+      if (lt) f.createdAt.$lt = lt;
+      const [r] = await CreditLog.aggregate([
+        { $match: f },
+        { $group: { _id: null, credit_out: { $sum: "$credit_out" }, input_token: { $sum: "$input_token" }, cached_token: { $sum: "$cached_token" }, output_token: { $sum: "$output_token" }, count: { $sum: 1 } } },
+      ]);
+      return { credit_out: r?.credit_out ?? 0, input_token: r?.input_token ?? 0, cached_token: r?.cached_token ?? 0, output_token: r?.output_token ?? 0, count: r?.count ?? 0, total_tokens: (r?.input_token ?? 0) + (r?.cached_token ?? 0) + (r?.output_token ?? 0) };
+    };
+    const getDailySeries = async (days: number) => {
+      const start = new Date(now); start.setHours(0,0,0,0); start.setDate(start.getDate() - (days - 1));
+      const rows: any[] = await CreditLog.aggregate([
+        { $match: { credit_customer_id: oid, createdAt: { $gte: start } } },
+        { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, credit_out: { $sum: "$credit_out" }, input_token: { $sum: "$input_token" }, cached_token: { $sum: "$cached_token" }, output_token: { $sum: "$output_token" }, count: { $sum: 1 } } },
+        { $sort: { _id: 1 } },
+      ]);
+      const map = new Map<string, any>(rows.map((r: any) => [r._id, r]));
+      const out: any[] = [];
+      for (let i = 0; i < days; i++) {
+        const d = new Date(start); d.setDate(start.getDate() + i);
+        const key = d.toISOString().slice(0, 10);
+        const r = map.get(key);
+        out.push({ date: key, credit_out: r?.credit_out ?? 0, input_token: r?.input_token ?? 0, cached_token: r?.cached_token ?? 0, output_token: r?.output_token ?? 0, count: r?.count ?? 0, total_tokens: (r?.input_token ?? 0) + (r?.cached_token ?? 0) + (r?.output_token ?? 0) });
+      }
+      return out;
+    };
+    const [today, yesterday, weekly, monthly, allTime, seriesWeek, seriesMonth] = await Promise.all([
+      sumFor(startOfToday),
+      sumFor(startOfYesterday, endOfYesterday),
+      sumFor(startOfWeek),
+      sumFor(startOfMonth),
+      sumFor(new Date(0)),
+      getDailySeries(7),
+      getDailySeries(30),
+    ]);
+    res.json({ today, yesterday, weekly, monthly, allTime, seriesWeek, seriesMonth });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch stats" });
+  }
+});
+
 // GET /api/credit-logs?credit_customer_id=&limit=&page=
 router.get("/", async (req: Request, res: Response) => {
   try {

@@ -642,13 +642,49 @@ async function handleChatCompletions(req: Request, res: Response) {
           const chunk = Buffer.from(value);
           contentLen += chunk.length;
           lastChunk = chunk;
-          buffered += decoder.decode(value, { stream: true });
-          // scan accumulated buffer for usage: { ... } — covers usage split across chunks
-          const usageMatch = buffered.match(/"usage"\s*:\s*\{[^}]*\}/);
-          if (usageMatch) {
+          const text = decoder.decode(value, { stream: true });
+          buffered += text;
+          // robust usage extraction: usage contains nested objects (prompt_tokens_details)
+          // so [^}]* truncates it and JSON.parse fails → tokens stay 0 while credit_out via estimate still counted.
+          // Parse each SSE data: payload as JSON and pick .usage if present.
+          for (const line of text.split("\n")) {
+            const t = line.trim();
+            if (!t.startsWith("data:")) continue;
+            const payload = t.slice(5).trim();
+            if (!payload || payload === "[DONE]") continue;
             try {
-              usage = JSON.parse(`{${usageMatch[0]}}`).usage ?? usage;
+              const ev = JSON.parse(payload);
+              if (ev && typeof ev === "object" && ev.usage && typeof ev.usage === "object") usage = ev.usage;
+              // some providers nest usage differently
+              if (ev && ev.choices && Array.isArray(ev.choices)) {
+                // no-op, usage already handled
+              }
             } catch {}
+          }
+          // fallback: balanced-brace extraction on buffered (covers JSON split across chunks)
+          if (!usage || !Object.keys(usage).length) {
+            const idx = buffered.lastIndexOf('"usage"');
+            if (idx !== -1) {
+              const colon = buffered.indexOf(":", idx);
+              const open = colon !== -1 ? buffered.indexOf("{", colon) : -1;
+              if (open !== -1) {
+                let depth = 0;
+                let close = -1;
+                for (let i = open; i < buffered.length; i++) {
+                  if (buffered[i] === "{") depth++;
+                  else if (buffered[i] === "}") { depth--; if (depth === 0) { close = i; break; } }
+                }
+                if (close !== -1) {
+                  try {
+                    const cand = buffered.slice(open, close + 1);
+                    const parsed = JSON.parse(cand);
+                    if (parsed && typeof parsed === "object" && (parsed.prompt_tokens !== undefined || parsed.total_tokens !== undefined)) {
+                      usage = parsed;
+                    }
+                  } catch {}
+                }
+              }
+            }
           }
           try {
             res.write(chunk);
