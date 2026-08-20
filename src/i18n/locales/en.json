@@ -319,7 +319,7 @@
       },
       "unifiedApi": {
         "title": "Single Model",
-        "desc": "One name — auto. OpenAI-compatible. Just point baseURL to router.alvine.id."
+        "desc": "One name — auto. OpenAI-compatible."
       },
       "fallback": {
         "title": "Auto Fallback",
@@ -336,7 +336,7 @@
     },
     "tryDemo": "Try live demo",
     "viewPricing": "View pricing",
-    "compatible": "OpenAI-compatible · Drop-in with 1 line change: baseURL → router.alvine.id"
+    "compatible": "OpenAI-compatible · Drop-in with 1 line change: baseURL → router.alvineitsolutions.com"
   },
   "pricing": {
     "eyebrow": "Pricing",

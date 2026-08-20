@@ -137,6 +137,28 @@ button {
   }
 }
 
+.ad-slot {
+  display: grid;
+  place-items: center;
+  min-height: 90px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px;
+  overflow: hidden;
+}
+.ad-slot--banner { min-height: 90px; }
+.ad-slot--infeed { min-height: 250px; }
+.ad-slot--square { min-height: 250px; max-width: 336px; margin-inline: auto; }
+.ad-slot__placeholder { opacity: .65; }
+@media (max-width: 640px) {
+  .ad-slot--infeed { min-height: 180px; }
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

@@ -317,7 +317,7 @@
       },
       "unifiedApi": {
         "title": "Satu Model",
-        "desc": "Satu nama — auto. Kompatibel OpenAI. Cukup arahkan baseURL ke router.alvine.id."
+        "desc": "Satu nama — auto. Kompatibel OpenAI."
       },
       "fallback": {
         "title": "Fallback Otomatis",
@@ -334,7 +334,7 @@
     },
     "tryDemo": "Coba demo",
     "viewPricing": "Lihat harga",
-    "compatible": "Kompatibel OpenAI · Ganti 1 baris: baseURL → router.alvine.id"
+    "compatible": "Kompatibel OpenAI · Ganti 1 baris: baseURL → router.alvineitsolutions.com"
   },
   "pricing": {
     "eyebrow": "Harga",

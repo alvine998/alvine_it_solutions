@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://alvine.id";
+const SITE_URL = "https://alvineitsolutions.com";
 
 function JsonLd({ data }: { data: object }) {
   useEffect(() => {

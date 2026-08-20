@@ -5,4 +5,4 @@ Disallow: /dashboard
 Disallow: /admin
 Disallow: /generate/invoice
 
-Sitemap: https://alvine.id/sitemap.xml
+Sitemap: https://alvineitsolutions.com/sitemap.xml

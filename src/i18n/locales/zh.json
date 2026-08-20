@@ -317,7 +317,7 @@
       },
       "unifiedApi": {
         "title": "单一模型",
-        "desc": "只需记住 auto。兼容 OpenAI，将 baseURL 指向 router.alvine.id 即可。"
+        "desc": "只需记住 auto。兼容 OpenAI."
       },
       "fallback": {
         "title": "自动降级",
@@ -334,7 +334,7 @@
     },
     "tryDemo": "体验演示",
     "viewPricing": "查看价格",
-    "compatible": "兼容 OpenAI · 一行改动: baseURL → router.alvine.id"
+    "compatible": "兼容 OpenAI · 一行改动: baseURL → router.alvineitsolutions.com"
   },
   "pricing": {
     "eyebrow": "价格",

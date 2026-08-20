@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Scene3D from "./components/Scene3D";
 import Seo from "./components/Seo";
+import AdSlot from "./components/AdSlot";
 import { usePageMeta } from "./hooks/usePageMeta";
 
 function ScrollMeter() {
@@ -70,13 +71,23 @@ export default function App() {
         <Navbar />
         <main id="main-content" style={{ position: "relative", zIndex: 10 }}>
           <Hero />
+          {/* ponytail: top banner — swap placeholder with AdSense/any embed later */}
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+            <AdSlot id="ad-top" variant="banner" />
+          </div>
           <Services />
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+            <AdSlot id="ad-mid" variant="infeed" />
+          </div>
           <AiRouter />
           <Pricing />
           <Portfolio />
           <About />
           <OurTeam />
           <Contact />
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 32px" }}>
+            <AdSlot id="ad-bottom" variant="banner" />
+          </div>
         </main>
         <Footer />
         <WhatsAppButton />
