@@ -14,17 +14,24 @@ const JWT_SECRET =
 // Primary: RouterModel.base_url as stored in DB (VPS 9router URL per model)
 // Fallback: server env ROUTER_CUSTOMER_URL / NINE_ROUTER_URL (VPS 9router)
 // No hard-coded silent default — if both empty, caller gets 503 with setup hint
+function stripQuotes(s: string): string {
+  let t = String(s || "").trim();
+  if ((t.startsWith('"') && t.endsWith('"')) || (t.startsWith("'") && t.endsWith("'"))) t = t.slice(1, -1).trim();
+  return t;
+}
 function getEffectiveRouterBaseUrl(rm?: any): string {
-  const raw = String(rm?.base_url || "").trim();
+  const raw = stripQuotes(String(rm?.base_url || ""));
   if (raw) return raw.replace(/\/+$/, "");
-  const env = String(
-    process.env.ROUTER_CUSTOMER_URL ||
-      process.env.NINE_ROUTER_URL ||
-      process.env.VPS_9ROUTER_URL ||
-      process.env.ROUTER_UPSTREAM_URL ||
-      process.env.ROUTER_BASE_URL ||
-      "",
-  ).trim();
+  const env = stripQuotes(
+    String(
+      process.env.ROUTER_CUSTOMER_URL ||
+        process.env.NINE_ROUTER_URL ||
+        process.env.VPS_9ROUTER_URL ||
+        process.env.ROUTER_UPSTREAM_URL ||
+        process.env.ROUTER_BASE_URL ||
+        "",
+    ),
+  );
   if (env) return env.replace(/\/+$/, "");
   return "";
 }
@@ -332,6 +339,32 @@ router.put("/:id", async (req: Request, res: Response) => {
 });
 
 // ── CHAT: POST /api/router-customers/chat/completions — proxy to router model base_url, deduct balance, log ──
+// ── OpenAI-compatible shims for @ai-sdk/openai-compatible & other clients ──
+// Must be before /:id so "models"/"v1" aren't captured as an id.
+// baseURL = https://.../api/router-customers → SDK calls GET /models and POST /chat/completions (or /v1/*)
+function toOpenAIModels(rows: any[]) {
+  return {
+    object: "list" as const,
+    data: rows.map((r: any) => ({
+      id: String(r.model_id || r.name),
+      object: "model" as const,
+      created: Math.floor(new Date(r.createdAt || Date.now()).getTime() / 1000),
+      owned_by: String(r.provider || "alvine"),
+    })),
+  };
+}
+async function handleListModels(_req: Request, res: Response) {
+  try {
+    const rows = await RouterModel.find({ status: "active" }).sort({ createdAt: 1 });
+    res.json(toOpenAIModels(rows as any[]));
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch models" });
+  }
+}
+router.get("/models", handleListModels);
+router.get("/v1/models", handleListModels);
+
 router.get("/chat/models", async (_req: Request, res: Response) => {
   try {
     const rows = await RouterModel.find({ status: "active" })
@@ -346,7 +379,7 @@ router.get("/chat/models", async (_req: Request, res: Response) => {
   }
 });
 
-router.post("/chat/completions", async (req: Request, res: Response) => {
+async function handleChatCompletions(req: Request, res: Response) {
   try {
     const customerId = await resolveCustomerId(req);
     if (!customerId)
@@ -396,12 +429,14 @@ router.post("/chat/completions", async (req: Request, res: Response) => {
       return res.status(503).json({
         error: `Router model "${rm.name}" has no base URL and no VPS fallback configured — set base_url in Admin → Router Models or set ROUTER_CUSTOMER_URL on server`,
       });
-    const apiKey = String((rm as any).api_key || "").trim();
+    const apiKey = stripQuotes(String((rm as any).api_key || ""));
     const resolvedKey =
       apiKey ||
-      String(
-        process.env.ROUTER_API_KEY || process.env.OPENAI_API_KEY || "",
-      ).trim();
+      stripQuotes(
+        String(
+          process.env.ROUTER_API_KEY || process.env.OPENAI_API_KEY || "",
+        ),
+      );
     if (!resolvedKey) {
       return res.status(503).json({
         error: `Upstream API key not configured — Router model "${rm.name}" has no api_key. Set it in Admin → Router Models (or set ROUTER_API_KEY env). Remote returned: API key required for remote API access.`,
@@ -511,6 +546,7 @@ router.post("/chat/completions", async (req: Request, res: Response) => {
       res.setHeader("Content-Type", "text/event-stream");
       res.setHeader("Cache-Control", "no-cache, no-transform");
       res.setHeader("Connection", "keep-alive");
+      res.setHeader("X-Accel-Buffering", "no");
       res.flushHeaders?.();
 
       // accumulate usage + a plain-text content mirror (for billing fallback)
@@ -841,7 +877,11 @@ router.post("/chat/completions", async (req: Request, res: Response) => {
     console.error("chat/completions error:", e?.message || e);
     res.status(500).json({ error: e?.message || "Chat proxy failed" });
   }
-});
+}
+router.post("/chat/completions", handleChatCompletions);
+router.post("/v1/chat/completions", handleChatCompletions);
+// Also accept SDK's default: POST / (baseURL already points to /api/router-customers)
+// no — SDK appends /chat/completions; the v1 shim above covers it
 
 // DELETE /api/router-customers/:id
 router.delete("/:id", async (req: Request, res: Response) => {
