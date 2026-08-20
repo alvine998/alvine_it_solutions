@@ -33,6 +33,7 @@ export default function Chat() {
   const [selected, setSelected] = useState<string>("auto");
   const [balance, setBalance] = useState<number | null>(null);
   const [lastCreditOut, setLastCreditOut] = useState<number | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const border = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   const fg = isLight ? "#1c1917" : "#fff";
@@ -46,27 +47,43 @@ export default function Chat() {
   const fetchModels = async () => {
     try {
       const r = await fetch("/api/router-customers/chat/models");
-      if (!r.ok) return;
+      if (!r.ok) {
+        toast(`Models refresh failed (${r.status})`);
+        return;
+      }
       const j = await r.json();
       const rows: RouterModelOpt[] = j.models ?? j.router_models ?? [];
       setModels(rows);
-    } catch {}
+      if (rows.length === 0) toast("No active models");
+    } catch {
+      toast("Models refresh failed");
+    }
   };
   const fetchBalance = async () => {
-    if (!token) return;
+    if (!token) {
+      toast("No token — please log in again");
+      return;
+    }
     try {
       const meRes = await fetch("/api/router-customers/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!meRes.ok) return;
+      if (!meRes.ok) {
+        toast(`Balance refresh failed (${meRes.status})`);
+        return;
+      }
       const me = await meRes.json();
       const uid = (me.user ?? me.router_customer)?.id;
-      if (!uid) return;
+      if (!uid) {
+        toast("Balance refresh failed — invalid profile");
+        return;
+      }
       const ccRes = await fetch(`/api/credit-customers/by-customer/${uid}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!ccRes.ok) {
         setBalance(0);
+        toast("Balance: 0");
         return;
       }
       const cc = await ccRes.json();
@@ -74,6 +91,19 @@ export default function Chat() {
       setBalance(typeof doc.balance === "number" ? doc.balance : 0);
     } catch {
       setBalance(null);
+      toast("Balance refresh failed");
+    }
+  };
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    setErr("");
+    try {
+      await Promise.all([fetchModels(), fetchBalance()]);
+      toast("Refreshed");
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -413,10 +443,9 @@ export default function Chat() {
           {t("customer.common.copyToken")}
         </button>
         <button
-          onClick={() => {
-            fetchModels();
-            fetchBalance();
-          }}
+          onClick={handleRefresh}
+          disabled={refreshing}
+          aria-busy={refreshing}
           style={{
             fontFamily: "DM Mono, monospace",
             fontSize: 11,
@@ -425,10 +454,11 @@ export default function Chat() {
             border: `1px solid ${border}`,
             background: isLight ? "#fff" : "rgba(255,255,255,0.06)",
             color: fg,
-            cursor: "pointer",
+            cursor: refreshing ? "not-allowed" : "pointer",
+            opacity: refreshing ? 0.6 : 1,
           }}
         >
-          {t("customer.apiKeys.refresh")}
+          {refreshing ? `${t("customer.apiKeys.refresh")}…` : t("customer.apiKeys.refresh")}
         </button>
       </div>
 
