@@ -233,7 +233,7 @@ router.get("/auth/me", async (req: Request, res: Response) => {
   }
 });
 
-// GET /api/router-customers?status=&search=&page=&limit=
+// GET /api/router-customers?status=&search=&page=&limit=  (keep before /:id so literal subpaths aren't captured)
 router.get("/", async (req: Request, res: Response) => {
   try {
     const { status, search, page, limit } = req.query as any;
@@ -264,6 +264,44 @@ router.get("/", async (req: Request, res: Response) => {
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: "Failed to fetch router customers" });
+  }
+});
+
+// ── CHAT + OpenAI-compatible shims — MUST be before /:id or "models" is captured as an id ──
+function toOpenAIModels(rows: any[]) {
+  return {
+    object: "list" as const,
+    data: rows.map((r: any) => ({
+      id: String(r.model_id || r.name),
+      object: "model" as const,
+      created: Math.floor(new Date(r.createdAt || Date.now()).getTime() / 1000),
+      owned_by: String(r.provider || "alvine"),
+    })),
+  };
+}
+async function handleListModels(_req: Request, res: Response) {
+  try {
+    const rows = await RouterModel.find({ status: "active" }).sort({ createdAt: 1 });
+    res.json(toOpenAIModels(rows as any[]));
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch models" });
+  }
+}
+router.get("/models", handleListModels);
+router.get("/v1/models", handleListModels);
+
+router.get("/chat/models", async (_req: Request, res: Response) => {
+  try {
+    const rows = await RouterModel.find({ status: "active" })
+      .select(
+        "name provider model_id base_url context_window credits_per_1k status",
+      )
+      .sort({ createdAt: 1 });
+    res.json({ models: rows });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch models" });
   }
 });
 
@@ -335,47 +373,6 @@ router.put("/:id", async (req: Request, res: Response) => {
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: "Failed to update router customer" });
-  }
-});
-
-// ── CHAT: POST /api/router-customers/chat/completions — proxy to router model base_url, deduct balance, log ──
-// ── OpenAI-compatible shims for @ai-sdk/openai-compatible & other clients ──
-// Must be before /:id so "models"/"v1" aren't captured as an id.
-// baseURL = https://.../api/router-customers → SDK calls GET /models and POST /chat/completions (or /v1/*)
-function toOpenAIModels(rows: any[]) {
-  return {
-    object: "list" as const,
-    data: rows.map((r: any) => ({
-      id: String(r.model_id || r.name),
-      object: "model" as const,
-      created: Math.floor(new Date(r.createdAt || Date.now()).getTime() / 1000),
-      owned_by: String(r.provider || "alvine"),
-    })),
-  };
-}
-async function handleListModels(_req: Request, res: Response) {
-  try {
-    const rows = await RouterModel.find({ status: "active" }).sort({ createdAt: 1 });
-    res.json(toOpenAIModels(rows as any[]));
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: "Failed to fetch models" });
-  }
-}
-router.get("/models", handleListModels);
-router.get("/v1/models", handleListModels);
-
-router.get("/chat/models", async (_req: Request, res: Response) => {
-  try {
-    const rows = await RouterModel.find({ status: "active" })
-      .select(
-        "name provider model_id base_url context_window credits_per_1k status",
-      )
-      .sort({ createdAt: 1 });
-    res.json({ models: rows });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: "Failed to fetch models" });
   }
 });
 

@@ -364,7 +364,7 @@ export default function Chat() {
             maxWidth: 220,
           }}
         >
-          {/* <option value="auto">auto — best active</option> */}
+          <option value="auto">auto — best active</option>
           {models.map((m) => (
             <option key={m._id} value={m.model_id}>
               {m.name}
