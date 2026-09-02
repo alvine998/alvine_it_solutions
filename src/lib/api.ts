@@ -82,3 +82,20 @@ export async function deleteInvoice(id: string) {
 
   return response.json();
 }
+
+export async function getMarketplaceItems(params?: { status?: string; category?: string; search?: string; limit?: number }) {
+  const qs = new URLSearchParams();
+  if (params?.status) qs.set("status", params.status);
+  if (params?.category) qs.set("category", params.category);
+  if (params?.search) qs.set("search", params.search);
+  if (params?.limit) qs.set("limit", String(params.limit));
+  const response = await fetch(`${API_BASE_URL}/marketplace?${qs.toString()}`);
+  if (!response.ok) throw new Error("Failed to fetch marketplace items");
+  return response.json();
+}
+
+export async function getMarketplaceItem(id: string) {
+  const response = await fetch(`${API_BASE_URL}/marketplace/${id}`);
+  if (!response.ok) throw new Error("Failed to fetch marketplace item");
+  return response.json();
+}

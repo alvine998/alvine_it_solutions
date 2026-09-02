@@ -37,13 +37,17 @@
       "title": "Masuk atau Daftar — AI Router | Alvine IT Solution",
       "description": "Masuk untuk mengelola kredit dan penggunaan AI Router Anda."
     },
-    "invoice": {
+  "invoice": {
       "title": "Generator Invoice — Buat & Cetak Invoice | Alvine IT Solution",
       "description": "Generator invoice online gratis. Semua yang Anda ketik langsung memperbarui dokumen — cetak atau simpan sebagai PDF."
     },
     "dashboard": {
       "title": "Dasbor — Alvine IT Solution",
       "description": "Kelola akun, kredit, dan penggunaan AI Router Anda."
+    },
+    "marketplace": {
+      "title": "Marketplace — Jual Beli Kode | Alvine IT Solution",
+      "description": "Jelajahi dan beli template web app, kode sumber aplikasi mobile, boilerplate API, dan lainnya dari Alvine IT Solution."
     }
   },
   "nav": {
@@ -60,7 +64,8 @@
     "login": "Masuk",
     "dashboard": "Dasbor",
     "aiRouter": "AI Router",
-    "pricing": "Harga"
+    "pricing": "Harga",
+    "marketplace": "Marketplace"
   },
   "hero": {
     "badge": "Software House & Solusi Digital",
@@ -214,6 +219,33 @@
     "copyright": "Alvine IT Solution. Hak cipta dilindungi.",
     "crafted": "Dibuat dengan semangat & presisi"
   },
+  "marketplace": {
+    "eyebrow": "Marketplace Kode",
+    "headingPart1": "Kode ",
+    "headingHighlight": "Siap Pakai",
+    "headingPart2": "",
+    "subtitle": "Jelajahi dan beli template web app, kode sumber aplikasi mobile, boilerplate API, dan lainnya.",
+    "pageSubtitle": "Temukan template kode dan sumber kode berkualitas tinggi untuk proyek Anda selanjutnya. Beli, unduh, dan bangun.",
+    "searchPlaceholder": "Cari berdasarkan nama, teknologi, atau deskripsi...",
+    "noItems": "Belum ada item di marketplace. Nantikan segera!",
+    "noResults": "Tidak ada hasil yang cocok. Coba kata kunci lain.",
+    "featured": "Unggulan",
+    "free": "Gratis",
+    "sales": "penjualan",
+    "viewAll": "Lihat semua kode",
+    "backToHome": "Kembali ke Beranda",
+    "demo": "Demo Langsung",
+    "purchase": "Beli",
+    "categories": {
+        "all": "Semua",
+        "web": "Web App",
+        "mobile": "Mobile",
+        "desktop": "Desktop",
+        "api": "API",
+        "template": "Template",
+        "other": "Lainnya"
+    }
+},
   "invoice": {
     "title": "Pembuat Invoice",
     "lead": "Semua yang Anda ketik akan memperbarui dokumen di sebelah kanan. Tidak ada yang diunggah — invoice hanya ada di tab ini.",

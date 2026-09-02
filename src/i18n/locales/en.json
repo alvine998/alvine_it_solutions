@@ -37,13 +37,17 @@
       "title": "Log In or Register — AI Router | Alvine IT Solution",
       "description": "Sign in to manage your AI Router credits and usage."
     },
-    "invoice": {
+  "invoice": {
       "title": "Invoice Generator — Create & Print Invoices | Alvine IT Solution",
       "description": "Free online invoice generator. Everything you type updates the document instantly — print or save as PDF."
     },
     "dashboard": {
       "title": "Dashboard — Alvine IT Solution",
       "description": "Manage your AI Router account, credits, and usage."
+    },
+    "marketplace": {
+      "title": "Marketplace — Buy & Sell Code | Alvine IT Solution",
+      "description": "Browse and purchase ready-to-use web app templates, mobile app source code, API boilerplates, and more from Alvine IT Solution."
     }
   },
   "nav": {
@@ -60,7 +64,8 @@
     "login": "Login",
     "dashboard": "Dashboard",
     "aiRouter": "AI Router",
-    "pricing": "Pricing"
+    "pricing": "Pricing",
+    "marketplace": "Marketplace"
   },
   "hero": {
     "badge": "Software House & Digital Solutions",
@@ -216,6 +221,33 @@
     "copyright": "Alvine IT Solution. All rights reserved.",
     "crafted": "Crafted with passion & precision"
   },
+  "marketplace": {
+    "eyebrow": "Code Marketplace",
+    "headingPart1": "Ready-to-Use ",
+    "headingHighlight": "Code",
+    "headingPart2": "",
+    "subtitle": "Browse and purchase production-ready web app templates, mobile source code, API boilerplates, and more.",
+    "pageSubtitle": "Find high-quality code templates and source code to jumpstart your next project. Buy, download, and build.",
+    "searchPlaceholder": "Search by name, tech, or description...",
+    "noItems": "No items in the marketplace yet. Check back soon!",
+    "noResults": "No results match your search. Try different keywords.",
+    "featured": "Featured",
+    "free": "Free",
+    "sales": "sales",
+    "viewAll": "View all code",
+    "backToHome": "Back to Home",
+    "demo": "Live Demo",
+    "purchase": "Purchase",
+    "categories": {
+        "all": "All",
+        "web": "Web App",
+        "mobile": "Mobile",
+        "desktop": "Desktop",
+        "api": "API",
+        "template": "Template",
+        "other": "Other"
+    }
+},
   "invoice": {
     "title": "Invoice generator",
     "lead": "Everything you type updates the document on the right. Nothing is uploaded — the invoice lives only in this tab.",

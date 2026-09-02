@@ -26,11 +26,12 @@ export function getR2Config(): R2Config {
 
 /**
  * Upload an image buffer to Cloudflare R2 and return the public CDN URL.
+ * @param prefix - R2 key prefix without trailing slash (default "qris")
  */
-export async function uploadToR2(buffer: Uint8Array, contentType: string): Promise<string> {
+export async function uploadToR2(buffer: Uint8Array, contentType: string, prefix = "qris"): Promise<string> {
   const { accountId, accessKeyId, secretAccessKey, bucket, publicUrl } = getR2Config();
   const ext = contentType.split("/")[1] || "png";
-  const key = `qris/${randomUUID()}.${ext}`;
+  const key = `${prefix}/${randomUUID()}.${ext}`;
 
   const client = new S3Client({
     region: "auto",

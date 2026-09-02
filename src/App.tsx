@@ -8,6 +8,7 @@ import Services from "./components/Services";
 import AiRouter from "./components/AiRouter";
 import Pricing from "./components/Pricing";
 import Portfolio from "./components/Portfolio";
+import Marketplace from "./components/Marketplace";
 import About from "./components/About";
 import OurTeam from "./components/OurTeam";
 import Contact from "./components/Contact";
@@ -82,6 +83,7 @@ export default function App() {
           <AiRouter />
           <Pricing />
           <Portfolio />
+          <Marketplace />
           <About />
           <OurTeam />
           <Contact />

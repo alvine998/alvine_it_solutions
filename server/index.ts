@@ -17,6 +17,7 @@ import orderRoutes from "./routes/order";
 import paymentMethodRoutes from "./routes/paymentMethod";
 import customerApiKeyRoutes from "./routes/customerApiKey";
 import settingRoutes from "./routes/setting";
+import marketplaceRoutes from "./routes/marketplace";
 
 const app = express();
 const PORT = process.env.PORT || 4005;
@@ -45,6 +46,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payment-methods", paymentMethodRoutes);
 app.use("/api/customer-api-keys", customerApiKeyRoutes);
 app.use("/api/settings", settingRoutes);
+app.use("/api/marketplace", marketplaceRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {

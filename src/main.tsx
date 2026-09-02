@@ -24,10 +24,12 @@ import AdminCustomerDetail from './pages/AdminCustomerDetail.tsx'
 import AdminRouterCustomers from './pages/AdminRouterCustomers.tsx'
 import AdminRouterModels from './pages/AdminRouterModels.tsx'
 import AdminCustomerPlans from './pages/AdminCustomerPlans.tsx'
+import AdminMarketplace from './pages/AdminMarketplace.tsx'
 import AdminPlans from './pages/AdminPlans.tsx'
 import AdminPaymentMethods from './pages/AdminPaymentMethods.tsx'
 import AdminOrders from './pages/AdminOrders.tsx'
 import AdminSettings from './pages/AdminSettings.tsx'
+import MarketplacePage from './pages/MarketplacePage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -46,6 +48,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="api-keys" element={<CustomerApiKeys />} />
           <Route path="profile" element={<CustomerProfile />} />
         </Route>
+        <Route path="/marketplace" element={<MarketplacePage />} />
         <Route path="/generate/invoice" element={<InvoiceGenerator />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -56,6 +59,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/admin/router-customers" element={<AdminRouterCustomers />} />
         <Route path="/admin/router-models" element={<AdminRouterModels />} />
         <Route path="/admin/customer-plans" element={<AdminCustomerPlans />} />
+        <Route path="/admin/marketplace" element={<AdminMarketplace />} />
         <Route path="/admin/plans" element={<AdminPlans />} />
         <Route path="/admin/payment-methods" element={<AdminPaymentMethods />} />
         <Route path="/admin/orders" element={<AdminOrders />} />

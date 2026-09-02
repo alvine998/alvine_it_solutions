@@ -37,13 +37,17 @@
       "title": "登录或注册 — AI Router | Alvine IT Solution",
       "description": "登录以管理您的 AI Router 积分和使用情况。"
     },
-    "invoice": {
+  "invoice": {
       "title": "发票生成器 — 创建并打印发票 | Alvine IT Solution",
       "description": "免费的在线发票生成器。您输入的内容会即时更新文档 — 打印或保存为 PDF。"
     },
     "dashboard": {
       "title": "仪表板 — Alvine IT Solution",
       "description": "管理您的 AI Router 账户、积分和使用情况。"
+    },
+    "marketplace": {
+      "title": "市场 — 买卖代码 | Alvine IT Solution",
+      "description": "浏览和购买现成的 Web 应用模板、移动应用源代码、API 样板等。"
     }
   },
   "nav": {
@@ -60,7 +64,8 @@
     "login": "登录",
     "dashboard": "控制台",
     "aiRouter": "AI 路由",
-    "pricing": "价格"
+    "pricing": "价格",
+    "marketplace": "市场"
   },
   "hero": {
     "badge": "软件公司 & 数字解决方案",
@@ -214,6 +219,33 @@
     "copyright": "Alvine IT Solution。保留所有权利。",
     "crafted": "用心与精准打造"
   },
+  "marketplace": {
+    "eyebrow": "代码市场",
+    "headingPart1": "即用型 ",
+    "headingHighlight": "代码",
+    "headingPart2": "",
+    "subtitle": "浏览和购买生产级 Web 应用模板、移动端源代码、API 样板等。",
+    "pageSubtitle": "发现高质量的代码模板和源代码，快速启动您的下一个项目。购买、下载、构建。",
+    "searchPlaceholder": "按名称、技术或描述搜索...",
+    "noItems": "市场暂无商品，敬请期待！",
+    "noResults": "没有匹配的结果，请尝试其他关键词。",
+    "featured": "精选",
+    "free": "免费",
+    "sales": "销量",
+    "viewAll": "查看全部代码",
+    "backToHome": "返回首页",
+    "demo": "在线演示",
+    "purchase": "购买",
+    "categories": {
+        "all": "全部",
+        "web": "Web 应用",
+        "mobile": "移动应用",
+        "desktop": "桌面应用",
+        "api": "API",
+        "template": "模板",
+        "other": "其他"
+    }
+},
   "invoice": {
     "title": "发票生成器",
     "lead": "您输入的所有内容都会更新右侧的文档。不会上传任何内容——发票仅存在于此标签页中。",

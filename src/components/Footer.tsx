@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -103,6 +104,22 @@ export default function Footer() {
                 {item}
               </a>
             ))}
+            <Link
+              to="/marketplace"
+              style={{
+                display: "block",
+                textDecoration: "none",
+                color: "rgba(255,255,255,0.4)",
+                fontSize: 14,
+                fontFamily: "Inter, sans-serif",
+                marginBottom: 10,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#8b5cf6")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+            >
+              {t("nav.marketplace")}
+            </Link>
           </div>
 
           <div>
