@@ -1,11 +1,8 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useMemo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 type ProjectData = {
   tech: string[];
-  gradient: string;
-  glowColor: string;
   image: string;
   link: string;
 };
@@ -13,289 +10,226 @@ type ProjectData = {
 const projectData: Record<string, ProjectData> = {
   goldbricks: {
     tech: ["Laravel", "MySQL"],
-    gradient: "linear-gradient(135deg, #eab308, #ca8a04)",
-    glowColor: "rgba(234, 179, 8, 0.3)",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://goldbricks.co.id",
   },
   stokinventory: {
     tech: ["Laravel", "MySQL"],
-    gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-    glowColor: "rgba(99, 102, 241, 0.3)",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://stokinventory.com",
   },
   kerjaAjaDulu: {
     tech: ["Next.js", "Express.js", "MySQL"],
-    gradient: "linear-gradient(135deg, #06b6d4, #0891b2)",
-    glowColor: "rgba(6, 182, 212, 0.3)",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://kerjaajadulu.com",
   },
   kasirinApp: {
-    tech: ["Electron", "TypeScript", "MongoDB"],
-    gradient: "linear-gradient(135deg, #ec4899, #be185d)",
-    glowColor: "rgba(236, 72, 153, 0.3)",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+    tech: ["React Native", "TypeScript", "SQLite"],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://play.google.com/store/apps/details?id=com.kasirinku.app&hl=id",
   },
   tokotitohApp: {
     tech: ["Node.js", "PostgreSQL", "Redis"],
-    gradient: "linear-gradient(135deg, #f59e0b, #d97706)",
-    glowColor: "rgba(245, 158, 11, 0.3)",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://play.google.com/store/apps/details?id=com.tokonyang_app&hl=id",
   },
   midlandProperti: {
     tech: ["React", "Python", "Docker"],
-    gradient: "linear-gradient(135deg, #10b981, #059669)",
-    glowColor: "rgba(16, 185, 129, 0.3)",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://midlandproperti.id/",
   },
   bmTransportLogistik: {
     tech: ["Flutter", "Go", "Firebase"],
-    gradient: "linear-gradient(135deg, #f43f5e, #e11d48)",
-    glowColor: "rgba(244, 63, 94, 0.3)",
-    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=800&h=450&fit=crop&q=70&auto=format",
     link: "https://bmtransportlogistik.com",
   },
 };
 
 const ALL_PROJECT_KEYS = Object.keys(projectData);
 
-const CARD_WIDTH = typeof window !== "undefined" && window.innerWidth < 768 ? 300 : 400;
-const GAP = 24;
-
-function ProjectCard({ projectKey, t }: { projectKey: string; t: (key: string) => string }) {
-  const [hovered, setHovered] = useState(false);
+function ProjectCard({ projectKey, index }: { projectKey: string; index: number }) {
+  const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
   const p = projectData[projectKey];
+  const results = (t(`portfolio.projects.${projectKey}.results`, { returnObjects: true }) as unknown as string[]) || [];
+  const timeline = t(`portfolio.projects.${projectKey}.timeline`, { defaultValue: "" });
 
   return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={() => {
-        if (p.link && p.link !== "#") window.open(p.link, "_blank", "noopener,noreferrer");
-      }}
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay: (index % 2) * 0.1 }}
+      aria-label={t(`portfolio.projects.${projectKey}.title`)}
       style={{
         position: "relative",
-        borderRadius: 24,
-        background: hovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${hovered ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"}`,
-        backdropFilter: "blur(10px)",
-        cursor: "pointer",
-        transition: "all 0.4s ease",
+        borderRadius: 20,
+        background: "#ffffff",
+        border: "1px solid #e6e8f0",
+        boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
         overflow: "hidden",
-        flexShrink: 0,
-        width: CARD_WIDTH,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: hovered ? `radial-gradient(circle at 50% 0%, ${p.glowColor}, transparent 70%)` : "none",
-        transition: "all 0.4s ease",
-        pointerEvents: "none",
-        zIndex: 1,
-      }} />
-
-      <div style={{ position: "relative", overflow: "hidden", height: 200 }}>
-        <motion.img
+      <div style={{ position: "relative", overflow: "hidden", height: 210 }}>
+        <img
           src={p.image}
-          alt={t(`portfolio.projects.${projectKey}.title`)}
-          animate={{ scale: hovered ? 1.1 : 1 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          width={800}
+          height={450}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
         <div style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to top, rgba(10,10,20,0.9) 0%, transparent 60%)",
-        }} />
-        <motion.span
-          animate={{ y: hovered ? 0 : -10, opacity: hovered ? 1 : 0.8 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            padding: "6px 14px",
-            borderRadius: 50,
-            background: p.gradient,
-            color: "#fff",
-            fontSize: 12,
-            fontWeight: 600,
-            fontFamily: "Inter, sans-serif",
-          }}
-        >
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to top, rgba(11,18,32,0.72) 0%, transparent 62%)",
+        }} aria-hidden />
+        <span style={{
+          position: "absolute", top: 14, left: 14,
+          padding: "6px 13px", borderRadius: 50,
+          background: "rgba(255,255,255,0.94)",
+          border: "1px solid #e2e4ee",
+          color: "#0b1220", fontSize: 12, fontWeight: 600, fontFamily: "Inter, sans-serif",
+        }}>
           {t(`portfolio.projects.${projectKey}.category`)}
-        </motion.span>
-      </div>
-
-      <div style={{ position: "relative", zIndex: 1, padding: "24px 32px 32px" }}>
+        </span>
+        {timeline && (
+          <span style={{
+            position: "absolute", top: 14, right: 14,
+            padding: "6px 13px", borderRadius: 50,
+            background: "#ecfdf5", border: "1px solid #a7f3d0",
+            color: "#047857", fontSize: 12, fontWeight: 600, fontFamily: "DM Mono, monospace",
+          }}>
+            ⏱ {timeline}
+          </span>
+        )}
         <h3 style={{
-          fontFamily: "Space Grotesk, sans-serif",
-          fontSize: 22,
-          fontWeight: 700,
-          color: "#fff",
-          marginBottom: 12,
+          position: "absolute", bottom: 14, left: 20, right: 20, margin: 0,
+          fontFamily: "Space Grotesk, sans-serif", fontSize: 22, fontWeight: 700, color: "#fff",
+          textShadow: "0 1px 8px rgba(0,0,0,0.35)",
         }}>
           {t(`portfolio.projects.${projectKey}.title`)}
         </h3>
+      </div>
 
-        <p style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: 14,
-          color: "rgba(255,255,255,0.6)",
-          lineHeight: 1.7,
-          marginBottom: 20,
-        }}>
+      <div style={{ padding: "22px 22px 24px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
+        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: "#475569", lineHeight: 1.7, margin: 0 }}>
           {t(`portfolio.projects.${projectKey}.description`)}
         </p>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <div style={{ display: "grid", gap: 10 }}>
+          <div>
+            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#be185d", marginBottom: 4 }}>
+              {t("portfolio.problemLabel")}
+            </div>
+            <p style={{ margin: 0, fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "#334155", lineHeight: 1.65 }}>
+              {t(`portfolio.projects.${projectKey}.problem`)}
+            </p>
+          </div>
+          <div>
+            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#4338ca", marginBottom: 4 }}>
+              {t("portfolio.solutionLabel")}
+            </div>
+            <p style={{ margin: 0, fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "#334155", lineHeight: 1.65 }}>
+              {t(`portfolio.projects.${projectKey}.solution`)}
+            </p>
+          </div>
+        </div>
+
+        {Array.isArray(results) && results.length > 0 && (
+          <div style={{
+            background: "#ecfdf5",
+            border: "1px solid #a7f3d0",
+            borderRadius: 14, padding: "12px 14px",
+          }}>
+            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#047857", marginBottom: 8 }}>
+              {t("portfolio.outcomeLabel")}
+            </div>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 7 }}>
+              {results.map((r) => (
+                <li key={r} style={{ display: "flex", gap: 8, alignItems: "flex-start", fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "#0b1220", lineHeight: 1.5 }}>
+                  <span aria-hidden style={{ color: "#059669", fontWeight: 700 }}>✓</span>{r}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: "auto", paddingTop: 4 }}>
           {p.tech.map((tech) => (
-            <span
-              key={tech}
-              style={{
-                padding: "5px 12px",
-                borderRadius: 50,
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "rgba(255,255,255,0.7)",
-                fontSize: 12,
-                fontWeight: 500,
-                fontFamily: "Inter, sans-serif",
-              }}
-            >
+            <span key={tech} style={{
+              padding: "5px 12px", borderRadius: 50,
+              background: "#f1f2f7", border: "1px solid #e2e4ee",
+              color: "#3f4756", fontSize: 12, fontWeight: 500, fontFamily: "Inter, sans-serif",
+            }}>
               {tech}
             </span>
           ))}
         </div>
+
+        {p.link && p.link !== "#" && (
+          <a
+            href={p.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 6,
+              fontFamily: "Inter, sans-serif", fontSize: 13.5, fontWeight: 600,
+              color: "#4f46e5", textDecoration: "none", marginTop: 4,
+            }}
+          >
+            View live <span aria-hidden>→</span>
+          </a>
+        )}
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
 export default function Portfolio() {
-  const { t, i18n } = useTranslation();
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const visibleKeys = useMemo(() => {
-    return ALL_PROJECT_KEYS.filter((key) => {
-      const title = i18n.getResource(i18n.language, "translation", `portfolio.projects.${key}.title`);
-      return typeof title === "string" && title.length > 0;
-    });
-  }, [i18n.language]);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  const totalScrollWidth = visibleKeys.length * (CARD_WIDTH + GAP) - GAP;
-  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
-  const maxTranslate = -(totalScrollWidth - viewportWidth + 120);
-
-  const x = useTransform(scrollYProgress, [0, 1], [0, maxTranslate]);
+  const { t } = useTranslation();
 
   return (
-    <>
-      <section
-        id="portfolio"
-        style={{
-          position: "relative",
-          zIndex: 10,
-          padding: "100px 14px 0",
-          maxWidth: 1200,
-          margin: "0 auto",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: "center", marginBottom: 64 }}
-        >
-          <span style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#06b6d4",
-            textTransform: "uppercase",
-            letterSpacing: 3,
-            marginBottom: 16,
-            display: "block",
-          }}>
-            {t("portfolio.eyebrow")}
-          </span>
-          <h2 style={{
-            fontFamily: "Space Grotesk, sans-serif",
-            fontSize: "clamp(32px, 5vw, 52px)",
-            fontWeight: 800,
-            color: "#fff",
-            lineHeight: 1.2,
-            letterSpacing: "-1px",
-          }}>
-            {t("portfolio.headingPart1")}
-            <span style={{
-              background: "linear-gradient(135deg, #06b6d4, #6366f1)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}>
-              {t("portfolio.headingHighlight")}
-            </span>
-            {t("portfolio.headingPart2", "")}
-          </h2>
-        </motion.div>
-      </section>
-
-      <section
-        ref={sectionRef}
-        style={{
-          position: "relative",
-          zIndex: 10,
-          height: `${totalScrollWidth + viewportWidth}px`,
-        }}
-      >
-        <div className="portfolio-sticky" style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          overflow: "hidden",
-          paddingLeft: 100,
+    <section id="portfolio" aria-label="Case studies" style={{ position: "relative", zIndex: 10, padding: "110px 24px 40px", maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ textAlign: "center", marginBottom: 20 }}>
+        <span style={{
+          fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 700, color: "#0e7490",
+          textTransform: "uppercase", letterSpacing: 2.5, marginBottom: 14, display: "block",
         }}>
-          <motion.div
-            ref={trackRef}
-            className="portfolio-track"
-            style={{
-              x,
-              display: "flex",
-              gap: GAP,
-              paddingLeft: 60,
-              paddingRight: 150,
-              willChange: "transform",
-            }}
-          >
-            {visibleKeys.map((key) => (
-              <ProjectCard key={`${i18n.language}-${key}`} projectKey={key} t={t} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
-    </>
+          {t("portfolio.eyebrow")}
+        </span>
+        <h2 style={{
+          fontFamily: "Space Grotesk, sans-serif", fontSize: "clamp(30px, 4.5vw, 46px)",
+          fontWeight: 800, color: "#0b1220", lineHeight: 1.2, letterSpacing: "-1px", margin: "0 0 14px",
+        }}>
+          {t("portfolio.headingPart1")}
+          <span style={{ color: "#4f46e5" }}>
+            {t("portfolio.headingHighlight")}
+          </span>
+          {t("portfolio.headingPart2", "")}
+        </h2>
+        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", maxWidth: 660, margin: "0 auto", lineHeight: 1.7 }}>
+          {t("portfolio.sub")}
+        </p>
+      </div>
+
+      <div style={{
+        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
+        gap: 22, alignItems: "stretch",
+      }}>
+        {ALL_PROJECT_KEYS.map((key, i) => (
+          <ProjectCard key={key} projectKey={key} index={i} />
+        ))}
+      </div>
+
+      <p style={{
+        textAlign: "center", marginTop: 28,
+        fontFamily: "DM Mono, monospace", fontSize: 12.5, color: "#6b7280",
+      }}>
+        {t("portfolio.referencesNote")}
+      </p>
+    </section>
   );
 }

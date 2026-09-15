@@ -5,6 +5,7 @@ export interface IContact extends Document {
   email: string;
   phone?: string;
   company?: string;
+  budget?: string;
   message: string;
   createdAt: Date;
 }
@@ -15,6 +16,7 @@ const ContactSchema = new Schema<IContact>(
     email: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, trim: true },
     company: { type: String, trim: true },
+    budget: { type: String, trim: true },
     message: { type: String, required: true },
   },
   { timestamps: true }

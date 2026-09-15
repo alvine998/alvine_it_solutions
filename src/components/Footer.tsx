@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { SITE } from "../lib/site";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -8,8 +9,9 @@ export default function Footer() {
     <footer style={{
       position: "relative",
       zIndex: 10,
-      padding: "60px 24px 32px",
-      borderTop: "1px solid rgba(255,255,255,0.06)",
+      padding: "64px 24px 32px",
+      borderTop: "1px solid #e6e8f0",
+      background: "#fafbfe",
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div style={{
@@ -24,7 +26,7 @@ export default function Footer() {
                 fontFamily: "Space Grotesk, sans-serif",
                 fontWeight: 700,
                 fontSize: 18,
-                color: "#fff",
+                color: "#0b1220",
               }}>
                 {t("nav.brand")}
               </span>
@@ -32,20 +34,46 @@ export default function Footer() {
             <p style={{
               fontFamily: "Inter, sans-serif",
               fontSize: 14,
-              color: "rgba(255,255,255,0.4)",
+              color: "#6b7280",
               lineHeight: 1.7,
               maxWidth: 280,
+              margin: "0 0 14px",
             }}>
               {t("footer.tagline")}
+            </p>
+            <p style={{
+              fontFamily: "DM Mono, monospace",
+              fontSize: 12,
+              color: "#475569",
+              lineHeight: 1.7,
+              margin: "0 0 8px",
+            }}>
+              📍 {t("footer.location", SITE.location)}
+            </p>
+            <a href={`mailto:${SITE.email}`} style={{
+              fontFamily: "Inter, sans-serif", fontSize: 13.5, fontWeight: 600,
+              color: "#4f46e5", textDecoration: "none",
+            }}>
+              {SITE.email}
+            </a>
+            <p style={{
+              fontFamily: "DM Mono, monospace",
+              fontSize: 11.5,
+              color: "#94a3b8",
+              lineHeight: 1.7,
+              margin: "12px 0 0",
+            }}>
+              ID: {SITE.paymentsLocal.join(" • ")}<br />
+              Global: {SITE.paymentsGlobal.join(" • ")}
             </p>
           </div>
 
           <div>
             <h4 style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#fff",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#0b1220",
               marginBottom: 16,
               textTransform: "uppercase",
               letterSpacing: 1,
@@ -59,14 +87,14 @@ export default function Footer() {
                 style={{
                   display: "block",
                   textDecoration: "none",
-                  color: "rgba(255,255,255,0.4)",
+                  color: "#6b7280",
                   fontSize: 14,
                   fontFamily: "Inter, sans-serif",
                   marginBottom: 10,
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#8b5cf6")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#4f46e5")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
               >
                 {item}
               </a>
@@ -76,9 +104,9 @@ export default function Footer() {
           <div>
             <h4 style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#fff",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#0b1220",
               marginBottom: 16,
               textTransform: "uppercase",
               letterSpacing: 1,
@@ -92,14 +120,14 @@ export default function Footer() {
                 style={{
                   display: "block",
                   textDecoration: "none",
-                  color: "rgba(255,255,255,0.4)",
+                  color: "#6b7280",
                   fontSize: 14,
                   fontFamily: "Inter, sans-serif",
                   marginBottom: 10,
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#8b5cf6")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#4f46e5")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
               >
                 {item}
               </a>
@@ -109,14 +137,14 @@ export default function Footer() {
               style={{
                 display: "block",
                 textDecoration: "none",
-                color: "rgba(255,255,255,0.4)",
+                color: "#6b7280",
                 fontSize: 14,
                 fontFamily: "Inter, sans-serif",
                 marginBottom: 10,
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#8b5cf6")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#4f46e5")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
             >
               {t("nav.marketplace")}
             </Link>
@@ -125,9 +153,9 @@ export default function Footer() {
           <div>
             <h4 style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#fff",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#0b1220",
               marginBottom: 16,
               textTransform: "uppercase",
               letterSpacing: 1,
@@ -146,17 +174,18 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  whileHover={{ scale: 1.2, color: "#8b5cf6" }}
+                  whileHover={{ scale: 1.08 }}
                   style={{
                     width: 40,
                     height: 40,
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: "#fff",
+                    border: "1px solid #e2e4ee",
+                    boxShadow: "0 1px 2px rgba(16,24,40,0.06)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "rgba(255,255,255,0.5)",
+                    color: "#475569",
                     textDecoration: "none",
                     transition: "all 0.2s",
                   }}
@@ -169,7 +198,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom" style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "1px solid #e6e8f0",
           paddingTop: 24,
           display: "flex",
           justifyContent: "space-between",
@@ -180,14 +209,16 @@ export default function Footer() {
           <p style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 13,
-            color: "rgba(255,255,255,0.3)",
+            color: "#94a3b8",
+            margin: 0,
           }}>
             &copy; {new Date().getFullYear()} {t("footer.copyright")}
           </p>
           <p style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 13,
-            color: "rgba(255,255,255,0.3)",
+            color: "#94a3b8",
+            margin: 0,
           }}>
             {t("footer.crafted")}
           </p>

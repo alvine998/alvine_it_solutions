@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -38,9 +38,9 @@ const serviceGradients = [
 ];
 
 const serviceTechs = [
-  ["Electron", "Tauri", "Qt", ".NET"],
-  ["React", "Next.js", "Vue", "TypeScript"],
-  ["Node.js", "Go", "Python", "PostgreSQL"],
+  ["Electron", "Tauri", ".NET", "SQLite"],
+  ["React", "Next.js", "TypeScript", "Tailwind"],
+  ["Laravel", "Node.js", "Go", "PostgreSQL"],
   ["React Native", "Flutter", "Swift", "Kotlin"],
 ];
 
@@ -60,13 +60,15 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
       onMouseLeave={() => setHovered(false)}
       style={{
         position: "relative",
-        padding: 40,
-        borderRadius: 24,
-        background: hovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${hovered ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"}`,
-        backdropFilter: "blur(10px)",
-        cursor: "pointer",
-        transition: "all 0.4s ease",
+        padding: 36,
+        borderRadius: 20,
+        background: "#ffffff",
+        border: `1px solid ${hovered ? "#c9cdfc" : "#e6e8f0"}`,
+        boxShadow: hovered
+          ? "0 2px 4px rgba(16,24,40,0.05), 0 16px 36px rgba(79,70,229,0.12)"
+          : "0 1px 2px rgba(16,24,40,0.05)",
+        cursor: "default",
+        transition: "all 0.3s ease",
         overflow: "hidden",
       }}
     >
@@ -75,9 +77,9 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
-        background: hovered ? `radial-gradient(circle at 50% 0%, ${colors.glowColor}, transparent 70%)` : "none",
-        transition: "all 0.4s ease",
+        height: 4,
+        background: hovered ? colors.gradient : "#eef0f4",
+        transition: "all 0.3s ease",
         pointerEvents: "none",
       }} />
 
@@ -102,10 +104,10 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
 
         <h3 style={{
           fontFamily: "Space Grotesk, sans-serif",
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: 700,
-          color: "#fff",
-          marginBottom: 12,
+          color: "#0b1220",
+          margin: "0 0 10px",
         }}>
           {t(`services.${key}.title`)}
         </h3>
@@ -113,9 +115,9 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
         <p style={{
           fontFamily: "Inter, sans-serif",
           fontSize: 15,
-          color: "rgba(255,255,255,0.6)",
+          color: "#475569",
           lineHeight: 1.7,
-          marginBottom: 24,
+          margin: "0 0 22px",
         }}>
           {t(`services.${key}.description`)}
         </p>
@@ -127,9 +129,9 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
               style={{
                 padding: "6px 14px",
                 borderRadius: 50,
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "rgba(255,255,255,0.7)",
+                background: "#f1f2f7",
+                border: "1px solid #e2e4ee",
+                color: "#3f4756",
                 fontSize: 12,
                 fontWeight: 500,
                 fontFamily: "Inter, sans-serif",
@@ -146,6 +148,7 @@ function ServiceCard({ index, t }: { index: number; t: (key: string) => string }
 
 export default function Services() {
   const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -158,6 +161,7 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
+      aria-label="Services"
       style={{
         position: "relative",
         zIndex: 10,
@@ -166,9 +170,9 @@ export default function Services() {
         margin: "0 auto",
       }}
     >
-      <motion.div style={{ y }}>
+      <motion.div style={reduceMotion ? undefined : { y }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -176,34 +180,41 @@ export default function Services() {
         >
           <span style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#8b5cf6",
+            fontSize: 13,
+            fontWeight: 700,
+            color: "#4f46e5",
             textTransform: "uppercase",
-            letterSpacing: 3,
-            marginBottom: 16,
+            letterSpacing: 2.5,
+            marginBottom: 14,
             display: "block",
           }}>
             {t("services.eyebrow")}
           </span>
           <h2 style={{
             fontFamily: "Space Grotesk, sans-serif",
-            fontSize: "clamp(32px, 5vw, 52px)",
+            fontSize: "clamp(30px, 4.5vw, 46px)",
             fontWeight: 800,
-            color: "#fff",
+            color: "#0b1220",
             lineHeight: 1.2,
             letterSpacing: "-1px",
+            margin: "0 0 14px",
           }}>
             {t("services.headingPart1")}
-            <span style={{
-              background: "linear-gradient(135deg, #6366f1, #06b6d4)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}>
+            <span style={{ color: "#4f46e5" }}>
               {t("services.headingHighlight")}
             </span>
             {t("services.headingPart2", "")}
           </h2>
+          <p style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: 16,
+            color: "#475569",
+            maxWidth: 600,
+            margin: "0 auto",
+            lineHeight: 1.7,
+          }}>
+            {t("services.sub", "")}
+          </p>
         </motion.div>
       </motion.div>
 

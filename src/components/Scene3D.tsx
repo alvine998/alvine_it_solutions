@@ -39,10 +39,10 @@ const DAMPING = 0.92;
 const RETURN_SPEED = 0.015;
 
 const COLORS = [
-  { hl: "#6366f1", sh: "#8b5cf6" },
-  { hl: "#8b5cf6", sh: "#a78bfa" },
-  { hl: "#06b6d4", sh: "#6366f1" },
-  { hl: "#a78bfa", sh: "#ec4899" },
+  { hl: "#4f46e5", sh: "#7c3aed" },
+  { hl: "#7c3aed", sh: "#a78bfa" },
+  { hl: "#0e7490", sh: "#4f46e5" },
+  { hl: "#a78bfa", sh: "#4f46e5" },
 ];
 
 export default function Scene3D() {
@@ -108,6 +108,27 @@ export default function Scene3D() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    // Reduced motion: render one static frame, no loop, no listeners.
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      init(w, h);
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(79, 70, 229, 0.3)";
+      for (const n of nodesRef.current) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return;
+    }
 
     const mobile = isMobile();
     const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
@@ -198,8 +219,8 @@ export default function Scene3D() {
           }
         }
 
-        const alpha = baseAlpha + signalGlow * 0.2;
-        ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
+        const alpha = baseAlpha + signalGlow * 0.25;
+        ctx.strokeStyle = `rgba(79, 70, 229, ${Math.min(alpha, 0.4)})`;
         ctx.lineWidth = 0.8 + signalGlow * 1.5;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -238,19 +259,19 @@ export default function Scene3D() {
           ? 1 - ndist / MOUSE_LIGHT_RADIUS
           : 0;
 
-        const baseAlpha = 0.5 + lightFactor * 0.5;
+        const baseAlpha = 0.28 + lightFactor * 0.4;
         const r = n.radius * (1 + lightFactor * 0.8);
 
         const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3);
-        grad.addColorStop(0, `rgba(139, 92, 246, ${baseAlpha})`);
-        grad.addColorStop(0.5, `rgba(99, 102, 241, ${baseAlpha * 0.5})`);
+        grad.addColorStop(0, `rgba(124, 58, 237, ${baseAlpha})`);
+        grad.addColorStop(0.5, `rgba(79, 70, 229, ${baseAlpha * 0.5})`);
         grad.addColorStop(1, "transparent");
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.7 + lightFactor * 0.3})`;
+        ctx.fillStyle = `rgba(79, 70, 229, ${0.45 + lightFactor * 0.3})`;
         ctx.beginPath();
         ctx.arc(n.x, n.y, r * 0.6, 0, Math.PI * 2);
         ctx.fill();
@@ -273,6 +294,7 @@ export default function Scene3D() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: "fixed",
         top: 0,

@@ -15,10 +15,11 @@ export default function LanguageSwitcher() {
         display: "inline-flex",
         alignItems: "center",
         gap: 0,
-        border: "1px solid rgba(99, 102, 241, 0.35)",
+        border: "1px solid #dfe2ee",
         borderRadius: 8,
         overflow: "hidden",
         flexShrink: 0,
+        background: "#fff",
       }}
       aria-label={t("languageSwitcher.label")}
     >
@@ -28,16 +29,17 @@ export default function LanguageSwitcher() {
           type="button"
           onClick={() => i18n.changeLanguage(lang.code)}
           title={lang.native}
+          aria-pressed={i18n.language === lang.code}
           style={{
             padding: "6px 12px",
             border: "none",
-            borderRight: i < languages.length - 1 ? "1px solid rgba(99, 102, 241, 0.35)" : "none",
+            borderRight: i < languages.length - 1 ? "1px solid #dfe2ee" : "none",
             cursor: "pointer",
             fontFamily: "Space Grotesk, sans-serif",
             fontSize: 12,
             fontWeight: 700,
-            background: i18n.language === lang.code ? "#6366f1" : "transparent",
-            color: i18n.language === lang.code ? "#fff" : "rgba(255, 255, 255, 0.5)",
+            background: i18n.language === lang.code ? "#4f46e5" : "transparent",
+            color: i18n.language === lang.code ? "#fff" : "#6b7280",
             transition: "background 180ms ease, color 180ms ease",
             lineHeight: 1.4,
           }}

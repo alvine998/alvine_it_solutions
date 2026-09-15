@@ -54,6 +54,8 @@
     "brand": "Alvine IT SOLUTIONS",
     "home": "首页",
     "services": "服务",
+    "process": "流程",
+    "engagement": "雇佣我们",
     "portfolio": "作品集",
     "about": "关于",
     "team": "团队",
@@ -68,14 +70,23 @@
     "marketplace": "市场"
   },
   "hero": {
-    "badge": "软件公司 & 数字解决方案",
-    "titlePart1": "我们打造",
-    "titleHighlight": "数字",
-    "titlePart2": "体验",
-    "subtitle": "从桌面应用到移动应用，从RESTful API到精美网站——我们将您的创意转化为强大的数字解决方案。",
-    "exploreServices": "探索服务",
-    "learnMore": "了解更多",
-    "scrollDown": "向下滚动"
+    "badge": "为初创公司打造 MVP 与移动应用 — 印尼 → 全球",
+    "titlePart1": "数周内交付",
+    "titleHighlight": "可扩展 MVP",
+    "titlePart2": "，而非数月",
+    "subtitle": "React Native、Next.js、Laravel 与 Go。每周演示、代码归您所有，与美/欧工作时间重叠 3–4 小时，异步沟通顺畅。",
+    "primaryCta": "预约 15 分钟需求沟通",
+    "secondaryCta": "通过 WhatsApp 咨询",
+    "tertiaryCta": "查看客户成果 ↓",
+    "trustLine": "总部位于印尼 (GMT+7) • 24小时内回复 • 支持NDA • 代码归您所有",
+    "exploreServices": "预约 15 分钟需求沟通",
+    "learnMore": "查看客户成果",
+    "scrollDown": "向下滚动",
+    "stats": [
+      { "value": "6–8 周", "label": "典型 MVP" },
+      { "value": "100+", "label": "已交付项目" },
+      { "value": "24h", "label": "响应时间" }
+    ]
   },
   "services": {
     "eyebrow": "我们的服务",
@@ -99,45 +110,119 @@
       "description": "原生和跨平台移动应用程序，在iOS和Android上提供无缝体验。"
     }
   },
+  "process": {
+    "eyebrow": "合作流程",
+    "headingPart1": "透明的",
+    "headingHighlight": "敏捷流程",
+    "sub": "与美/欧团队相同的节奏：明确的需求调研、每周演示、每轮冲刺都有 QA。",
+    "steps": [
+      { "title": "需求调研 (第0–1周)", "desc": "范围、成功指标与风险。提供固定报价与时间线的提案。" },
+      { "title": "架构 (第1周)", "desc": "技术选型、数据模型、API 契约。编码前由您评审文档。" },
+      { "title": "敏捷冲刺", "desc": "每周一轮，每周五演示，在您早晨通过 Slack 异步更新。" },
+      { "title": "QA 与部署", "desc": "真机测试、预发布预览链接，上线并附回滚方案。" },
+      { "title": "支持 (30天免费)", "desc": "包含缺陷修复。交接文档 + 走读，您的团队可顺利接手。" }
+    ]
+  },
+  "engagement": {
+    "eyebrow": "合作模式",
+    "headingPart1": "简单灵活的",
+    "headingHighlight": "合作方式",
+    "sub": "MVP 选固定价，长期工作选包月开发者加入您的站会。",
+    "models": [
+      { "name": "固定价 MVP", "price": "$2,500 起", "idr": "≈ Rp40 jt", "desc": "适合范围明确的项目。锁定时间线、里程碑与交付物。", "features": ["书面范围 + 时间线", "每周演示 + 预发布链接", "30天缺陷保修", "100% 代码与 IP 归您"], "cta": "获取 MVP 报价" },
+      { "name": "专属开发者", "price": "$1,800/月起", "idr": "≈ Rp29 jt/月", "desc": "适合长期工作。资深开发者进您的 Slack + 站会。", "features": ["每周40小时，异步优先", "与美/欧重叠 3–4 小时", "周报 + 代码评审", "按月暂停或取消"], "cta": "预约介绍通话", "popular": true },
+      { "name": "按时 / 按里程碑", "price": "$25–$40/小时", "idr": "≈ Rp400–640 rb/小时", "desc": "适合审计、救火或在现有代码上小步迭代。", "features": ["免费30分钟技术审计", "按里程碑开票", "GitHub PR 流程", "无长期锁定"], "cta": "申请审计" }
+    ],
+    "note": "本地：BCA / Mandiri / QRIS（IDR）• 全球：Wise / PayPal / Stripe / 电汇（USD/SGD）。可签NDA • 英语沟通。"
+  },
+  "trust": {
+    "eyebrow": "放心选择远程团队",
+    "headingPart1": "低风险，",
+    "headingHighlight": "源于设计",
+    "sub": "没有虚假评价——可在需求沟通中直接与我们的推荐人交流。",
+    "items": [
+      { "title": "重叠美/欧工作时间", "desc": "GMT+7，实时重叠 3–4 小时 + Slack 异步更新。保证24小时内回复。" },
+      { "title": "代码归您所有", "desc": "第一天即建私有 GitHub 仓库。尾款结清即完整移交 IP。" },
+      { "title": "每周演示，无意外", "desc": "每周五提供预发布链接。先看到进展，再付下一里程碑。" },
+      { "title": "先签NDA", "desc": "分享敏感信息前先签双向NDA。推荐人可通过 LinkedIn 提供。" }
+    ],
+    "cta": "与推荐人交流",
+    "profiles": "LinkedIn · GitHub · Upwork 主页可按需提供"
+  },
   "portfolio": {
-    "eyebrow": "我们的作品",
-    "headingPart1": "",
-    "headingHighlight": "作品集",
+    "eyebrow": "客户成果",
+    "headingPart1": "已交付",
+    "headingHighlight": "并可扩展的作品",
+    "headingPart2": "",
+    "sub": "每个项目：业务问题 → 技术选型原因 → 交付成果。可通过 LinkedIn 获取推荐人。",
+    "problemLabel": "问题",
+    "solutionLabel": "选型原因",
+    "outcomeLabel": "交付成果",
+    "timelineLabel": "周期",
+    "referencesNote": "完整推荐人、演示访问与代码走读可在需求沟通中提供。",
     "projects": {
       "goldbricks": {
         "title": "Goldbricks Realtors",
         "category": "Web应用",
-        "description": "为Goldbricks Realtors打造的房地产代理网站，包含一手和二手房产列表、项目画廊以及KPR银行合作伙伴集成。"
+        "description": "为Goldbricks Realtors打造的房地产代理网站，包含一手和二手房产列表、项目画廊以及KPR银行合作伙伴集成。",
+        "problem": "经聊天手动更新房源拖慢经纪人效率并流失线索。",
+        "solution": "Laravel + MySQL 实现快速 CRUD、SEO 友好列表，便于交接。",
+        "timeline": "6 周",
+        "results": ["房源搜索 <2秒", "KPR 合作集成上线", "部署 + 管理交接文档"]
       },
       "stokinventory": {
         "title": "Stokinventory",
         "category": "Web应用",
-        "description": "全面的库存管理应用，具有实时分析、预算规划和供应链优化功能。"
+        "description": "全面的库存管理应用，具有实时分析、预算规划和供应链优化功能。",
+        "problem": "表格管理库存导致超卖且无实时可见性。",
+        "solution": "Laravel + MySQL + 队列报表，SKU 增长仍保持快速。",
+        "timeline": "8 周",
+        "results": ["实时库存看板", "预算规划模块", "基于角色的权限"]
       },
       "kerjaAjaDulu": {
         "title": "Kerja Aja Dulu",
         "category": "Web应用",
-        "description": "连接雇主和求职者的招聘平台，具有AI驱动的匹配和面试安排功能。"
+        "description": "连接雇主和求职者的招聘平台，具有AI驱动的匹配和面试安排功能。",
+        "problem": "雇主被未筛选简历淹没，求职者石沉大海。",
+        "solution": "Next.js + Express + MySQL，SEO 职位页 + 高速匹配 API。",
+        "timeline": "8 周",
+        "results": ["AI 匹配 v1 上线", "面试安排流程", "雇主 + 求职者双端"]
       },
       "kasirinApp": {
         "title": "Kasirin App",
         "category": "移动应用",
-        "description": "安全的移动钱包应用，用于管理数字资产，具有生物识别认证和即时交易通知。"
+        "description": "安全的移动钱包应用，用于管理数字资产，具有生物识别认证和即时交易通知。",
+        "problem": "小零售商需要快速、容忍离线且值得信赖的 POS。",
+        "solution": "跨平台 + 本地优先存储 + 生物识别门禁。",
+        "timeline": "6 周",
+        "results": ["Play Store 上架", "生物识别登录", "离线优先 POS 模式"]
       },
       "tokotitohApp": {
         "title": "Tokotitoh App",
         "category": "移动应用",
-        "description": "现代电商应用，提供无缝的购物体验，支持产品买卖。"
+        "description": "现代电商应用，提供无缝的购物体验，支持产品买卖。",
+        "problem": "卖家靠聊天接单，无目录、库存与订单状态。",
+        "solution": "Node.js + PostgreSQL + Redis，目录读取快、订单队列可靠。",
+        "timeline": "7 周",
+        "results": ["Play Store 上架", "买卖双端流程", "订单推送通知"]
       },
       "midlandProperti": {
         "title": "Midland Properti",
         "category": "Web应用",
-        "description": "房地产平台，提供房产列表、虚拟导览和无缝交易流程。"
+        "description": "房地产平台，提供房产列表、虚拟导览和无缝交易流程。",
+        "problem": "静态列表图片加载慢，移动端咨询流失。",
+        "solution": "React + 图片优化 + Python API，中端安卓 <2秒加载。",
+        "timeline": "5 周",
+        "results": ["列表 + 画廊上线", "WhatsApp 线索承接", "4G 下 LCP <2秒"]
       },
       "bmTransportLogistik": {
         "title": "BM Transport Logistik",
         "category": "Web应用",
-        "description": "物流和配送跟踪应用，具有实时GPS、路线优化和自动通知功能。"
+        "description": "物流和配送跟踪应用，具有实时GPS、路线优化和自动通知功能。",
+        "problem": "因手工跟踪，客户每单都打电话问调度。",
+        "solution": "Flutter + Go + Firebase，低服务器成本实现实时定位。",
+        "timeline": "8 周",
+        "results": ["实时 GPS 跟踪", "路线优化 v1", "自动配送通知"]
       }
     }
   },
@@ -160,6 +245,8 @@
     "headingPart1": "",
     "headingHighlight": "团队",
     "headingPart2": "",
+    "intro": "精干的资深核心团队 + 按项目配备的严选专家。您始终知道谁在写您的代码。",
+    "profileOnRequest": "可在需求沟通中提供简介与推荐人",
     "members": {
       "alvine": {
         "name": "Alvine Yoga Pratama",
@@ -184,23 +271,30 @@
     }
   },
   "contact": {
-    "headingPart1": "让我们一起打造",
-    "headingHighlight": "非凡",
-    "subtitle": "准备好将您的想法变为现实了吗？让我们一起讨论您的项目，共同创造非凡的作品。",
+    "headingPart1": "15 分钟明确您的 ",
+    "headingHighlight": "MVP 范围",
+    "headingPart2": "",
+    "subtitle": "告诉我们目标、时间线与预算。24小时内给您固定报价 + 时间线——绝不强行推销。",
+    "timezoneNote": "GMT+7（雅加达）• 与美/欧早晨重叠 3–4 小时 • 周一至周六24小时内回复",
+    "bookCall": "通过 Calendly 预约",
+    "whatsapp": "通过 WhatsApp 咨询",
+    "directLabel": "想直接联系？发邮件 hello@alvineitsolutions.com 或 WhatsApp +62 857-0304-9632",
     "getInTouch": "联系我们",
     "scheduleCall": "预约通话",
     "namePlaceholder": "您的姓名",
-    "emailPlaceholder": "电子邮箱",
-    "phonePlaceholder": "电话（选填）",
-    "companyPlaceholder": "公司（选填）",
-    "messagePlaceholder": "请描述您的项目...",
-    "submit": "发送消息",
+    "emailPlaceholder": "工作邮箱",
+    "phonePlaceholder": "WhatsApp / 电话（选填）",
+    "companyPlaceholder": "公司 + 国家（例如 Acme, SG）",
+    "budgetPlaceholder": "预算范围（例如 $3k–$5k）",
+    "messagePlaceholder": "目标 + 时间线 + 必备功能（2–3句即可）...",
+    "submit": "24小时内获取报价",
     "submitting": "发送中...",
-    "success": "消息发送成功！我们会尽快回复您。",
-    "error": "发送失败，请重试。"
+    "success": "收到，谢谢！我们将在24小时内回复报价。",
+    "error": "发送失败，请直接发邮件至 hello@alvineitsolutions.com。"
   },
   "footer": {
-    "tagline": "为有远见的企业构建卓越的数字解决方案。",
+    "tagline": "为全球初创公司打造 MVP 与移动应用。总部位于印尼，与美/欧时间重叠。",
+    "location": "印度尼西亚雅加达 (GMT+7) • 服务全球客户",
     "services": "服务",
     "serviceLinks": [
       "桌面应用",

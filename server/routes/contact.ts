@@ -6,13 +6,13 @@ const router = Router();
 // POST /api/contact - Submit contact form
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { name, email, phone, company, message } = req.body;
+    const { name, email, phone, company, budget, message } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({ error: "Name, email, and message are required" });
     }
 
-    const contact = new Contact({ name, email, phone, company, message });
+    const contact = new Contact({ name, email, phone, company, budget, message });
     await contact.save();
 
     res.status(201).json({ message: "Contact submitted successfully", contact });

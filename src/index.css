@@ -1,9 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap");
-
 :root {
-  color: rgba(255,255,255,0.8);
-  background: #0a0a14;
-  font-family: "Inter", sans-serif;
+  color: #475569;
+  background: #ffffff;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -19,7 +17,8 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  background: #0a0a14;
+  background: #ffffff;
+  color: #475569;
 }
 
 body,
@@ -39,12 +38,35 @@ button {
 
 ::selection {
   color: #fff;
-  background: #6366f1;
+  background: #4f46e5;
 }
 
 :focus-visible {
-  outline: 3px solid #8b5cf6;
-  outline-offset: 4px;
+  outline: 3px solid #4f46e5;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .scroll-meter {
@@ -53,9 +75,9 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
+  height: 3px;
   transform-origin: left;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: #4f46e5;
 }
 
 .whatsapp-fab {
@@ -69,13 +91,13 @@ button {
   place-content: center;
   border-radius: 50%;
   color: #fff;
-  background: #25d366;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  background: #22c55e;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .whatsapp-fab:hover {
-  background: #1ebe5b;
+  background: #16a34a;
   transform: translateY(-3px);
 }
 
@@ -103,20 +125,11 @@ button {
 @media (max-width: 800px) {
   .about-grid {
     grid-template-columns: 1fr !important;
-    gap: 60px !important;
+    gap: 48px !important;
   }
 }
 
 @media (max-width: 768px) {
-  .portfolio-sticky {
-    padding-left: 24px !important;
-  }
-
-  .portfolio-track {
-    padding-left: 0 !important;
-    padding-right: 24px !important;
-  }
-
   .contact-inner {
     padding: 48px 24px !important;
   }
@@ -142,9 +155,9 @@ button {
   place-items: center;
   min-height: 90px;
   border-radius: 16px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.45);
+  border: 1px dashed #d4d7e3;
+  background: #f6f7fb;
+  color: #94a3b8;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -154,7 +167,7 @@ button {
 .ad-slot--banner { min-height: 90px; }
 .ad-slot--infeed { min-height: 250px; }
 .ad-slot--square { min-height: 250px; max-width: 336px; margin-inline: auto; }
-.ad-slot__placeholder { opacity: .65; }
+.ad-slot__placeholder { opacity: .8; }
 @media (max-width: 640px) {
   .ad-slot--infeed { min-height: 180px; }
 }

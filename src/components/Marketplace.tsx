@@ -32,7 +32,7 @@ function countOf(item: MarketplaceItem): number {
   return item.images?.length ?? (item.image ? 1 : 0);
 }
 
-function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, opts?: any) => string }) {
+function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, opts?: Record<string, unknown>) => string }) {
   const [hovered, setHovered] = useState(false);
   const colors = categoryGradients[item.category] || categoryGradients.other;
   const cover = coverOf(item);
@@ -48,22 +48,27 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
       onMouseLeave={() => setHovered(false)}
       style={{
         position: "relative",
-        borderRadius: 24,
-        background: hovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${hovered ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"}`,
-        backdropFilter: "blur(10px)",
+        borderRadius: 20,
+        background: "#ffffff",
+        border: `1px solid ${hovered ? "#c9cdfc" : "#e6e8f0"}`,
+        boxShadow: hovered
+          ? "0 2px 4px rgba(16,24,40,0.05), 0 16px 36px rgba(16,24,40,0.1)"
+          : "0 1px 2px rgba(16,24,40,0.05)",
         cursor: "pointer",
-        transition: "all 0.4s ease",
+        transition: "all 0.3s ease",
         overflow: "hidden",
       }}
     >
       <div style={{
         position: "absolute",
-        inset: 0,
-        background: hovered ? `radial-gradient(circle at 50% 0%, ${colors.glow}, transparent 70%)` : "none",
-        transition: "all 0.4s ease",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 4,
+        background: hovered ? colors.gradient : "#eef0f4",
+        transition: "all 0.3s ease",
         pointerEvents: "none",
-        zIndex: 1,
+        zIndex: 2,
       }} />
 
       <div style={{ position: "relative", overflow: "hidden", height: 180 }}>
@@ -84,7 +89,7 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
             alignItems: "center",
             justifyContent: "center",
           }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#b6bcc9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
             </svg>
           </div>
@@ -100,7 +105,7 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
         <div style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to top, rgba(10,10,20,0.9) 0%, transparent 60%)",
+          background: "linear-gradient(to top, rgba(11,18,32,0.55) 0%, transparent 55%)",
         }} />
         {item.featured && (
           <span style={{
@@ -142,17 +147,17 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
           fontFamily: "Space Grotesk, sans-serif",
           fontSize: 20,
           fontWeight: 700,
-          color: "#fff",
-          marginBottom: 8,
+          color: "#0b1220",
+          margin: "0 0 8px",
         }}>
           {item.name}
         </h3>
         <p style={{
           fontFamily: "Inter, sans-serif",
           fontSize: 14,
-          color: "rgba(255,255,255,0.5)",
+          color: "#475569",
           lineHeight: 1.6,
-          marginBottom: 16,
+          margin: "0 0 16px",
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
@@ -166,9 +171,9 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
             <span key={t} style={{
               padding: "4px 10px",
               borderRadius: 50,
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              color: "rgba(255,255,255,0.7)",
+              background: "#f1f2f7",
+              border: "1px solid #e2e4ee",
+              color: "#3f4756",
               fontSize: 11,
               fontWeight: 500,
               fontFamily: "Inter, sans-serif",
@@ -182,21 +187,21 @@ function MarketplaceCard({ item, t }: { item: MarketplaceItem; t: (key: string, 
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "1px solid #eef0f4",
           paddingTop: 16,
         }}>
           <span style={{
             fontFamily: "Space Grotesk, sans-serif",
             fontSize: 22,
             fontWeight: 800,
-            color: "#fff",
+            color: "#0b1220",
           }}>
             {item.price === 0 ? t("marketplace.free") : `IDR ${item.price.toLocaleString("id-ID")}`}
           </span>
           <span style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 12,
-            color: "rgba(255,255,255,0.4)",
+            color: "#6b7280",
           }}>
             {item.sales} {t("marketplace.sales")}
           </span>
@@ -245,30 +250,27 @@ export default function Marketplace() {
       >
         <span style={{
           fontFamily: "Inter, sans-serif",
-          fontSize: 14,
-          fontWeight: 600,
-          color: "#10b981",
+          fontSize: 13,
+          fontWeight: 700,
+          color: "#047857",
           textTransform: "uppercase",
-          letterSpacing: 3,
-          marginBottom: 16,
+          letterSpacing: 2.5,
+          marginBottom: 14,
           display: "block",
         }}>
           {t("marketplace.eyebrow")}
         </span>
         <h2 style={{
           fontFamily: "Space Grotesk, sans-serif",
-          fontSize: "clamp(32px, 5vw, 52px)",
+          fontSize: "clamp(30px, 4.5vw, 46px)",
           fontWeight: 800,
-          color: "#fff",
+          color: "#0b1220",
           lineHeight: 1.2,
           letterSpacing: "-1px",
+          margin: "0 0 14px",
         }}>
           {t("marketplace.headingPart1")}
-          <span style={{
-            background: "linear-gradient(135deg, #10b981, #6366f1)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}>
+          <span style={{ color: "#047857" }}>
             {t("marketplace.headingHighlight")}
           </span>
           {t("marketplace.headingPart2", "")}
@@ -276,9 +278,9 @@ export default function Marketplace() {
         <p style={{
           fontFamily: "Inter, sans-serif",
           fontSize: 16,
-          color: "rgba(255,255,255,0.5)",
+          color: "#475569",
           maxWidth: 560,
-          margin: "16px auto 0",
+          margin: "0 auto",
           lineHeight: 1.7,
         }}>
           {t("marketplace.subtitle")}
@@ -289,16 +291,16 @@ export default function Marketplace() {
         <div style={{
           textAlign: "center",
           padding: "60px 24px",
-          borderRadius: 24,
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 20,
+          background: "#f6f7fb",
+          border: "1px solid #e6e8f0",
         }}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto 16px" }}>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#b6bcc9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto 16px" }}>
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
             <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
             <line x1="12" y1="22.08" x2="12" y2="12" />
           </svg>
-          <p style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: "rgba(255,255,255,0.4)" }}>
+          <p style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: "#6b7280" }}>
             {t("marketplace.noItems")}
           </p>
         </div>
@@ -322,9 +324,9 @@ export default function Marketplace() {
         }}>
           {[1, 2, 3].map((i) => (
             <div key={i} style={{
-              borderRadius: 24,
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 20,
+              background: "#eef0f4",
+              border: "1px solid #e6e8f0",
               height: 380,
               animation: "pulse 1.5s ease-in-out infinite",
             }} />
@@ -349,8 +351,8 @@ export default function Marketplace() {
               textDecoration: "none",
               padding: "14px 32px",
               borderRadius: 50,
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: "#0b1220",
+              border: "1px solid #0b1220",
               color: "#fff",
               fontSize: 15,
               fontWeight: 600,
@@ -358,12 +360,10 @@ export default function Marketplace() {
               transition: "all 0.3s",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-              e.currentTarget.style.borderColor = "rgba(16,185,129,0.4)";
+              e.currentTarget.style.background = "#1e293b";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+              e.currentTarget.style.background = "#0b1220";
             }}
           >
             {t("marketplace.viewAll")}
@@ -376,8 +376,8 @@ export default function Marketplace() {
 
       <style>{`
         @keyframes pulse {
-          0%, 100% { opacity: 0.03; }
-          50% { opacity: 0.08; }
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
         }
         @media(max-width:768px) {
           #marketplace > div:last-of-type {

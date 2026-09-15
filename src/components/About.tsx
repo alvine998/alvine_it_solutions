@@ -6,8 +6,8 @@ const statKeys = ["projects", "clients", "experience", "support"] as const;
 const statValues = ["100+", "50+", "5+", "24/7"];
 
 const techStack = [
-  "React", "Next.js", "TypeScript", "Node.js", "Go", "Python",
-  "Flutter", "React Native", "PostgreSQL", "MongoDB", "Docker", "AWS",
+  "React Native", "Next.js", "TypeScript", "Laravel", "Node.js", "Go",
+  "Flutter", "PostgreSQL", "MySQL", "Redis", "Docker", "AWS",
 ];
 
 export default function About() {
@@ -42,12 +42,12 @@ export default function About() {
             transition={{ duration: 0.6 }}
             style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#8b5cf6",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#4f46e5",
               textTransform: "uppercase",
-              letterSpacing: 3,
-              marginBottom: 16,
+              letterSpacing: 2.5,
+              marginBottom: 14,
               display: "block",
             }}
           >
@@ -61,20 +61,16 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
               fontFamily: "Space Grotesk, sans-serif",
-              fontSize: "clamp(32px, 4vw, 48px)",
+              fontSize: "clamp(30px, 4vw, 44px)",
               fontWeight: 800,
-              color: "#fff",
+              color: "#0b1220",
               lineHeight: 1.2,
               letterSpacing: "-1px",
-              marginBottom: 24,
+              margin: "0 0 22px",
             }}
           >
             {t("about.headingPart1")}
-            <span style={{
-              background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}>
+            <span style={{ color: "#4f46e5" }}>
               {t("about.headingHighlight")}
             </span>
             {t("about.headingPart2", "")}
@@ -88,9 +84,9 @@ export default function About() {
             style={{
               fontFamily: "Inter, sans-serif",
               fontSize: 16,
-              color: "rgba(255,255,255,0.6)",
+              color: "#475569",
               lineHeight: 1.8,
-              marginBottom: 32,
+              margin: "0 0 20px",
             }}
           >
             {t("about.paragraph1")}
@@ -104,9 +100,9 @@ export default function About() {
             style={{
               fontFamily: "Inter, sans-serif",
               fontSize: 16,
-              color: "rgba(255,255,255,0.6)",
+              color: "#475569",
               lineHeight: 1.8,
-              marginBottom: 40,
+              margin: "0 0 32px",
             }}
           >
             {t("about.paragraph2")}
@@ -126,13 +122,13 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 + i * 0.05 }}
-                whileHover={{ scale: 1.1, background: "rgba(99, 102, 241, 0.2)" }}
+                whileHover={{ scale: 1.05 }}
                 style={{
                   padding: "8px 18px",
                   borderRadius: 50,
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "rgba(255,255,255,0.8)",
+                  background: "#f1f2f7",
+                  border: "1px solid #e2e4ee",
+                  color: "#334155",
                   fontSize: 13,
                   fontWeight: 500,
                   fontFamily: "Inter, sans-serif",
@@ -154,24 +150,22 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -5, borderColor: "rgba(99, 102, 241, 0.5)" }}
+                whileHover={{ y: -4 }}
                 style={{
                   padding: 32,
                   borderRadius: 20,
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  backdropFilter: "blur(10px)",
+                  background: "#ffffff",
+                  border: "1px solid #e6e8f0",
+                  boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
                   textAlign: "center",
                   transition: "all 0.3s ease",
                 }}
               >
                 <div style={{
                   fontFamily: "Space Grotesk, sans-serif",
-                  fontSize: 40,
+                  fontSize: 38,
                   fontWeight: 800,
-                  background: "linear-gradient(135deg, #6366f1, #06b6d4)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  color: "#0b1220",
                   marginBottom: 8,
                 }}>
                   {statValues[i]}
@@ -179,7 +173,7 @@ export default function About() {
                 <div style={{
                   fontFamily: "Inter, sans-serif",
                   fontSize: 14,
-                  color: "rgba(255,255,255,0.5)",
+                  color: "#6b7280",
                   fontWeight: 500,
                 }}>
                   {t(`about.stats.${key}`)}

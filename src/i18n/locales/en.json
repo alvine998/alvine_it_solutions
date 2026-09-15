@@ -1,8 +1,8 @@
 {
   "seo": {
     "home": {
-      "title": "Alvine IT Solution — Software House & Digital Agency",
-      "description": "We build desktop apps, websites, RESTful APIs, and mobile apps. Software house in Indonesia delivering custom digital solutions for businesses.",
+      "title": "Alvine IT Solution — Scalable MVPs & Mobile Apps for Startups",
+      "description": "We ship scalable MVPs & high-performance mobile apps in 6–8 weeks. React Native, Next.js, Laravel & Go. Weekly demos, overlap with US/EU hours.",
       "ogImage": "/og/og-home.png"
     },
     "services": {
@@ -54,13 +54,14 @@
     "brand": "Alvine IT SOLUTIONS",
     "home": "Home",
     "services": "Services",
-    "portfolio": "Portfolio",
+    "process": "Process",
+    "engagement": "Hire Us",
+    "portfolio": "Work",
     "about": "About",
     "team": "Team",
     "contact": "Contact",
     "work": "Work",
-    "process": "Process",
-    "getStarted": "Get Started",
+    "getStarted": "Book Discovery Call",
     "login": "Login",
     "dashboard": "Dashboard",
     "aiRouter": "AI Router",
@@ -68,14 +69,23 @@
     "marketplace": "Marketplace"
   },
   "hero": {
-    "badge": "Software House & Digital Solutions",
-    "titlePart1": "We Build ",
-    "titleHighlight": "Digital",
-    "titlePart2": "Experiences",
-    "subtitle": "From desktop applications to mobile apps, RESTful APIs to stunning websites — we transform your ideas into powerful digital solutions.",
-    "exploreServices": "Explore Services",
-    "learnMore": "Learn More",
-    "scrollDown": "Scroll Down"
+    "badge": "MVP & mobile apps for startups — Indonesia → worldwide",
+    "titlePart1": "We ship ",
+    "titleHighlight": "scalable MVPs",
+    "titlePart2": " in weeks, not months",
+    "subtitle": "React Native, Next.js, Laravel & Go. Weekly demos, code you own, and 3–4h overlap with US/EU hours for smooth async communication.",
+    "primaryCta": "Book a 15-min Discovery Call",
+    "secondaryCta": "Chat via WhatsApp",
+    "tertiaryCta": "See client results ↓",
+    "trustLine": "Based in Indonesia (GMT+7) • Reply within 24h • NDA-friendly • You own the code",
+    "exploreServices": "Book a 15-min Discovery Call",
+    "learnMore": "See client results",
+    "scrollDown": "Scroll Down",
+    "stats": [
+      { "value": "6–8 wks", "label": "typical MVP" },
+      { "value": "100+", "label": "projects shipped" },
+      { "value": "24h", "label": "response time" }
+    ]
   },
   "services": {
     "eyebrow": "What We Do",
@@ -99,46 +109,119 @@
       "description": "Native and cross-platform mobile applications that provide seamless experiences on iOS and Android."
     }
   },
+  "process": {
+    "eyebrow": "How we work",
+    "headingPart1": "Transparent ",
+    "headingHighlight": "Agile process",
+    "sub": "Same rhythm you'd expect from a US/EU team: scoped discovery, weekly demos, QA on every sprint.",
+    "steps": [
+      { "title": "Discovery (Week 0–1)", "desc": "Scope, success metrics, risks. You get a fixed proposal with timeline — no open-ended billing." },
+      { "title": "Architecture (Week 1)", "desc": "Stack decision, data model, API contract. You review docs before we code." },
+      { "title": "Agile Sprints", "desc": "1-week sprints, demo every Friday, Slack async updates in your morning." },
+      { "title": "QA & Deployment", "desc": "Tested on real devices, staged preview link, then production with rollback plan." },
+      { "title": "Support (30 days free)", "desc": "Bug fixes included. Handover docs + walkthrough so your team can take over." }
+    ]
+  },
+  "engagement": {
+    "eyebrow": "Engagement models",
+    "headingPart1": "Simple ways ",
+    "headingHighlight": "to hire us",
+    "sub": "Pick fixed scope for an MVP, or a monthly developer who joins your standups.",
+    "models": [
+      { "name": "Fixed-price MVP", "price": "from $2,500", "idr": "≈ Rp40 jt", "desc": "Best for clear scope. Locked timeline, milestones, and deliverables.", "features": ["Scope + timeline in writing", "Weekly demo + staging link", "30-day bug-fix warranty", "You own 100% of code & IP"], "cta": "Get MVP estimate" },
+      { "name": "Dedicated Developer", "price": "from $1,800/mo", "idr": "≈ Rp29 jt/bln", "desc": "Best for ongoing work. A senior dev in your Slack + standups.", "features": ["40h/week, async-first", "3–4h overlap US/EU hours", "Weekly report + code reviews", "Pause or cancel monthly"], "cta": "Book intro call", "popular": true },
+      { "name": "Hourly / Milestone", "price": "$25–$40/h", "idr": "≈ Rp400–640 rb/jam", "desc": "Best for audits, rescue, or small iterations on existing code.", "features": ["Free 30-min technical audit", "Milestone-based invoices", "GitHub PR workflow", "No long-term lock-in"], "cta": "Request audit" }
+    ],
+    "note": "Local: BCA / Mandiri / QRIS (IDR) • Global: Wise / PayPal / Stripe / wire (USD/SGD). NDA on request • English communication."
+  },
+  "trust": {
+    "eyebrow": "Why hire remote with confidence",
+    "headingPart1": "Low risk, ",
+    "headingHighlight": "by design",
+    "sub": "No fake testimonials here — talk to our references directly on a discovery call.",
+    "items": [
+      { "title": "Overlap US/EU hours", "desc": "GMT+7 with 3–4h live overlap + async Slack updates. Reply <24h guaranteed." },
+      { "title": "Code you own", "desc": "Private GitHub repo from day one. Full IP transfer on final payment." },
+      { "title": "Weekly demos, no surprises", "desc": "Staging link every Friday. You see progress before you pay the next milestone." },
+      { "title": "NDA-first", "desc": "Mutual NDA before you share anything sensitive. References via LinkedIn on request." }
+    ],
+    "cta": "Talk to a reference",
+    "profiles": "LinkedIn · GitHub · Upwork profile on request"
+  },
   "portfolio": {
-    "eyebrow": "Our Work",
-    "headingPart1": "Featured ",
-    "headingHighlight": "Portfolio",
+    "eyebrow": "Client results",
+    "headingPart1": "Work that ",
+    "headingHighlight": "shipped & scaled",
     "headingPart2": "",
+    "sub": "Every project below: the business problem → why we chose this stack → what shipped. References available on request via LinkedIn.",
+    "problemLabel": "Problem",
+    "solutionLabel": "Why this stack",
+    "outcomeLabel": "What shipped",
+    "timelineLabel": "Timeline",
+    "referencesNote": "Full references, demo access & code walkthrough available on a discovery call.",
     "projects": {
       "goldbricks": {
         "title": "Goldbricks Realtors",
         "category": "Web Application",
-        "description": "A property agency website for Goldbricks Realtors featuring primary & secondary property listings, project galleries, and KPR bank partner integration."
+        "description": "A property agency website for Goldbricks Realtors featuring primary & secondary property listings, project galleries, and KPR bank partner integration.",
+        "problem": "Manual property updates via chat slowed agents down and lost buyer leads.",
+        "solution": "Laravel + MySQL for fast CRUD, SEO-friendly listings, and easy handover to their in-house admin.",
+        "timeline": "6 weeks",
+        "results": ["Property search <2s", "KPR partner integration live", "Deployed + admin handover docs"]
       },
       "stokinventory": {
         "title": "Stokinventory",
         "category": "Web Application",
-        "description": "A comprehensive inventory management app with real-time analytics, budget planning, and supply chain optimization."
+        "description": "A comprehensive inventory management app with real-time analytics, budget planning, and supply chain optimization.",
+        "problem": "Stock counts in spreadsheets caused overselling and no real-time visibility.",
+        "solution": "Laravel + MySQL with queued reports so dashboards stay fast as SKUs grow.",
+        "timeline": "8 weeks",
+        "results": ["Real-time stock dashboard", "Budget planning module", "Role-based access control"]
       },
       "kerjaAjaDulu": {
         "title": "Kerja Aja Dulu",
         "category": "Web Application",
-        "description": "A job portal connecting employers and job seekers with AI-driven matching and interview scheduling."
+        "description": "A job portal connecting employers and job seekers with AI-driven matching and interview scheduling.",
+        "problem": "Employers drowned in unfiltered applicants; seekers never heard back.",
+        "solution": "Next.js + Express + MySQL for SEO job pages plus a fast matching API.",
+        "timeline": "8 weeks",
+        "results": ["AI matching v1 live", "Interview scheduling flow", "Employer + seeker portals"]
       },
       "kasirinApp": {
         "title": "Kasirin App",
         "category": "Mobile Application",
-        "description": "A secure wallet app for managing digital assets with biometric authentication and instant transaction notifications."
+        "description": "A secure POS & wallet app for managing sales with biometric authentication and instant transaction notifications.",
+        "problem": "Small retailers needed a fast offline-tolerant POS that staff could trust.",
+        "solution": "Cross-platform mobile with local-first storage and biometric gate for payouts.",
+        "timeline": "6 weeks",
+        "results": ["Play Store release", "Biometric login", "Offline-first POS mode"]
       },
       "tokotitohApp": {
         "title": "Tokotitoh App",
         "category": "Mobile Application",
-        "description": "A modern e-commerce app for buying and selling products with a seamless shopping experience."
+        "description": "A modern e-commerce app for buying and selling products with a seamless shopping experience.",
+        "problem": "Sellers juggled chat orders with no catalog, stock, or order status.",
+        "solution": "Node.js + PostgreSQL + Redis for fast catalog reads and reliable order queues.",
+        "timeline": "7 weeks",
+        "results": ["Play Store release", "Seller + buyer flows", "Push order notifications"]
       },
       "midlandProperti": {
         "title": "Midland Properti",
         "category": "Web Application",
-        "description": "A real estate platform for property listings, virtual tours, and seamless transaction processes."
+        "description": "A real estate platform for property listings, virtual tours, and seamless transaction processes.",
+        "problem": "Static listings with slow image loads killed mobile inquiries.",
+        "solution": "React + optimized images + Python API for <2s loads on mid-range Android.",
+        "timeline": "5 weeks",
+        "results": ["Listings + galleries live", "WhatsApp lead capture", "<2s LCP on 4G"]
       },
       "bmTransportLogistik": {
         "title": "BM Transport Logistik",
         "category": "Web Application",
-        "description": "Logistics and delivery tracking app with real-time GPS, route optimization, and automated notifications."
+        "description": "Logistics and delivery tracking app with real-time GPS, route optimization, and automated notifications.",
+        "problem": "Customers called dispatch for every parcel because tracking was manual.",
+        "solution": "Flutter + Go + Firebase for real-time location at low server cost.",
+        "timeline": "8 weeks",
+        "results": ["Real-time GPS tracking", "Route optimization v1", "Auto delivery notifications"]
       }
     }
   },
@@ -161,6 +244,8 @@
     "headingPart1": "Our ",
     "headingHighlight": "Team",
     "headingPart2": "",
+    "intro": "Small senior core team + vetted specialists per project. You always know who writes your code.",
+    "profileOnRequest": "Profile & references on discovery call",
     "members": {
       "alvine": {
         "name": "Alvine Yoga Pratama",
@@ -185,24 +270,30 @@
     }
   },
   "contact": {
-    "headingPart1": "Let's Build Something ",
-    "headingHighlight": "Amazing",
+    "headingPart1": "Let's scope your ",
+    "headingHighlight": "MVP in 15 minutes",
     "headingPart2": "",
-    "subtitle": "Ready to transform your idea into reality? Let's discuss your project and create something extraordinary together.",
+    "subtitle": "Tell us your goal, timeline, and budget. You'll get a fixed estimate + timeline within 24 hours — no pushy sales call.",
+    "timezoneNote": "GMT+7 (Jakarta) • 3–4h overlap with US/EU mornings • Reply within 24h, Mon–Sat",
+    "bookCall": "Book via Calendly",
+    "whatsapp": "Chat via WhatsApp",
+    "directLabel": "Prefer direct? Email hello@alvineitsolutions.com or WhatsApp +62 857-0304-9632",
     "getInTouch": "Get In Touch",
     "scheduleCall": "Schedule a Call",
     "namePlaceholder": "Your name",
-    "emailPlaceholder": "Email address",
-    "phonePlaceholder": "Phone (optional)",
-    "companyPlaceholder": "Company (optional)",
-    "messagePlaceholder": "Tell us about your project...",
-    "submit": "Send Message",
+    "emailPlaceholder": "Work email",
+    "phonePlaceholder": "WhatsApp / phone (optional)",
+    "companyPlaceholder": "Company + country (e.g. Acme, US)",
+    "budgetPlaceholder": "Budget range (e.g. $3k–$5k)",
+    "messagePlaceholder": "Goal + timeline + must-have features (2–3 sentences is enough)...",
+    "submit": "Get my estimate within 24h",
     "submitting": "Sending...",
-    "success": "Message sent successfully! We'll get back to you soon.",
-    "error": "Failed to send message. Please try again."
+    "success": "Thanks — message received. We'll reply with an estimate within 24 hours.",
+    "error": "Failed to send message. Please email hello@alvineitsolutions.com directly."
   },
   "footer": {
-    "tagline": "Building exceptional digital solutions for forward-thinking businesses.",
+    "tagline": "MVPs & mobile apps for startups worldwide. Based in Indonesia, overlapping US/EU hours.",
+    "location": "Jakarta, Indonesia (GMT+7) • Working worldwide",
     "services": "Services",
     "serviceLinks": [
       "Desktop Apps",

@@ -19,7 +19,7 @@ const LEGACY_PLAN_KEYS: PlanKey[] = ["starter", "pro", "platinum"];
 
 function CheckIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -27,7 +27,7 @@ function CheckIcon() {
 
 function CrossIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeLinecap="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c3c9d6" strokeWidth="2" strokeLinecap="round">
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
@@ -105,23 +105,23 @@ export default function Pricing() {
       >
         <span style={{
           fontFamily: "Inter, sans-serif",
-          fontSize: 14, fontWeight: 600, color: "#06b6d4",
-          textTransform: "uppercase", letterSpacing: 3, marginBottom: 16, display: "block",
+          fontSize: 13, fontWeight: 700, color: "#0e7490",
+          textTransform: "uppercase", letterSpacing: 2.5, marginBottom: 14, display: "block",
         }}>
           {t("pricing.eyebrow")}
         </span>
         <h2 style={{
           fontFamily: "Space Grotesk, sans-serif",
-          fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#fff",
-          lineHeight: 1.15, letterSpacing: "-1px", marginBottom: 16,
+          fontSize: "clamp(30px, 4.5vw, 46px)", fontWeight: 800, color: "#0b1220",
+          lineHeight: 1.15, letterSpacing: "-1px", margin: "0 0 14px",
         }}>
           {t("pricing.headingPart1")}
-          <span style={{ background: "linear-gradient(135deg, #06b6d4, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <span style={{ color: "#4f46e5" }}>
             {t("pricing.headingHighlight")}
           </span>
           {t("pricing.headingPart2")}
         </h2>
-        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "rgba(255,255,255,0.55)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
+        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
           {t("pricing.subtitle")}
         </p>
       </motion.div>
@@ -143,10 +143,12 @@ export default function Pricing() {
               style={{
                 position: "relative",
                 padding: "36px 28px 28px",
-                borderRadius: 24,
-                background: metaPopular ? "linear-gradient(180deg, rgba(99,102,241,0.15), rgba(255,255,255,0.03))" : "rgba(255,255,255,0.03)",
-                border: metaPopular ? "1px solid rgba(99,102,241,0.4)" : "1px solid rgba(255,255,255,0.07)",
-                backdropFilter: "blur(12px)",
+                borderRadius: 20,
+                background: "#ffffff",
+                border: metaPopular ? "2px solid #4f46e5" : "1px solid #e6e8f0",
+                boxShadow: metaPopular
+                  ? "0 2px 4px rgba(16,24,40,0.05), 0 16px 40px rgba(79,70,229,0.14)"
+                  : "0 1px 2px rgba(16,24,40,0.05)",
                 display: "flex", flexDirection: "column",
                 transition: "all 0.3s",
                 overflow: "hidden",
@@ -156,7 +158,7 @@ export default function Pricing() {
                 <div style={{
                   position: "absolute", top: 16, right: 16,
                   padding: "5px 12px", borderRadius: 50,
-                  background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                  background: "#4f46e5",
                   color: "#fff", fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 700,
                   letterSpacing: 0.5, textTransform: "uppercase",
                 }}>
@@ -164,37 +166,29 @@ export default function Pricing() {
                 </div>
               )}
 
-              {metaPopular && (
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.18), transparent 65%)",
-                  pointerEvents: "none",
-                }} />
-              )}
-
               <div style={{ position: "relative" }}>
-                <div style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+                <div style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 700, color: "#0b1220", marginBottom: 6 }}>
                   {plan.name}
                 </div>
-                <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: 20, minHeight: 38 }}>
+                <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280", lineHeight: 1.6, marginBottom: 20, minHeight: 38 }}>
                   {t("pricing.planDesc", { credits: plan.credits.toLocaleString("id-ID") })}
                 </div>
 
                 <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
-                  <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 42, fontWeight: 800, color: "#fff", letterSpacing: "-1.5px" }}>
+                  <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 40, fontWeight: 800, color: "#0b1220", letterSpacing: "-1.5px" }}>
                     IDR {plan.price.toLocaleString("id-ID")}
                   </span>
-                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: "rgba(255,255,255,0.45)" }}>
+                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: "#6b7280" }}>
                     / {plan.duration_days} days
                   </span>
                 </div>
                 <div style={{
                   display: "inline-flex", alignItems: "center", gap: 6,
                   padding: "6px 12px", borderRadius: 50,
-                  background: metaPopular ? "rgba(99,102,241,0.15)" : "rgba(255,255,255,0.06)",
-                  border: `1px solid ${metaPopular ? "rgba(99,102,241,0.3)" : "rgba(255,255,255,0.08)"}`,
+                  background: "#eef0ff",
+                  border: "1px solid #c9cdfc",
                   fontFamily: "DM Mono, monospace", fontSize: 12, fontWeight: 600,
-                  color: metaPopular ? "#a5b4fc" : "rgba(255,255,255,0.7)",
+                  color: "#4338ca",
                   marginBottom: 20,
                 }}>
                   {plan.credits.toLocaleString("id-ID")} {t("pricing.creditsLabel")}
@@ -205,19 +199,19 @@ export default function Pricing() {
                   style={{
                     display: "block", textAlign: "center", textDecoration: "none",
                     padding: "13px 20px", borderRadius: 50,
-                    fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 600,
-                    background: metaPopular ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "rgba(255,255,255,0.06)",
+                    fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 700,
+                    background: metaPopular ? "#4f46e5" : "#0b1220",
                     color: "#fff",
-                    border: metaPopular ? "none" : "1px solid rgba(255,255,255,0.08)",
+                    border: "none",
                     marginBottom: 24,
                   }}
                 >
                   {cta}
                 </Link>
 
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ borderTop: "1px solid #eef0f4", paddingTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
                   {features.length === 0 ? (
-                    <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "rgba(255,255,255,0.3)" }}>
+                    <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "#94a3b8" }}>
                       {t("pricing.noFeatures")}
                     </div>
                   ) : (
@@ -225,7 +219,7 @@ export default function Pricing() {
                       const isDisabled = f.startsWith("!");
                       const label = isDisabled ? f.slice(1) : f;
                       return (
-                        <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontFamily: "Inter, sans-serif", fontSize: 13.5, color: isDisabled ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.75)", lineHeight: 1.5 }}>
+                        <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontFamily: "Inter, sans-serif", fontSize: 13.5, color: isDisabled ? "#b6bcc9" : "#334155", lineHeight: 1.5 }}>
                           <span style={{ marginTop: 1, flexShrink: 0 }}>{isDisabled ? <CrossIcon /> : <CheckIcon />}</span>
                           <span style={{ textDecoration: isDisabled ? "line-through" : "none" }}>{label}</span>
                         </div>
@@ -248,8 +242,8 @@ export default function Pricing() {
           marginTop: 32,
           padding: "24px 28px",
           borderRadius: 20,
-          background: "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(99,102,241,0.08))",
-          border: "1px solid rgba(16,185,129,0.25)",
+          background: "#ecfdf5",
+          border: "1px solid #a7f3d0",
           display: "grid",
           gridTemplateColumns: "auto 1fr",
           gap: 20,
@@ -263,11 +257,11 @@ export default function Pricing() {
             height: 54,
             borderRadius: 16,
             flexShrink: 0,
-            background: "linear-gradient(135deg, #10b981, #6366f1)",
+            background: "#059669",
             display: "grid",
             placeItems: "center",
             color: "#fff",
-            boxShadow: "0 0 24px rgba(16,185,129,0.35)",
+            boxShadow: "0 6px 18px rgba(5,150,105,0.3)",
           }}
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -280,15 +274,15 @@ export default function Pricing() {
         </div>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
-            <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1.2, color: "#10b981", fontWeight: 700 }}>{t("pricing.referral.eyebrow")}</span>
-            <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 800, color: "#fff" }}>{t("pricing.referral.title")}</span>
+            <span style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1.2, color: "#047857", fontWeight: 700 }}>{t("pricing.referral.eyebrow")}</span>
+            <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 800, color: "#0b1220" }}>{t("pricing.referral.title")}</span>
           </div>
-          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
+          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.7, color: "#475569" }}>
             {t("pricing.referral.desc")}
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11.5 }}>
             {(["step1", "step2", "step3"] as const).map((k, i) => (
-              <span key={k} style={{ padding: "6px 11px", borderRadius: 20, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.75)" }}>
+              <span key={k} style={{ padding: "6px 11px", borderRadius: 20, background: "#ffffff", border: "1px solid #a7f3d0", color: "#065f46" }}>
                 {i + 1}. {t(`pricing.referral.${k}`)}
               </span>
             ))}
@@ -305,11 +299,11 @@ export default function Pricing() {
         style={{
           marginTop: 32, textAlign: "center",
           padding: "18px 24px", borderRadius: 16,
-          background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
-          fontFamily: "Inter, sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.7,
+          background: "#f6f7fb", border: "1px solid #e6e8f0",
+          fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280", lineHeight: 1.7,
         }}
       >
-        {t("pricing.footnote")} <a href="#contact" style={{ color: "#a5b4fc", textDecoration: "underline", textUnderlineOffset: 3 }}>{t("pricing.footnoteLink")}</a>
+        {t("pricing.footnote")} <a href="#contact" style={{ color: "#4f46e5", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 3 }}>{t("pricing.footnoteLink")}</a>
       </motion.div>
     </section>
   );

@@ -5,6 +5,7 @@ export async function submitContact(data: {
   email: string;
   phone?: string;
   company?: string;
+  budget?: string;
   message: string;
 }) {
   const response = await fetch(`${API_BASE_URL}/contact`, {

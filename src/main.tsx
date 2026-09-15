@@ -30,10 +30,12 @@ import AdminPaymentMethods from './pages/AdminPaymentMethods.tsx'
 import AdminOrders from './pages/AdminOrders.tsx'
 import AdminSettings from './pages/AdminSettings.tsx'
 import MarketplacePage from './pages/MarketplacePage.tsx'
+import PageTracker from './components/PageTracker.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+      <PageTracker />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/auth" element={<Auth />} />

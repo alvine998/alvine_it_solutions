@@ -1,13 +1,17 @@
 import { useRef } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, MotionConfig, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { LenisRef } from "lenis/react";
+import { useTranslation } from "react-i18next";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import Portfolio from "./components/Portfolio";
+import Process from "./components/Process";
+import Engagement from "./components/Engagement";
+import Trust from "./components/Trust";
 import AiRouter from "./components/AiRouter";
 import Pricing from "./components/Pricing";
-import Portfolio from "./components/Portfolio";
 import Marketplace from "./components/Marketplace";
 import About from "./components/About";
 import OurTeam from "./components/OurTeam";
@@ -25,11 +29,45 @@ function ScrollMeter() {
   return <motion.div aria-hidden className="scroll-meter" style={{ scaleX }} />;
 }
 
+function ProductDivider() {
+  const { t, i18n } = useTranslation();
+  const label =
+    i18n.language === "id"
+      ? "Juga dari kami — produk mandiri"
+      : i18n.language === "zh"
+        ? "同样来自我们——独立产品"
+        : "Also from us — standalone products";
+  const sub =
+    i18n.language === "id"
+      ? "Di bawah ini produk kami sendiri (terpisah dari layanan agensi di atas)."
+      : i18n.language === "zh"
+        ? "以下是我们自己的产品（与上述代理服务分开）。"
+        : "Below are our own products (separate from the agency services above).";
+  void t;
+  return (
+    <div style={{ maxWidth: 1100, margin: "40px auto 0", padding: "0 24px" }} aria-hidden={false}>
+      <div style={{
+        display: "flex", alignItems: "center", gap: 16,
+        padding: "16px 22px", borderRadius: 16,
+        background: "#f6f7fb", border: "1px dashed #d4d7e3",
+      }}>
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#4f46e5", flexShrink: 0 }} />
+        <div>
+          <div style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 700, fontSize: 15, color: "#0b1220" }}>{label}</div>
+          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280" }}>{sub}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function WhatsAppButton() {
+  const reduceMotion = useReducedMotion();
+  void reduceMotion;
   return (
     <a
       className="whatsapp-fab"
-      href="https://wa.me/6285703049632"
+      href="https://wa.me/6285703049632?text=Hi%20Alvine%20IT%20Solution%2C%20I%27d%20like%20to%20discuss%20a%20project."
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
@@ -43,10 +81,16 @@ function WhatsAppButton() {
 
 export default function App() {
   const lenisRef = useRef<LenisRef>(null);
+  const reduceMotion = useReducedMotion();
   usePageMeta("home");
 
   return (
-    <ReactLenis root options={{ autoRaf: true, lerp: 0.09 }} ref={lenisRef}>
+    <MotionConfig reducedMotion="user">
+    <ReactLenis
+      root
+      options={reduceMotion ? { autoRaf: true, lerp: 1 } : { autoRaf: true, lerp: 0.09 }}
+      ref={lenisRef}
+    >
       <Seo />
       <a
         href="#main-content"
@@ -66,27 +110,32 @@ export default function App() {
       >
         Skip to content
       </a>
-      <div style={{ background: "#0a0a14", minHeight: "100vh" }}>
+      <div style={{ background: "#ffffff", minHeight: "100vh", color: "#475569" }}>
         <Scene3D />
         <ScrollMeter />
         <Navbar />
         <main id="main-content" style={{ position: "relative", zIndex: 10 }}>
           <Hero />
-          {/* ponytail: top banner — swap placeholder with AdSense/any embed later */}
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
             <AdSlot id="ad-top" variant="banner" />
           </div>
+          {/* Agency track — the money path for both markets */}
           <Services />
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-            <AdSlot id="ad-mid" variant="infeed" />
-          </div>
-          <AiRouter />
-          <Pricing />
           <Portfolio />
-          <Marketplace />
+          <Process />
+          <Engagement />
+          <Trust />
           <About />
           <OurTeam />
           <Contact />
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+            <AdSlot id="ad-mid" variant="infeed" />
+          </div>
+          {/* Standalone products — visually separated so buyers aren't confused */}
+          <ProductDivider />
+          <AiRouter />
+          <Pricing />
+          <Marketplace />
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 32px" }}>
             <AdSlot id="ad-bottom" variant="banner" />
           </div>
@@ -95,5 +144,6 @@ export default function App() {
         <WhatsAppButton />
       </div>
     </ReactLenis>
+    </MotionConfig>
   );
 }

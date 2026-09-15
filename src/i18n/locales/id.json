@@ -54,6 +54,8 @@
     "brand": "Alvine IT SOLUTIONS",
     "home": "Beranda",
     "services": "Layanan",
+    "process": "Proses",
+    "engagement": "Rekrut Kami",
     "portfolio": "Portofolio",
     "about": "Tentang",
     "team": "Tim",
@@ -68,14 +70,23 @@
     "marketplace": "Marketplace"
   },
   "hero": {
-    "badge": "Software House & Solusi Digital",
-    "titlePart1": "Kami Membangun ",
-    "titleHighlight": "Pengalaman",
-    "titlePart2": "Digital",
-    "subtitle": "Dari aplikasi desktop hingga aplikasi mobile, RESTful API hingga website menakjubkan — kami mengubah ide Anda menjadi solusi digital yang powerful.",
-    "exploreServices": "Jelajahi Layanan",
-    "learnMore": "Pelajari Lebih",
-    "scrollDown": "Gulir ke Bawah"
+    "badge": "MVP & aplikasi mobile untuk startup — Indonesia → global",
+    "titlePart1": "Kami kirim ",
+    "titleHighlight": "MVP scalable",
+    "titlePart2": " dalam hitungan minggu",
+    "subtitle": "React Native, Next.js, Laravel & Go. Demo mingguan, kode milik Anda, dan overlap 3–4 jam dengan jam kerja US/EU untuk komunikasi async yang lancar.",
+    "primaryCta": "Jadwalkan Discovery Call 15 mnt",
+    "secondaryCta": "Konsultasi via WhatsApp",
+    "tertiaryCta": "Lihat hasil klien ↓",
+    "trustLine": "Berbasis di Indonesia (GMT+7) • Balas <24 jam • NDA-friendly • Kode milik Anda",
+    "exploreServices": "Jadwalkan Discovery Call 15 mnt",
+    "learnMore": "Lihat hasil klien",
+    "scrollDown": "Gulir ke Bawah",
+    "stats": [
+      { "value": "6–8 mgg", "label": "MVP tipikal" },
+      { "value": "100+", "label": "proyek terkirim" },
+      { "value": "24 jam", "label": "waktu respons" }
+    ]
   },
   "services": {
     "eyebrow": "Apa yang Kami Lakukan",
@@ -99,45 +110,119 @@
       "description": "Aplikasi mobile native dan lintas platform yang memberikan pengalaman mulus di iOS dan Android."
     }
   },
+  "process": {
+    "eyebrow": "Cara kami bekerja",
+    "headingPart1": "Proses Agile yang ",
+    "headingHighlight": "transparan",
+    "sub": "Ritme yang sama seperti tim US/EU: discovery terukur, demo mingguan, QA setiap sprint.",
+    "steps": [
+      { "title": "Discovery (Minggu 0–1)", "desc": "Scope, metrik sukses, risiko. Anda dapat proposal fixed dengan timeline." },
+      { "title": "Arsitektur (Minggu 1)", "desc": "Keputusan stack, model data, kontrak API. Anda review docs sebelum coding." },
+      { "title": "Agile Sprint", "desc": "Sprint 1 mingguan, demo tiap Jumat, update async Slack di pagi hari Anda." },
+      { "title": "QA & Deployment", "desc": "Dites di device asli, link staging preview, lalu production dengan rollback plan." },
+      { "title": "Support (30 hari gratis)", "desc": "Bug fix termasuk. Dokumen handover + walkthrough agar tim Anda bisa take over." }
+    ]
+  },
+  "engagement": {
+    "eyebrow": "Model kerja sama",
+    "headingPart1": "Cara simpel ",
+    "headingHighlight": "mempekerjakan kami",
+    "sub": "Pilih fixed scope untuk MVP, atau developer bulanan yang ikut standup Anda.",
+    "models": [
+      { "name": "MVP Fixed-price", "price": "dari $2.500", "idr": "≈ Rp40 jt", "desc": "Terbaik untuk scope jelas. Timeline, milestone, deliverable dikunci.", "features": ["Scope + timeline tertulis", "Demo mingguan + link staging", "Garansi bug-fix 30 hari", "100% kode & IP milik Anda"], "cta": "Minta estimasi MVP" },
+      { "name": "Dedicated Developer", "price": "dari $1.800/bln", "idr": "≈ Rp29 jt/bln", "desc": "Terbaik untuk kerja ongoing. Senior dev di Slack + standup Anda.", "features": ["40 jam/minggu, async-first", "Overlap 3–4 jam US/EU", "Laporan mingguan + code review", "Pause/batal bulanan"], "cta": "Jadwalkan intro call", "popular": true },
+      { "name": "Hourly / Milestone", "price": "$25–$40/jam", "idr": "≈ Rp400–640 rb/jam", "desc": "Terbaik untuk audit, rescue, atau iterasi kecil di kode existing.", "features": ["Audit teknis 30 mnt gratis", "Invoice berbasis milestone", "Workflow GitHub PR", "Tanpa lock-in jangka panjang"], "cta": "Minta audit" }
+    ],
+    "note": "Lokal: BCA / Mandiri / QRIS (IDR) • Global: Wise / PayPal / Stripe / wire (USD/SGD). NDA on request • Komunikasi Inggris."
+  },
+  "trust": {
+    "eyebrow": "Kenapa hire remote dengan percaya diri",
+    "headingPart1": "Risiko rendah, ",
+    "headingHighlight": "by design",
+    "sub": "Tanpa testimoni palsu — bicara langsung dengan referensi kami saat discovery call.",
+    "items": [
+      { "title": "Overlap jam US/EU", "desc": "GMT+7 dengan overlap live 3–4 jam + update async Slack. Balas <24 jam." },
+      { "title": "Kode milik Anda", "desc": "Repo GitHub privat dari hari pertama. Full IP transfer saat pelunasan." },
+      { "title": "Demo mingguan, tanpa kejutan", "desc": "Link staging tiap Jumat. Anda lihat progres sebelum bayar milestone berikutnya." },
+      { "title": "NDA-first", "desc": "NDA mutual sebelum Anda share hal sensitif. Referensi via LinkedIn on request." }
+    ],
+    "cta": "Bicara dengan referensi",
+    "profiles": "LinkedIn · GitHub · Profil Upwork on request"
+  },
   "portfolio": {
-    "eyebrow": "Karya Kami",
-    "headingPart1": "",
-    "headingHighlight": "Portofolio",
+    "eyebrow": "Hasil Klien",
+    "headingPart1": "Karya yang ",
+    "headingHighlight": "Terkirim & Tumbuh",
+    "headingPart2": "",
+    "sub": "Setiap proyek: masalah bisnis → alasan pilih stack → hasil yang terkirim. Referensi tersedia via LinkedIn.",
+    "problemLabel": "Masalah",
+    "solutionLabel": "Alasan stack",
+    "outcomeLabel": "Yang terkirim",
+    "timelineLabel": "Durasi",
+    "referencesNote": "Referensi lengkap, akses demo & code walkthrough tersedia saat discovery call.",
     "projects": {
       "goldbricks": {
         "title": "Goldbricks Realtors",
         "category": "Aplikasi Web",
-        "description": "Website agen properti untuk Goldbricks Realtors dengan daftar properti primer & sekunder, galeri proyek, dan integrasi mitra bank KPR."
+        "description": "Website agen properti untuk Goldbricks Realtors dengan daftar properti primer & sekunder, galeri proyek, dan integrasi mitra bank KPR.",
+        "problem": "Update properti manual via chat memperlambat agen dan menghilangkan leads.",
+        "solution": "Laravel + MySQL untuk CRUD cepat, listing SEO-friendly, dan handover mudah.",
+        "timeline": "6 minggu",
+        "results": ["Pencarian properti <2 dtk", "Integrasi mitra KPR live", "Deploy + dokumen handover"]
       },
       "stokinventory": {
         "title": "Stokinventory",
         "category": "Aplikasi Web",
-        "description": "Aplikasi manajemen inventaris komprehensif dengan analitik real-time, perencanaan anggaran, dan optimalisasi rantai pasok."
+        "description": "Aplikasi manajemen inventaris komprehensif dengan analitik real-time, perencanaan anggaran, dan optimalisasi rantai pasok.",
+        "problem": "Stok di spreadsheet menyebabkan overselling dan tanpa visibilitas real-time.",
+        "solution": "Laravel + MySQL dengan laporan antrian agar dashboard tetap cepat.",
+        "timeline": "8 minggu",
+        "results": ["Dashboard stok real-time", "Modul budget planning", "Akses berbasis peran"]
       },
       "kerjaAjaDulu": {
         "title": "Kerja Aja Dulu",
         "category": "Aplikasi Web",
-        "description": "Portal lowongan kerja yang menghubungkan perusahaan dan pencari kerja dengan pencocokan berbasis AI dan penjadwalan wawancara."
+        "description": "Portal lowongan kerja yang menghubungkan perusahaan dan pencari kerja dengan pencocokan berbasis AI dan penjadwalan wawancara.",
+        "problem": "Perusahaan kebanjiran pelamar tak terfilter; kandidat tak pernah dapat kabar.",
+        "solution": "Next.js + Express + MySQL untuk halaman SEO + API matching cepat.",
+        "timeline": "8 minggu",
+        "results": ["AI matching v1 live", "Alur scheduling interview", "Portal employer + seeker"]
       },
       "kasirinApp": {
         "title": "Kasirin App",
         "category": "Aplikasi Mobile",
-        "description": "Aplikasi dompet aman untuk mengelola aset digital dengan otentikasi biometrik dan notifikasi transaksi instan."
+        "description": "Aplikasi dompet aman untuk mengelola aset digital dengan otentikasi biometrik dan notifikasi transaksi instan.",
+        "problem": "Retail kecil butuh POS cepat yang toleran offline dan dipercaya staf.",
+        "solution": "Mobile lintas platform dengan penyimpanan local-first + biometric gate.",
+        "timeline": "6 minggu",
+        "results": ["Rilis Play Store", "Login biometrik", "Mode POS offline-first"]
       },
       "tokotitohApp": {
         "title": "Tokotitoh App",
         "category": "Aplikasi Mobile",
-        "description": "Aplikasi e-commerce modern untuk jual beli produk dengan pengalaman belanja yang mulus."
+        "description": "Aplikasi e-commerce modern untuk jual beli produk dengan pengalaman belanja yang mulus.",
+        "problem": "Seller kewalahan order via chat tanpa katalog dan status order.",
+        "solution": "Node.js + PostgreSQL + Redis untuk katalog cepat dan antrian order andal.",
+        "timeline": "7 minggu",
+        "results": ["Rilis Play Store", "Alur seller + buyer", "Notifikasi push order"]
       },
       "midlandProperti": {
         "title": "Midland Properti",
         "category": "Aplikasi Web",
-        "description": "Platform real estat untuk daftar properti, tur virtual, dan proses transaksi yang lancar."
+        "description": "Platform real estat untuk daftar properti, tur virtual, dan proses transaksi yang lancar.",
+        "problem": "Listing statis dengan gambar lambat membunuh inquiry mobile.",
+        "solution": "React + optimasi gambar + API Python untuk load <2 dtk di Android menengah.",
+        "timeline": "5 minggu",
+        "results": ["Listing + galeri live", "Lead capture WhatsApp", "LCP <2 dtk di 4G"]
       },
       "bmTransportLogistik": {
         "title": "BM Transport Logistik",
         "category": "Aplikasi Web",
-        "description": "Aplikasi pelacakan logistik dan pengiriman dengan GPS real-time, optimalisasi rute, dan notifikasi otomatis."
+        "description": "Aplikasi pelacakan logistik dan pengiriman dengan GPS real-time, optimalisasi rute, dan notifikasi otomatis.",
+        "problem": "Pelanggan menelepon dispatch untuk setiap paket karena tracking manual.",
+        "solution": "Flutter + Go + Firebase untuk lokasi real-time dengan biaya server rendah.",
+        "timeline": "8 minggu",
+        "results": ["Tracking GPS real-time", "Optimasi rute v1", "Notifikasi otomatis"]
       }
     }
   },
@@ -160,6 +245,8 @@
     "headingPart1": "",
     "headingHighlight": "Tim",
     "headingPart2": " Kami",
+    "intro": "Tim inti senior yang kecil + spesialis terkurasi per proyek. Anda selalu tahu siapa yang menulis kode Anda.",
+    "profileOnRequest": "Profil & referensi saat discovery call",
     "members": {
       "alvine": {
         "name": "Alvine Yoga Pratama",
@@ -184,23 +271,30 @@
     }
   },
   "contact": {
-    "headingPart1": "Mari Bangun Sesuatu yang ",
-    "headingHighlight": "Luar Biasa",
-    "subtitle": "Siap mengubah ide Anda menjadi kenyataan? Mari diskusikan proyek Anda dan ciptakan sesuatu yang istimewa bersama.",
+    "headingPart1": "Scope ",
+    "headingHighlight": "MVP Anda dalam 15 menit",
+    "headingPart2": "",
+    "subtitle": "Ceritakan goal, timeline, dan budget. Anda dapat estimasi fixed + timeline dalam 24 jam — tanpa sales yang memaksa.",
+    "timezoneNote": "GMT+7 (Jakarta) • Overlap 3–4 jam dengan pagi US/EU • Balas <24 jam, Sen–Sab",
+    "bookCall": "Book via Calendly",
+    "whatsapp": "Chat via WhatsApp",
+    "directLabel": "Lebih suka langsung? Email hello@alvineitsolutions.com atau WhatsApp +62 857-0304-9632",
     "getInTouch": "Hubungi Kami",
     "scheduleCall": "Jadwalkan Panggilan",
     "namePlaceholder": "Nama Anda",
-    "emailPlaceholder": "Alamat email",
-    "phonePlaceholder": "Telepon (opsional)",
-    "companyPlaceholder": "Perusahaan (opsional)",
-    "messagePlaceholder": "Ceritakan tentang proyek Anda...",
-    "submit": "Kirim Pesan",
+    "emailPlaceholder": "Email kerja",
+    "phonePlaceholder": "WhatsApp / telepon (opsional)",
+    "companyPlaceholder": "Perusahaan + negara (mis. Acme, ID)",
+    "budgetPlaceholder": "Rentang budget (mis. Rp40–80 jt / $3k–$5k)",
+    "messagePlaceholder": "Goal + timeline + fitur wajib (2–3 kalimat cukup)...",
+    "submit": "Minta estimasi dalam 24 jam",
     "submitting": "Mengirim...",
-    "success": "Pesan berhasil dikirim! Kami akan segera menghubungi Anda.",
-    "error": "Gagal mengirim pesan. Silakan coba lagi."
+    "success": "Terima kasih — pesan diterima. Kami balas dengan estimasi dalam 24 jam.",
+    "error": "Gagal mengirim. Email langsung ke hello@alvineitsolutions.com."
   },
   "footer": {
-    "tagline": "Membangun solusi digital luar biasa untuk bisnis yang berpikiran maju.",
+    "tagline": "MVP & aplikasi mobile untuk startup global. Berbasis di Indonesia, overlap jam US/EU.",
+    "location": "Jakarta, Indonesia (GMT+7) • Melayani klien global",
     "services": "Layanan",
     "serviceLinks": [
       "Aplikasi Desktop",

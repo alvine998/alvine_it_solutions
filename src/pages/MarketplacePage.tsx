@@ -36,7 +36,7 @@ const categoryGradients: Record<string, { gradient: string; glow: string }> = {
 
 const categories = ["all", "web", "mobile", "desktop", "api", "template", "other"] as const;
 
-function DetailModal({ item, onClose, t }: { item: MarketplaceItem; onClose: () => void; t: (key: string, opts?: any) => string }) {
+function DetailModal({ item, onClose, t }: { item: MarketplaceItem; onClose: () => void; t: (key: string, opts?: Record<string, unknown>) => string }) {
   const colors = categoryGradients[item.category] || categoryGradients.other;
   const gallery = galleryOf(item);
   const [activeIdx, setActiveIdx] = useState(0);
@@ -225,7 +225,7 @@ function DetailModal({ item, onClose, t }: { item: MarketplaceItem; onClose: () 
           </div>
         )}
         {gallery.length > 1 && (
-          <div style={{ display: "flex", gap: 8, padding: "12px 16px 0", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" as any }}>
+          <div style={{ display: "flex", gap: 8, padding: "12px 16px 0", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
             {gallery.map((url, i) => (
               <button
                 key={`${url}-${i}`}
@@ -505,10 +505,10 @@ export default function MarketplacePage() {
   }, [items, activeCategory, search]);
 
   return (
-    <div style={{ background: "#0a0a14", minHeight: "100vh" }}>
+    <div style={{ background: "#ffffff", minHeight: "100vh" }}>
       <motion.nav
         initial={{ y: -16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         aria-label="Marketplace navigation"
         style={{
@@ -517,17 +517,16 @@ export default function MarketplacePage() {
           left: 0,
           right: 0,
           zIndex: 1000,
-          padding: scrolled ? "12px 0" : "16px 0",
-          background: scrolled ? "rgba(10,10,20,0.86)" : "rgba(10,10,20,0.58)",
-          backdropFilter: "blur(22px) saturate(1.2)",
-          WebkitBackdropFilter: "blur(22px) saturate(1.2)",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(255,255,255,0.06)",
-          boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)" : "0 4px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
+          padding: scrolled ? "10px 0" : "14px 0",
+          background: "rgba(255,255,255,0.9)",
+          backdropFilter: "blur(16px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(16px) saturate(1.2)",
+          borderBottom: "1px solid #e6e8f0",
+          boxShadow: scrolled ? "0 4px 20px rgba(16,24,40,0.07)" : "none",
           transition: "padding 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease",
         }}
       >
-        {/* subtle top hairline glow */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(99,102,241,0.28) 20%, rgba(139,92,246,0.22) 50%, rgba(16,185,129,0.18) 80%, transparent)", opacity: scrolled ? 1 : 0.65, transition: "opacity 0.25s" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "#eef0ff", opacity: 1 }} />
         <div style={{
           maxWidth: 1200,
           margin: "0 auto",
@@ -550,8 +549,8 @@ export default function MarketplacePage() {
                 width: 38,
                 height: 38,
                 borderRadius: 11,
-                background: "linear-gradient(135deg, #6366f1 0%, #7c5cf6 46%, #8b5cf6 100%)",
-                boxShadow: "0 4px 16px rgba(99,102,241,0.38), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18)",
+                background: "#4f46e5",
+                boxShadow: "0 4px 14px rgba(79,70,229,0.35)",
                 display: "grid",
                 placeItems: "center",
                 color: "#fff",
@@ -570,20 +569,19 @@ export default function MarketplacePage() {
                 fontWeight: 700,
                 fontSize: 17,
                 letterSpacing: "-0.03em",
-                color: "#fff",
+                color: "#0b1220",
                 lineHeight: 1,
                 whiteSpace: "nowrap",
               }}>
                 {t("nav.brand")}
               </span>
-              <span aria-hidden style={{ width: 1, height: 18, background: "rgba(255,255,255,0.12)", flexShrink: 0 }} />
+              <span aria-hidden style={{ width: 1, height: 18, background: "#e6e8f0", flexShrink: 0 }} />
               <span style={{ display: "inline-flex", alignItems: "center", gap: 7, flexShrink: 0 }}>
                 <span style={{
                   width: 7,
                   height: 7,
                   borderRadius: 50,
-                  background: "#10b981",
-                  boxShadow: "0 0 0 4px rgba(16,185,129,0.14), 0 0 10px rgba(16,185,129,0.55)",
+                  background: "#16a34a",
                   flexShrink: 0,
                 }} />
                 <span style={{
@@ -592,7 +590,7 @@ export default function MarketplacePage() {
                   fontWeight: 500,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.82)",
+                  color: "#475569",
                   lineHeight: 1,
                 }}>
                   Marketplace
@@ -612,9 +610,9 @@ export default function MarketplacePage() {
                 gap: 6,
                 padding: "7px 12px",
                 borderRadius: 50,
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "rgba(255,255,255,0.62)",
+                background: "#f1f2f7",
+                border: "1px solid #e2e4ee",
+                color: "#475569",
                 fontFamily: "Inter, sans-serif",
                 fontSize: 12,
                 fontWeight: 600,
@@ -622,7 +620,7 @@ export default function MarketplacePage() {
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ width: 5, height: 5, borderRadius: 50, background: "rgba(255,255,255,0.45)" }} />
+              <span style={{ width: 5, height: 5, borderRadius: 50, background: "#94a3b8" }} />
               {items.length} items
             </span>
             <motion.div whileHover={{ y: -1 }} whileTap={{ y: 0 }} transition={{ duration: 0.18 }}>
@@ -635,25 +633,21 @@ export default function MarketplacePage() {
                   gap: 8,
                   padding: "10px 18px",
                   borderRadius: 50,
-                  background: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.12)",
+                  background: "#0b1220",
+                  border: "1px solid #0b1220",
                   color: "#fff",
                   fontSize: 14,
                   fontWeight: 600,
                   fontFamily: "Inter, sans-serif",
                   letterSpacing: "-0.01em",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 10px rgba(0,0,0,0.18)",
-                  backdropFilter: "blur(8px)",
-                  transition: "background 0.2s, border-color 0.2s, transform 0.2s",
+                  transition: "background 0.2s",
                   whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.12)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
+                  e.currentTarget.style.background = "#1e293b";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.background = "#0b1220";
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -689,12 +683,12 @@ export default function MarketplacePage() {
         >
           <span style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#10b981",
+            fontSize: 13,
+            fontWeight: 700,
+            color: "#047857",
             textTransform: "uppercase",
-            letterSpacing: 3,
-            marginBottom: 16,
+            letterSpacing: 2.5,
+            marginBottom: 14,
             display: "block",
           }}>
             {t("marketplace.eyebrow")}
@@ -703,16 +697,13 @@ export default function MarketplacePage() {
             fontFamily: "Space Grotesk, sans-serif",
             fontSize: "clamp(32px, 5vw, 52px)",
             fontWeight: 800,
-            color: "#fff",
+            color: "#0b1220",
             lineHeight: 1.2,
             letterSpacing: "-1px",
+            margin: "0 0 14px",
           }}>
             {t("marketplace.headingPart1")}
-            <span style={{
-              background: "linear-gradient(135deg, #10b981, #6366f1)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}>
+            <span style={{ color: "#047857" }}>
               {t("marketplace.headingHighlight")}
             </span>
             {t("marketplace.headingPart2", "")}
@@ -720,9 +711,9 @@ export default function MarketplacePage() {
           <p style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 16,
-            color: "rgba(255,255,255,0.5)",
+            color: "#475569",
             maxWidth: 560,
-            margin: "16px auto 0",
+            margin: "0 auto",
             lineHeight: 1.7,
           }}>
             {t("marketplace.pageSubtitle")}
@@ -741,7 +732,7 @@ export default function MarketplacePage() {
           }}
         >
           <div style={{ position: "relative", maxWidth: 480, width: "100%", margin: "0 auto" }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" }}>
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -754,9 +745,10 @@ export default function MarketplacePage() {
                 width: "100%",
                 padding: "14px 18px 14px 44px",
                 borderRadius: 16,
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(255,255,255,0.05)",
-                color: "#fff",
+                border: "1px solid #d4d7e3",
+                background: "#ffffff",
+                boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
+                color: "#0b1220",
                 fontSize: 15,
                 fontFamily: "Inter, sans-serif",
                 outline: "none",
@@ -772,9 +764,9 @@ export default function MarketplacePage() {
                 style={{
                   padding: "8px 18px",
                   borderRadius: 50,
-                  background: activeCategory === cat ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "rgba(255,255,255,0.05)",
-                  border: `1px solid ${activeCategory === cat ? "transparent" : "rgba(255,255,255,0.1)"}`,
-                  color: "#fff",
+                  background: activeCategory === cat ? "#4f46e5" : "#f1f2f7",
+                  border: `1px solid ${activeCategory === cat ? "#4f46e5" : "#e2e4ee"}`,
+                  color: activeCategory === cat ? "#fff" : "#3f4756",
                   fontSize: 13,
                   fontWeight: 600,
                   fontFamily: "Inter, sans-serif",
@@ -792,9 +784,9 @@ export default function MarketplacePage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 24 }}>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} style={{
-                borderRadius: 24,
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: 20,
+                background: "#eef0f4",
+                border: "1px solid #e6e8f0",
                 height: 380,
               }} />
             ))}
@@ -803,15 +795,15 @@ export default function MarketplacePage() {
           <div style={{
             textAlign: "center",
             padding: "80px 24px",
-            borderRadius: 24,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 20,
+            background: "#f6f7fb",
+            border: "1px solid #e6e8f0",
           }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto 16px" }}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#b6bcc9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto 16px" }}>
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: "rgba(255,255,255,0.4)" }}>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: "#6b7280" }}>
               {t("marketplace.noResults")}
             </p>
           </div>
@@ -828,21 +820,21 @@ export default function MarketplacePage() {
                 onClick={() => setSelectedItem(item)}
                 style={{
                   position: "relative",
-                  borderRadius: 24,
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  backdropFilter: "blur(10px)",
+                  borderRadius: 20,
+                  background: "#ffffff",
+                  border: "1px solid #e6e8f0",
+                  boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
                   cursor: "pointer",
-                  transition: "all 0.4s ease",
+                  transition: "all 0.3s ease",
                   overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.borderColor = "#c9cdfc";
+                  e.currentTarget.style.boxShadow = "0 2px 4px rgba(16,24,40,0.05), 0 16px 36px rgba(16,24,40,0.1)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
+                  e.currentTarget.style.borderColor = "#e6e8f0";
+                  e.currentTarget.style.boxShadow = "0 1px 2px rgba(16,24,40,0.05)";
                 }}
               >
                 <div style={{ position: "relative", overflow: "hidden", height: 180 }}>
@@ -862,7 +854,7 @@ export default function MarketplacePage() {
                       </svg>
                     </div>
                   )}
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,20,0.9) 0%, transparent 60%)" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(11,18,32,0.55) 0%, transparent 55%)" }} />
                   {galleryOf(item).length > 1 && (
                     <span style={{ position: "absolute", right: 12, bottom: 12, padding: "4px 8px", borderRadius: 20, background: "rgba(0,0,0,0.6)", border: "1px solid rgba(255,255,255,0.18)", color: "#fff", fontSize: 11, fontWeight: 700, fontFamily: "Inter, sans-serif" }}>
                       {galleryOf(item).length} images
@@ -893,13 +885,13 @@ export default function MarketplacePage() {
                 <div style={{ padding: "20px 24px 24px" }}>
                   <h3 style={{
                     fontFamily: "Space Grotesk, sans-serif", fontSize: 20, fontWeight: 700,
-                    color: "#fff", marginBottom: 8,
+                    color: "#0b1220", margin: "0 0 8px",
                   }}>
                     {item.name}
                   </h3>
                   <p style={{
                     fontFamily: "Inter, sans-serif", fontSize: 14,
-                    color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: 16,
+                    color: "#475569", lineHeight: 1.6, margin: "0 0 16px",
                     display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
                   }}>
                     {item.description}
@@ -908,8 +900,8 @@ export default function MarketplacePage() {
                     {item.tech.slice(0, 4).map((tech) => (
                       <span key={tech} style={{
                         padding: "4px 10px", borderRadius: 50,
-                        background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.7)", fontSize: 11, fontWeight: 500, fontFamily: "Inter, sans-serif",
+                        background: "#f1f2f7", border: "1px solid #e2e4ee",
+                        color: "#3f4756", fontSize: 11, fontWeight: 500, fontFamily: "Inter, sans-serif",
                       }}>
                         {tech}
                       </span>
@@ -917,12 +909,12 @@ export default function MarketplacePage() {
                   </div>
                   <div style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
-                    borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16,
+                    borderTop: "1px solid #eef0f4", paddingTop: 16,
                   }}>
-                    <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 22, fontWeight: 800, color: "#fff" }}>
+                    <span style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: 22, fontWeight: 800, color: "#0b1220" }}>
                       {item.price === 0 ? t("marketplace.free") : `IDR ${item.price.toLocaleString("id-ID")}`}
                     </span>
-                    <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                    <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#6b7280" }}>
                       {item.sales} {t("marketplace.sales")}
                     </span>
                   </div>
