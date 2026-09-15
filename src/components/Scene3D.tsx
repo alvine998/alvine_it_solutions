@@ -1,106 +1,52 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
-interface Node {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  hue: number;
+// Abstract flowing data: elegant blue-and-silver curves drifting across the
+// viewport, with small glowing particles travelling along them to suggest
+// data movement and integration. Premium, calm, decorative only
+// (aria-hidden, pointer-events none).
+
+interface FlowLine {
+  baseY: number; // fraction of viewport height (0..1)
+  amp1: number;
+  amp2: number;
+  freq1: number;
+  freq2: number;
+  speed1: number;
+  speed2: number;
+  phase: number;
+  width: number;
+  tone: number; // 0 = deep blue, 1 = silver
+  alpha: number;
 }
 
-interface Edge {
-  a: number;
-  b: number;
-}
-
-interface Signal {
-  edge: number;
-  progress: number;
+interface Droplet {
+  line: number;
+  t: number; // 0..1 across the width
   speed: number;
-  color: string;
 }
 
 const isMobile = () =>
   typeof window !== "undefined" && window.innerWidth < 860;
 
-const NODE_COUNT_DESKTOP = 70;
-const NODE_COUNT_MOBILE = 32;
-const MAX_EDGE_DIST_DESKTOP = 180;
-const MAX_EDGE_DIST_MOBILE = 120;
-const MOUSE_REPEL_RADIUS = 140;
-const MOUSE_LIGHT_RADIUS = 200;
-const SIGNAL_COUNT_DESKTOP = 12;
-const SIGNAL_COUNT_MOBILE = 6;
-const REPEL_FORCE = 0.3;
-const DAMPING = 0.92;
-const RETURN_SPEED = 0.015;
+const LINES_DESKTOP = 7;
+const LINES_MOBILE = 4;
+const DROPLETS_DESKTOP = 22;
+const DROPLETS_MOBILE = 8;
 
-const COLORS = [
-  { hl: "#4f46e5", sh: "#7c3aed" },
-  { hl: "#7c3aed", sh: "#a78bfa" },
-  { hl: "#0e7490", sh: "#4f46e5" },
-  { hl: "#a78bfa", sh: "#4f46e5" },
-];
+// deep blue -> steel silver stops
+function strokeFor(tone: number, alpha: number) {
+  const r = Math.round(37 + (148 - 37) * tone);
+  const g = Math.round(99 + (163 - 99) * tone);
+  const b = Math.round(235 + (184 - 235) * tone);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 export default function Scene3D() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const nodesRef = useRef<Node[]>([]);
-  const edgesRef = useRef<Edge[]>([]);
-  const signalsRef = useRef<Signal[]>([]);
+  const linesRef = useRef<FlowLine[]>([]);
+  const dropletsRef = useRef<Droplet[]>([]);
   const mouseRef = useRef({ x: -9999, y: -9999 });
-  const maxEdgeDistRef = useRef(MAX_EDGE_DIST_DESKTOP);
   const animRef = useRef(0);
-
-  const init = useCallback((width: number, height: number) => {
-    const mobile = isMobile();
-    const nodeCount = mobile ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP;
-    const maxEdgeDist = mobile ? MAX_EDGE_DIST_MOBILE : MAX_EDGE_DIST_DESKTOP;
-    maxEdgeDistRef.current = maxEdgeDist;
-    const signalCount = mobile ? SIGNAL_COUNT_MOBILE : SIGNAL_COUNT_DESKTOP;
-
-    const nodes: Node[] = [];
-    for (let i = 0; i < nodeCount; i++) {
-      const x = 40 + Math.random() * (width - 80);
-      const y = 40 + Math.random() * (height - 80);
-      nodes.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: 0,
-        vy: 0,
-        radius: 2 + Math.random() * 2.5,
-        hue: Math.random(),
-      });
-    }
-    nodesRef.current = nodes;
-
-    const edges: Edge[] = [];
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        if (dx * dx + dy * dy < maxEdgeDist * maxEdgeDist) {
-          edges.push({ a: i, b: j });
-        }
-      }
-    }
-    edgesRef.current = edges;
-
-    const signals: Signal[] = [];
-    for (let i = 0; i < signalCount; i++) {
-      signals.push({
-        edge: Math.floor(Math.random() * edges.length),
-        progress: Math.random(),
-        speed: 0.002 + Math.random() * 0.006,
-        color: COLORS[i % COLORS.length].hl,
-      });
-    }
-    signalsRef.current = signals;
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -109,28 +55,55 @@ export default function Scene3D() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Reduced motion: render one static frame, no loop, no listeners.
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      init(w, h);
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "rgba(79, 70, 229, 0.3)";
-      for (const n of nodesRef.current) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.radius * 0.6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      return;
-    }
-
     const mobile = isMobile();
+    const lineCount = mobile ? LINES_MOBILE : LINES_DESKTOP;
+    const dropletCount = mobile ? DROPLETS_MOBILE : DROPLETS_DESKTOP;
+
+    const yAt = (line: FlowLine, x: number, h: number, time: number) => {
+      return (
+        line.baseY * h +
+        Math.sin(x * line.freq1 + time * line.speed1 + line.phase) * line.amp1 +
+        Math.sin(x * line.freq2 - time * line.speed2 + line.phase * 1.7) * line.amp2
+      );
+    };
+
+    const init = (height: number) => {
+      const lines: FlowLine[] = [];
+      for (let i = 0; i < lineCount; i++) {
+        const pos = i / (lineCount - 1);
+        lines.push({
+          baseY: 0.16 + pos * 0.68,
+          amp1: 26 + Math.random() * 34,
+          amp2: 10 + Math.random() * 18,
+          freq1: 0.0016 + Math.random() * 0.0012,
+          freq2: 0.004 + Math.random() * 0.003,
+          speed1: 0.25 + Math.random() * 0.35,
+          speed2: 0.15 + Math.random() * 0.25,
+          phase: Math.random() * Math.PI * 2,
+          width: 1 + Math.random() * 1.6,
+          tone: Math.random(),
+          alpha: 0.28 + Math.random() * 0.3,
+        });
+      }
+      // keep a silver anchor line and a blue anchor line for the palette story
+      if (lines.length > 1) {
+        lines[0].tone = 1;
+        lines[lines.length - 1].tone = 0;
+      }
+      linesRef.current = lines;
+      void height;
+
+      const droplets: Droplet[] = [];
+      for (let i = 0; i < dropletCount; i++) {
+        droplets.push({
+          line: Math.floor(Math.random() * lineCount),
+          t: Math.random(),
+          speed: 0.0009 + Math.random() * 0.0022,
+        });
+      }
+      dropletsRef.current = droplets;
+    };
+
     const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
 
     const resize = () => {
@@ -141,8 +114,47 @@ export default function Scene3D() {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      init(w, h);
+      init(h);
     };
+
+    const drawLines = (w: number, h: number, time: number, my: number) => {
+      const step = mobile ? 18 : 14;
+      for (const line of linesRef.current) {
+        const near = my < -100 ? 0 : Math.max(0, 1 - Math.abs(my - line.baseY * h) / 320);
+        const alpha = Math.min(0.85, line.alpha + near * 0.3);
+
+        // soft silver echo beneath for depth
+        ctx.strokeStyle = strokeFor(1, alpha * 0.35);
+        ctx.lineWidth = line.width + 3;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        for (let x = -20; x <= w + 20; x += step) {
+          const y = yAt(line, x, h, time) + 7;
+          if (x <= -20 + step) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // main elegant curve
+        ctx.strokeStyle = strokeFor(line.tone, alpha);
+        ctx.lineWidth = line.width;
+        ctx.beginPath();
+        for (let x = -20; x <= w + 20; x += step) {
+          const y = yAt(line, x, h, time);
+          if (x <= -20 + step) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+    };
+
+    // Reduced motion: one static frame, no loop, no listeners.
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      resize();
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      drawLines(window.innerWidth, window.innerHeight, 0, -9999);
+      return;
+    }
 
     const handleMouse = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -162,118 +174,45 @@ export default function Scene3D() {
     window.addEventListener("touchmove", handleTouch, { passive: true });
     window.addEventListener("touchend", handlePointerLeave);
 
+    let time = Math.random() * 100;
     const anim = () => {
+      time += 0.016;
       const w = window.innerWidth;
       const h = window.innerHeight;
-      const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
-      const nodes = nodesRef.current;
-      const edges = edgesRef.current;
-      const signals = signalsRef.current;
 
-      /* ── physics update ──────────────────────────────────────── */
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        const dx = n.x - mx;
-        const dy = n.y - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < MOUSE_REPEL_RADIUS && dist > 0.1) {
-          const force = REPEL_FORCE * (1 - dist / MOUSE_REPEL_RADIUS);
-          n.vx += (dx / dist) * force;
-          n.vy += (dy / dist) * force;
-        }
-
-        n.vx += (n.baseX - n.x) * RETURN_SPEED;
-        n.vy += (n.baseY - n.y) * RETURN_SPEED;
-        n.vx *= DAMPING;
-        n.vy *= DAMPING;
-        n.x += n.vx;
-        n.y += n.vy;
-
-        if (n.x < -50) n.x = w + 50;
-        if (n.x > w + 50) n.x = -50;
-        if (n.y < -50) n.y = h + 50;
-        if (n.y > h + 50) n.y = -50;
-      }
-
-      /* ── draw ────────────────────────────────────────────────── */
       ctx.clearRect(0, 0, w, h);
+      drawLines(w, h, time, my);
 
-      /* edges */
-      for (let ei = 0; ei < edges.length; ei++) {
-        const e = edges[ei];
-        const a = nodes[e.a];
-        const b = nodes[e.b];
-        const edx = a.x - b.x;
-        const edy = a.y - b.y;
-        const edist = Math.sqrt(edx * edx + edy * edy);
-        const baseAlpha = 0.06 + 0.06 * (1 - edist / maxEdgeDistRef.current);
-
-        /* glow from nearby signals on this edge */
-        let signalGlow = 0;
-        for (const s of signals) {
-          if (s.edge === ei) {
-            const d = Math.abs(s.progress - 0.5) * 2;
-            signalGlow = Math.max(signalGlow, 1 - d);
-          }
+      // droplets of data travelling along the curves
+      for (const d of dropletsRef.current) {
+        d.t += d.speed;
+        if (d.t > 1.04) {
+          d.t = -0.04;
+          d.line = Math.floor(Math.random() * linesRef.current.length);
+          continue;
         }
-
-        const alpha = baseAlpha + signalGlow * 0.25;
-        ctx.strokeStyle = `rgba(79, 70, 229, ${Math.min(alpha, 0.4)})`;
-        ctx.lineWidth = 0.8 + signalGlow * 1.5;
+        const line = linesRef.current[d.line];
+        if (!line) continue;
+        const x = d.t * (w + 40) - 20;
+        const y = yAt(line, x, h, time);
+        for (let k = 0; k < 3; k++) {
+          const tx = x - k * 9;
+          if (tx < -20 || tx > w + 20) continue;
+          const ty = yAt(line, tx, h, time);
+          const alpha = 0.7 - k * 0.22;
+          const r = 4.5 - k * 1.2;
+          const grad = ctx.createRadialGradient(tx, ty, 0, tx, ty, r);
+          grad.addColorStop(0, `rgba(37, 99, 235, ${alpha})`);
+          grad.addColorStop(1, "transparent");
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(tx, ty, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = "rgba(37, 99, 235, 0.9)";
         ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-
-      /* signals */
-      for (const s of signals) {
-        s.progress += s.speed;
-        if (s.progress > 1) s.progress -= 1;
-
-        const e = edges[s.edge];
-        if (!e) continue;
-        const a = nodes[e.a];
-        const b = nodes[e.b];
-        const sx = a.x + (b.x - a.x) * s.progress;
-        const sy = a.y + (b.y - a.y) * s.progress;
-
-        const grad = ctx.createRadialGradient(sx, sy, 0, sx, sy, 6);
-        grad.addColorStop(0, s.color);
-        grad.addColorStop(0.4, s.color);
-        grad.addColorStop(1, "transparent");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(sx, sy, 6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      /* nodes */
-      for (const n of nodes) {
-        const ndx = n.x - mx;
-        const ndy = n.y - my;
-        const ndist = Math.sqrt(ndx * ndx + ndy * ndy);
-        const lightFactor = ndist < MOUSE_LIGHT_RADIUS
-          ? 1 - ndist / MOUSE_LIGHT_RADIUS
-          : 0;
-
-        const baseAlpha = 0.28 + lightFactor * 0.4;
-        const r = n.radius * (1 + lightFactor * 0.8);
-
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3);
-        grad.addColorStop(0, `rgba(124, 58, 237, ${baseAlpha})`);
-        grad.addColorStop(0.5, `rgba(79, 70, 229, ${baseAlpha * 0.5})`);
-        grad.addColorStop(1, "transparent");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = `rgba(79, 70, 229, ${0.45 + lightFactor * 0.3})`;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r * 0.6, 0, Math.PI * 2);
+        ctx.arc(x, y, 1.8, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -289,7 +228,7 @@ export default function Scene3D() {
       window.removeEventListener("touchmove", handleTouch);
       window.removeEventListener("touchend", handlePointerLeave);
     };
-  }, [init]);
+  }, []);
 
   return (
     <canvas
