@@ -94,19 +94,19 @@
     "headingPart2": "",
     "desktopApps": {
       "title": "Desktop Apps",
-      "description": "Powerful cross-platform desktop applications built with modern frameworks for Windows, macOS, and Linux."
+      "description": "Internal tools and offline-capable desktop apps for Windows, macOS, and Linux — installer, updates, and handover docs included."
     },
     "websites": {
       "title": "Websites",
-      "description": "Stunning, responsive websites and web applications that deliver exceptional user experiences and performance."
+      "description": "Marketing sites and web apps with SEO-friendly pages and sub-2s loads on 4G — plus an admin panel your team will actually use."
     },
     "restfulApi": {
       "title": "RESTful API",
-      "description": "Scalable, secure, and well-documented APIs that power your applications with robust backend architecture."
+      "description": "Documented APIs with auth, versioning, and staging environments, contracted up front so frontend work never waits on backend."
     },
     "mobileApps": {
       "title": "Mobile Apps",
-      "description": "Native and cross-platform mobile applications that provide seamless experiences on iOS and Android."
+      "description": "One codebase to the Play Store and App Store, tested on real mid-range devices — store listings and signing keys handed over."
     }
   },
   "process": {
@@ -227,11 +227,11 @@
   },
   "about": {
     "eyebrow": "About Us",
-    "headingPart1": "Crafting Digital ",
-    "headingHighlight": "Excellence",
+    "headingPart1": "A small senior team in Jakarta, ",
+    "headingHighlight": "shipping worldwide",
     "headingPart2": "",
-    "paragraph1": "At Alvine IT Solution, we are passionate about building innovative software that drives business growth. Our team of expert developers, designers, and strategists work together to deliver solutions that exceed expectations.",
-    "paragraph2": "We believe in clean code, modern architecture, and user-centric design. Every project we undertake is a commitment to quality, performance, and your success in the digital landscape.",
+    "paragraph1": "Alvine IT Solution is a Jakarta-based software shop. We build MVPs and mobile apps on fixed written proposals — scope, timeline, and price agreed before we write a line of code.",
+    "paragraph2": "You get a private GitHub repo from day one, a staging link every Friday, and full IP transfer on final payment. After launch: 30 days of bug fixes and handover docs so your own team can take over.",
     "stats": {
       "projects": "Projects Delivered",
       "clients": "Happy Clients",
@@ -250,22 +250,22 @@
       "alvine": {
         "name": "Alvine Yoga Pratama",
         "role": "Founder & CEO",
-        "bio": "Visionary leader with 6+ years in software architecture and business strategy."
+        "bio": "Full-stack architect — scopes every project and reviews every pull request before it ships."
       },
       "sarah": {
         "name": "Sarah Wijaya",
         "role": "Lead Designer",
-        "bio": "Creative designer crafting exceptional user experiences and stunning interfaces."
+        "bio": "Turns rough requirements into interfaces developers can build without guessing."
       },
       "budi": {
         "name": "Budi Santoso",
         "role": "Senior Developer",
-        "bio": "Full-stack engineer specializing in scalable backend systems and cloud infrastructure."
+        "bio": "Laravel, Node.js, and Go APIs with docs your next hire can follow."
       },
       "diana": {
         "name": "Diana Putri",
         "role": "Mobile Developer",
-        "bio": "Expert in cross-platform mobile development delivering polished, high-performance apps."
+        "bio": "React Native and Flutter apps tested on real mid-range Android devices."
       }
     }
   },
@@ -310,7 +310,7 @@
     ],
     "connect": "Connect",
     "copyright": "Alvine IT Solution. All rights reserved.",
-    "crafted": "Crafted with passion & precision"
+    "crafted": "Jakarta (GMT+7) — replies within 24 hours, Mon–Sat"
   },
   "marketplace": {
     "eyebrow": "Code Marketplace",

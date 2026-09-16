@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 type ProjectData = {
@@ -47,26 +46,20 @@ const projectData: Record<string, ProjectData> = {
 
 const ALL_PROJECT_KEYS = Object.keys(projectData);
 
-function ProjectCard({ projectKey, index }: { projectKey: string; index: number }) {
+function ProjectCard({ projectKey }: { projectKey: string }) {
   const { t } = useTranslation();
-  const reduceMotion = useReducedMotion();
   const p = projectData[projectKey];
   const results = (t(`portfolio.projects.${projectKey}.results`, { returnObjects: true }) as unknown as string[]) || [];
   const timeline = t(`portfolio.projects.${projectKey}.timeline`, { defaultValue: "" });
 
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay: (index % 2) * 0.1 }}
+    <article
       aria-label={t(`portfolio.projects.${projectKey}.title`)}
       style={{
         position: "relative",
-        borderRadius: 20,
+        borderRadius: 16,
         background: "#ffffff",
         border: "1px solid #e6e8f0",
-        boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
@@ -102,7 +95,7 @@ function ProjectCard({ projectKey, index }: { projectKey: string; index: number 
             background: "#ecfdf5", border: "1px solid #a7f3d0",
             color: "#047857", fontSize: 12, fontWeight: 600, fontFamily: "DM Mono, monospace",
           }}>
-            ⏱ {timeline}
+            {timeline}
           </span>
         )}
         <h3 style={{
@@ -140,17 +133,16 @@ function ProjectCard({ projectKey, index }: { projectKey: string; index: number 
 
         {Array.isArray(results) && results.length > 0 && (
           <div style={{
-            background: "#ecfdf5",
-            border: "1px solid #a7f3d0",
-            borderRadius: 14, padding: "12px 14px",
+            borderTop: "1px solid #eef0f4",
+            paddingTop: 12,
           }}>
-            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#047857", marginBottom: 8 }}>
+            <div style={{ fontFamily: "DM Mono, monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#6b7280", marginBottom: 8 }}>
               {t("portfolio.outcomeLabel")}
             </div>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 7 }}>
               {results.map((r) => (
                 <li key={r} style={{ display: "flex", gap: 8, alignItems: "flex-start", fontFamily: "Inter, sans-serif", fontSize: 13.5, color: "#0b1220", lineHeight: 1.5 }}>
-                  <span aria-hidden style={{ color: "#059669", fontWeight: 700 }}>✓</span>{r}
+                  <span aria-hidden style={{ color: "#047857", fontWeight: 700 }}>—</span>{r}
                 </li>
               ))}
             </ul>
@@ -184,7 +176,7 @@ function ProjectCard({ projectKey, index }: { projectKey: string; index: number 
           </a>
         )}
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -193,10 +185,10 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" aria-label="Case studies" style={{ position: "relative", zIndex: 10, padding: "110px 24px 40px", maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ textAlign: "center", marginBottom: 20 }}>
+      <div style={{ textAlign: "left", marginBottom: 32, maxWidth: 700 }}>
         <span style={{
-          fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 700, color: "#0e7490",
-          textTransform: "uppercase", letterSpacing: 2.5, marginBottom: 14, display: "block",
+          fontFamily: "DM Mono, monospace", fontSize: 12, fontWeight: 500, color: "#6b7280",
+          textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 14, display: "block",
         }}>
           {t("portfolio.eyebrow")}
         </span>
@@ -205,12 +197,10 @@ export default function Portfolio() {
           fontWeight: 800, color: "#0b1220", lineHeight: 1.2, letterSpacing: "-1px", margin: "0 0 14px",
         }}>
           {t("portfolio.headingPart1")}
-          <span style={{ color: "#4f46e5" }}>
-            {t("portfolio.headingHighlight")}
-          </span>
+          {t("portfolio.headingHighlight")}
           {t("portfolio.headingPart2", "")}
         </h2>
-        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", maxWidth: 660, margin: "0 auto", lineHeight: 1.7 }}>
+        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", margin: 0, lineHeight: 1.7 }}>
           {t("portfolio.sub")}
         </p>
       </div>
@@ -219,8 +209,8 @@ export default function Portfolio() {
         display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
         gap: 22, alignItems: "stretch",
       }}>
-        {ALL_PROJECT_KEYS.map((key, i) => (
-          <ProjectCard key={key} projectKey={key} index={i} />
+        {ALL_PROJECT_KEYS.map((key) => (
+          <ProjectCard key={key} projectKey={key} />
         ))}
       </div>
 

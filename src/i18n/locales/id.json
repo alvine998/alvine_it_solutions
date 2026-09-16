@@ -95,19 +95,19 @@
     "headingPart2": " Kami",
     "desktopApps": {
       "title": "Aplikasi Desktop",
-      "description": "Aplikasi desktop lintas platform yang powerful dibangun dengan framework modern untuk Windows, macOS, dan Linux."
+      "description": "Aplikasi internal dan desktop yang bisa offline untuk Windows, macOS, dan Linux — installer, update, dan dokumen handover termasuk."
     },
     "websites": {
       "title": "Website",
-      "description": "Website dan aplikasi web responsif yang menakjubkan dengan pengalaman pengguna dan performa luar biasa."
+      "description": "Website marketing dan web app dengan halaman SEO-friendly dan load <2 detik di 4G — plus panel admin yang gampang dipakai tim Anda."
     },
     "restfulApi": {
       "title": "RESTful API",
-      "description": "API yang skalabel, aman, dan terdokumentasi dengan baik untuk mendukung aplikasi Anda dengan arsitektur backend yang tangguh."
+      "description": "API terdokumentasi dengan auth, versioning, dan staging environment, disepakati di awal agar frontend tidak menunggu backend."
     },
     "mobileApps": {
       "title": "Aplikasi Mobile",
-      "description": "Aplikasi mobile native dan lintas platform yang memberikan pengalaman mulus di iOS dan Android."
+      "description": "Satu codebase ke Play Store dan App Store, dites di device menengah asli — listing store dan signing key diserahterimakan."
     }
   },
   "process": {
@@ -228,11 +228,11 @@
   },
   "about": {
     "eyebrow": "Tentang Kami",
-    "headingPart1": "Menciptakan ",
-    "headingHighlight": "Keunggulan",
-    "headingPart2": " Digital",
-    "paragraph1": "Di Alvine IT Solution, kami bersemangat membangun perangkat lunak inovatif yang mendorong pertumbuhan bisnis. Tim pengembang, desainer, dan ahli strategi kami bekerja sama untuk memberikan solusi yang melampaui ekspektasi.",
-    "paragraph2": "Kami percaya pada kode yang bersih, arsitektur modern, dan desain yang berpusat pada pengguna. Setiap proyek yang kami tangani adalah komitmen terhadap kualitas, performa, dan kesuksesan Anda di lanskap digital.",
+    "headingPart1": "Tim senior kecil di Jakarta, ",
+    "headingHighlight": "melayani klien global",
+    "headingPart2": "",
+    "paragraph1": "Alvine IT Solution adalah software house di Jakarta. Kami membangun MVP dan aplikasi mobile dengan proposal tertulis yang fixed — scope, timeline, dan harga disepakati sebelum kami menulis kode.",
+    "paragraph2": "Anda dapat repo GitHub privat dari hari pertama, link staging setiap Jumat, dan full IP transfer saat pelunasan. Setelah launch: 30 hari bug fix dan dokumen handover agar tim Anda bisa take over.",
     "stats": {
       "projects": "Proyek Terselesaikan",
       "clients": "Klien Puas",
@@ -251,22 +251,22 @@
       "alvine": {
         "name": "Alvine Yoga Pratama",
         "role": "Founder & CEO",
-        "bio": "Pemimpin visioner dengan pengalaman 6+ tahun dalam arsitektur perangkat lunak dan strategi bisnis."
+        "bio": "Arsitek full-stack — menyusun scope setiap proyek dan mereview setiap pull request sebelum rilis."
       },
       "sarah": {
         "name": "Sarah Wijaya",
         "role": "Lead Designer",
-        "bio": "Desainer kreatif yang menciptakan pengalaman pengguna luar biasa dan antarmuka yang memukau."
+        "bio": "Mengubah requirement kasar menjadi interface yang bisa dibangun developer tanpa tebak-tebakan."
       },
       "budi": {
         "name": "Budi Santoso",
         "role": "Senior Developer",
-        "bio": "Insinyur full-stack yang berspesialisasi dalam sistem backend skalabel dan infrastruktur cloud."
+        "bio": "API Laravel, Node.js, dan Go dengan docs yang gampang diikuti hire berikutnya."
       },
       "diana": {
         "name": "Diana Putri",
         "role": "Mobile Developer",
-        "bio": "Ahli dalam pengembangan mobile lintas platform yang menghasilkan aplikasi berkualitas tinggi dan berperforma tinggi."
+        "bio": "Aplikasi React Native dan Flutter yang dites di device Android menengah asli."
       }
     }
   },
@@ -311,7 +311,7 @@
     ],
     "connect": "Terhubung",
     "copyright": "Alvine IT Solution. Hak cipta dilindungi.",
-    "crafted": "Dibuat dengan semangat & presisi"
+    "crafted": "Jakarta (GMT+7) — balas <24 jam, Sen–Sab"
   },
   "marketplace": {
     "eyebrow": "Marketplace Kode",

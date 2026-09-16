@@ -95,19 +95,19 @@
     "headingPart2": "",
     "desktopApps": {
       "title": "桌面应用",
-      "description": "使用现代框架为Windows、macOS和Linux构建的强大跨平台桌面应用程序。"
+      "description": "面向 Windows、macOS 与 Linux 的内部工具与可离线桌面应用——含安装包、更新与交接文档。"
     },
     "websites": {
       "title": "网站",
-      "description": "令人惊叹的响应式网站和Web应用程序，提供卓越的用户体验和性能。"
+      "description": "营销网站与 Web 应用，SEO 友好、4G 下 2 秒内加载——附带您的团队真正会用的管理后台。"
     },
     "restfulApi": {
       "title": "RESTful API",
-      "description": "可扩展、安全且文档完善的API，以强大的后端架构支撑您的应用程序。"
+      "description": "文档完备的 API，含鉴权、版本管理与预发布环境，事先约定，前端不再等后端。"
     },
     "mobileApps": {
       "title": "移动应用",
-      "description": "原生和跨平台移动应用程序，在iOS和Android上提供无缝体验。"
+      "description": "一套代码同时上架 Play Store 与 App Store，真机（中端机）实测——商店资料与签名密钥一并移交。"
     }
   },
   "process": {
@@ -228,11 +228,11 @@
   },
   "about": {
     "eyebrow": "关于我们",
-    "headingPart1": "打造数字",
-    "headingHighlight": "卓越",
+    "headingPart1": "雅加达的小型资深团队，",
+    "headingHighlight": "服务全球客户",
     "headingPart2": "",
-    "paragraph1": "在Alvine IT Solution，我们热衷于构建推动业务增长的创新软件。我们的专家开发人员、设计师和策略师团队携手合作，交付超越期望的解决方案。",
-    "paragraph2": "我们相信简洁的代码、现代化的架构和以用户为中心的设计。我们承担的每一个项目都是对质量、性能以及您在数字领域取得成功的承诺。",
+    "paragraph1": "Alvine IT Solution 是一家位于雅加达的软件工作室。我们按书面固定报价构建 MVP 与移动应用——写第一行代码之前，先约定范围、时间线与价格。",
+    "paragraph2": "第一天即建私有 GitHub 仓库，每周五提供预发布链接，尾款结清即完整移交 IP。上线后：30 天缺陷修复 + 交接文档，您的团队可顺利接手。",
     "stats": {
       "projects": "项目交付",
       "clients": "满意客户",
@@ -251,22 +251,22 @@
       "alvine": {
         "name": "Alvine Yoga Pratama",
         "role": "创始人兼CEO",
-        "bio": "具有远见的领导者，拥有6年以上软件架构和商业战略经验。"
+        "bio": "全栈架构师——每个项目亲自定范围，每次发布前亲自评审 pull request。"
       },
       "sarah": {
         "name": "Sarah Wijaya",
         "role": "首席设计师",
-        "bio": "创意设计师，打造卓越的用户体验和令人惊艳的界面。"
+        "bio": "把粗糙的需求变成开发无需猜测即可实现的界面。"
       },
       "budi": {
         "name": "Budi Santoso",
         "role": "高级开发工程师",
-        "bio": "全栈工程师，专注于可扩展的后端系统和云基础设施。"
+        "bio": "Laravel、Node.js 与 Go API，文档写到下一位接手者能看懂。"
       },
       "diana": {
         "name": "Diana Putri",
         "role": "移动开发工程师",
-        "bio": "跨平台移动开发专家，交付精致、高性能的应用程序。"
+        "bio": "React Native 与 Flutter 应用，全部在真实中端安卓机上实测。"
       }
     }
   },
@@ -311,7 +311,7 @@
     ],
     "connect": "联系我们",
     "copyright": "Alvine IT Solution。保留所有权利。",
-    "crafted": "用心与精准打造"
+    "crafted": "雅加达 (GMT+7)——周一至周六24小时内回复"
   },
   "marketplace": {
     "eyebrow": "代码市场",

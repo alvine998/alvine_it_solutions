@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, MotionConfig, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { LenisRef } from "lenis/react";
 import { useTranslation } from "react-i18next";
@@ -19,15 +19,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Scene3D from "./components/Scene3D";
 import Seo from "./components/Seo";
-import AdSlot from "./components/AdSlot";
 import { usePageMeta } from "./hooks/usePageMeta";
-
-function ScrollMeter() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: 0.2 });
-
-  return <motion.div aria-hidden className="scroll-meter" style={{ scaleX }} />;
-}
 
 function ProductDivider() {
   const { t, i18n } = useTranslation();
@@ -47,15 +39,11 @@ function ProductDivider() {
   return (
     <div style={{ maxWidth: 1100, margin: "40px auto 0", padding: "0 24px" }} aria-hidden={false}>
       <div style={{
-        display: "flex", alignItems: "center", gap: 16,
-        padding: "16px 22px", borderRadius: 16,
-        background: "#f6f7fb", border: "1px dashed #d4d7e3",
+        display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap",
+        padding: "20px 4px", borderTop: "1px solid #e6e8f0",
       }}>
-        <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#4f46e5", flexShrink: 0 }} />
-        <div>
-          <div style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 700, fontSize: 15, color: "#0b1220" }}>{label}</div>
-          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280" }}>{sub}</div>
-        </div>
+        <div style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 700, fontSize: 15, color: "#0b1220" }}>{label}</div>
+        <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280" }}>{sub}</div>
       </div>
     </div>
   );
@@ -112,13 +100,9 @@ export default function App() {
       </a>
       <div style={{ background: "#ffffff", minHeight: "100vh", color: "#475569" }}>
         <Scene3D />
-        <ScrollMeter />
         <Navbar />
         <main id="main-content" style={{ position: "relative", zIndex: 10 }}>
           <Hero />
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-            <AdSlot id="ad-top" variant="banner" />
-          </div>
           {/* Agency track — the money path for both markets */}
           <Services />
           <Portfolio />
@@ -128,17 +112,11 @@ export default function App() {
           <About />
           <OurTeam />
           <Contact />
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-            <AdSlot id="ad-mid" variant="infeed" />
-          </div>
           {/* Standalone products — visually separated so buyers aren't confused */}
           <ProductDivider />
           <AiRouter />
           <Pricing />
           <Marketplace />
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 32px" }}>
-            <AdSlot id="ad-bottom" variant="banner" />
-          </div>
         </main>
         <Footer />
         <WhatsAppButton />

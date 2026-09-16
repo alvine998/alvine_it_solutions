@@ -1,5 +1,3 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 const featureKeys = ["routing", "cost", "unifiedApi", "fallback", "observability", "byok"] as const;
@@ -134,29 +132,20 @@ function RouterVisual() {
 
 export default function AiRouter() {
   const { t } = useTranslation();
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
     <section
       id="ai-router"
-      ref={ref}
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "120px 24px",
+        padding: "110px 24px",
         maxWidth: 1200,
         margin: "0 auto",
       }}
     >
-      <motion.div style={{ y }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: "center", marginBottom: 60 }}
+        <div
+          style={{ textAlign: "left", marginBottom: 48, maxWidth: 700 }}
         >
           <span style={{
             display: "inline-flex",
@@ -186,9 +175,7 @@ export default function AiRouter() {
             margin: "0 0 14px",
           }}>
             {t("aiRouter.headingPart1")}
-            <span style={{ color: "#4f46e5" }}>
-              {t("aiRouter.headingHighlight")}
-            </span>
+            {t("aiRouter.headingHighlight")}
             {t("aiRouter.headingPart2")}
           </h2>
           <p style={{
@@ -197,31 +184,23 @@ export default function AiRouter() {
             color: "#475569",
             lineHeight: 1.7,
             maxWidth: 640,
-            margin: "0 auto",
+            margin: 0,
           }}>
             {t("aiRouter.subtitle")}
           </p>
-        </motion.div>
-      </motion.div>
+        </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.95fr", gap: 32, alignItems: "start" }} className="ai-router-grid">
         <div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            {featureKeys.map((key, i) => (
-              <motion.div
+            {featureKeys.map((key) => (
+              <div
                 key={key}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.07 }}
-                whileHover={{ y: -4 }}
                 style={{
                   padding: 20,
-                  borderRadius: 18,
+                  borderRadius: 16,
                   background: "#ffffff",
                   border: "1px solid #e6e8f0",
-                  boxShadow: "0 1px 2px rgba(16,24,40,0.05)",
-                  transition: "all 0.3s ease",
                 }}
               >
                 <div style={{
@@ -239,15 +218,11 @@ export default function AiRouter() {
                 <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#475569", lineHeight: 1.6 }}>
                   {t(`aiRouter.features.${key}.desc`)}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
+          <div
             style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap" }}
           >
             <a
@@ -256,7 +231,7 @@ export default function AiRouter() {
                 textDecoration: "none",
                 padding: "13px 28px",
                 borderRadius: 50,
-                background: "#4f46e5",
+                background: "#0b1220",
                 color: "#fff",
                 fontFamily: "Inter, sans-serif",
                 fontSize: 14,
@@ -264,7 +239,6 @@ export default function AiRouter() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                boxShadow: "0 6px 18px rgba(79,70,229,0.28)",
               }}
             >
               {t("aiRouter.tryDemo")} <span>→</span>
@@ -285,22 +259,17 @@ export default function AiRouter() {
             >
               {t("aiRouter.viewPricing")}
             </a>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30, scale: 0.97 }}
-          whileInView={{ opacity: 1, x: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
+        <div>
           <RouterVisual />
           <div style={{
             marginTop: 14,
             padding: "12px 16px",
             borderRadius: 12,
-            background: "#ecfdf5",
-            border: "1px solid #a7f3d0",
+            border: "1px solid #e6e8f0",
+            background: "#f6f7fb",
             display: "flex",
             alignItems: "center",
             gap: 10,
@@ -308,9 +277,9 @@ export default function AiRouter() {
             fontSize: 12,
             color: "#334155",
           }}>
-            <span style={{ color: "#059669" }}>✓</span> {t("aiRouter.compatible")}
+            <span aria-hidden style={{ color: "#047857" }}>—</span> {t("aiRouter.compatible")}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <style>{`@media(max-width:900px){.ai-router-grid{grid-template-columns:1fr !important;}}`}</style>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -96,17 +95,13 @@ export default function Pricing() {
         margin: "0 auto",
       }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        style={{ textAlign: "center", marginBottom: 48 }}
+      <div
+        style={{ textAlign: "left", marginBottom: 48, maxWidth: 680 }}
       >
         <span style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: 13, fontWeight: 700, color: "#0e7490",
-          textTransform: "uppercase", letterSpacing: 2.5, marginBottom: 14, display: "block",
+          fontFamily: "DM Mono, monospace",
+          fontSize: 12, fontWeight: 500, color: "#6b7280",
+          textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 14, display: "block",
         }}>
           {t("pricing.eyebrow")}
         </span>
@@ -116,41 +111,30 @@ export default function Pricing() {
           lineHeight: 1.15, letterSpacing: "-1px", margin: "0 0 14px",
         }}>
           {t("pricing.headingPart1")}
-          <span style={{ color: "#4f46e5" }}>
-            {t("pricing.headingHighlight")}
-          </span>
+          {t("pricing.headingHighlight")}
           {t("pricing.headingPart2")}
         </h2>
-        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
+        <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, color: "#475569", margin: 0, lineHeight: 1.7 }}>
           {t("pricing.subtitle")}
         </p>
-      </motion.div>
+      </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, alignItems: "stretch" }} className="pricing-grid">
-        {cards.map((plan, i) => {
+        {cards.map((plan) => {
           const metaPopular = plan.popular;
           const features: string[] = plan.features;
           const cta = t("pricing.ctaDefault");
 
           return (
-            <motion.div
+            <div
               key={plan._id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -6 }}
               style={{
                 position: "relative",
                 padding: "36px 28px 28px",
-                borderRadius: 20,
+                borderRadius: 16,
                 background: "#ffffff",
-                border: metaPopular ? "2px solid #4f46e5" : "1px solid #e6e8f0",
-                boxShadow: metaPopular
-                  ? "0 2px 4px rgba(16,24,40,0.05), 0 16px 40px rgba(79,70,229,0.14)"
-                  : "0 1px 2px rgba(16,24,40,0.05)",
+                border: metaPopular ? "2px solid #0b1220" : "1px solid #e6e8f0",
                 display: "flex", flexDirection: "column",
-                transition: "all 0.3s",
                 overflow: "hidden",
               }}
             >
@@ -158,7 +142,7 @@ export default function Pricing() {
                 <div style={{
                   position: "absolute", top: 16, right: 16,
                   padding: "5px 12px", borderRadius: 50,
-                  background: "#4f46e5",
+                  background: "#0b1220",
                   color: "#fff", fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 700,
                   letterSpacing: 0.5, textTransform: "uppercase",
                 }}>
@@ -200,7 +184,7 @@ export default function Pricing() {
                     display: "block", textAlign: "center", textDecoration: "none",
                     padding: "13px 20px", borderRadius: 50,
                     fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 700,
-                    background: metaPopular ? "#4f46e5" : "#0b1220",
+                    background: "#0b1220",
                     color: "#fff",
                     border: "none",
                     marginBottom: 24,
@@ -228,22 +212,18 @@ export default function Pricing() {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
+      <div
         style={{
           marginTop: 32,
           padding: "24px 28px",
-          borderRadius: 20,
-          background: "#ecfdf5",
-          border: "1px solid #a7f3d0",
+          borderRadius: 16,
+          background: "#f6f7fb",
+          border: "1px solid #e6e8f0",
           display: "grid",
           gridTemplateColumns: "auto 1fr",
           gap: 20,
@@ -255,13 +235,12 @@ export default function Pricing() {
           style={{
             width: 54,
             height: 54,
-            borderRadius: 16,
+            borderRadius: 14,
             flexShrink: 0,
-            background: "#059669",
+            background: "#0b1220",
             display: "grid",
             placeItems: "center",
             color: "#fff",
-            boxShadow: "0 6px 18px rgba(5,150,105,0.3)",
           }}
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -282,20 +261,16 @@ export default function Pricing() {
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 10, fontFamily: "DM Mono, monospace", fontSize: 11.5 }}>
             {(["step1", "step2", "step3"] as const).map((k, i) => (
-              <span key={k} style={{ padding: "6px 11px", borderRadius: 20, background: "#ffffff", border: "1px solid #a7f3d0", color: "#065f46" }}>
+              <span key={k} style={{ padding: "6px 11px", borderRadius: 20, background: "#ffffff", border: "1px solid #e2e4ee", color: "#334155" }}>
                 {i + 1}. {t(`pricing.referral.${k}`)}
               </span>
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
       <style>{`@media(max-width:640px){ .pricing-referral{ grid-template-columns: 1fr !important; text-align: center; } .pricing-referral > div:first-child{ margin: 0 auto; } }`}</style>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.4 }}
+      <div
         style={{
           marginTop: 32, textAlign: "center",
           padding: "18px 24px", borderRadius: 16,
@@ -303,8 +278,8 @@ export default function Pricing() {
           fontFamily: "Inter, sans-serif", fontSize: 13, color: "#6b7280", lineHeight: 1.7,
         }}
       >
-        {t("pricing.footnote")} <a href="#contact" style={{ color: "#4f46e5", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 3 }}>{t("pricing.footnoteLink")}</a>
-      </motion.div>
+        {t("pricing.footnote")} <a href="#contact" style={{ color: "#0b1220", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 3 }}>{t("pricing.footnoteLink")}</a>
+      </div>
     </section>
   );
 }
