@@ -54,6 +54,7 @@ interface ListResponse {
 const LOCALES: Locale[] = ["en", "id", "zh"];
 const PAGE_SIZE = 10;
 const emptyLocalized = (): LocalizedText => ({ en: "", id: "", zh: "" });
+const slugFromTitle = (title: string) => title.trim().toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const emptyForm = (): AppForm => ({
   slug: "",
   title: emptyLocalized(),
@@ -164,7 +165,11 @@ export default function AdminApps() {
   };
 
   const updateLocalized = (field: keyof Pick<AppForm, "title" | "category" | "description" | "problem" | "solution" | "timeline" | "results">, value: string) => {
-    setForm((current) => ({ ...current, [field]: { ...current[field], [locale]: value } }));
+    setForm((current) => ({
+      ...current,
+      [field]: { ...current[field], [locale]: value },
+      ...(field === "title" && locale === "en" ? { slug: slugFromTitle(value) } : {}),
+    }));
   };
 
   const uploadImage = async (file: File | undefined) => {
@@ -295,7 +300,7 @@ export default function AdminApps() {
         <section className="apps-modal" role="dialog" aria-modal="true" aria-labelledby="apps-modal-title">
           <header className="apps-modal-header"><h2 id="apps-modal-title">{editing ? t("adminApps.editApp") : t("adminApps.createApp")}</h2><button type="button" aria-label={t("adminApps.close")} onClick={() => setShowModal(false)}>×</button></header>
           <form onSubmit={handleSubmit} className="apps-form">
-            <div className="apps-field"><label htmlFor="app-slug">{t("adminApps.slug")}</label><input id="app-slug" className={inputClass} required value={form.slug} onChange={(event) => setForm({ ...form, slug: event.target.value })} placeholder="my-project" /></div>
+            <div className="apps-field"><label htmlFor="app-slug">{t("adminApps.slug")}</label><input id="app-slug" className={inputClass} required readOnly value={form.slug} placeholder="my-project" /></div>
             <div className="apps-locale-tabs" role="tablist" aria-label={t("adminApps.contentLanguage")}>
               {LOCALES.map((item) => <button type="button" role="tab" aria-selected={locale === item} className={locale === item ? "selected" : ""} key={item} onClick={() => setLocale(item)}>{t(`adminApps.locales.${item}`)}</button>)}
             </div>
