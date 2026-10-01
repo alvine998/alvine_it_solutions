@@ -94,6 +94,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       ),
     },
     {
+      path: "/admin/apps",
+      label: "Apps Portfolio",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M8 8h8M8 12h5M8 16h8" />
+        </svg>
+      ),
+    },
+    {
       path: "/admin/plans",
       label: "AI Router Plans",
       icon: (

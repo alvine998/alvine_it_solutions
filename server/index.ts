@@ -18,6 +18,7 @@ import paymentMethodRoutes from "./routes/paymentMethod";
 import customerApiKeyRoutes from "./routes/customerApiKey";
 import settingRoutes from "./routes/setting";
 import marketplaceRoutes from "./routes/marketplace";
+import portfolioAppsRoutes from "./routes/portfolioApps";
 
 const app = express();
 const PORT = process.env.PORT || 4005;
@@ -47,6 +48,7 @@ app.use("/api/payment-methods", paymentMethodRoutes);
 app.use("/api/customer-api-keys", customerApiKeyRoutes);
 app.use("/api/settings", settingRoutes);
 app.use("/api/marketplace", marketplaceRoutes);
+app.use("/api/portfolio-apps", portfolioAppsRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
